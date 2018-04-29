@@ -50,8 +50,8 @@ module.exports = {
 				start_url: '/',
 				background_color: '#ffffff',
 				theme_color: '#ffffff',
-				display: 'standalone',
-				icon: 'src/icon.png'
+				display: 'standalone'/*,
+				icon: 'src/icon.png'*/
 			}
 		}
 	]
