@@ -21,7 +21,7 @@ const Home = (props) => {
 				{ map(projects, ({ node: project }) => (
 					<WorkGridItem
 						src={project.frontmatter.thumb}
-						to={project.fields.slug}
+						to={`/projects/${project.fields.slug}`}
 						title={project.frontmatter.title}
 					/>
 				)) }
@@ -39,7 +39,12 @@ export const pageQuery = graphql`
 		allMarkdownRemark(filter:{ frontmatter: { templateKey: { eq: "project-page" } } }) {
 			edges {
 				node {
+					fields {
+						slug
+					}
 					frontmatter {
+						banner
+						thumb
 						title
 					}
 				}
