@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: master
 
-display_url: https://district.netlify.com
+display_url: https://nielsbik.nl
 media_folder: static/assets/images
 public_folder: /assets/images
 
@@ -32,6 +32,14 @@ collections:
       - name: thumb
         label: Thumbnail
         widget: image
+      - name: source
+        label: Source
+        widget: string
+        required: false
+      - name: url
+        label: URL
+        widget: string
+        required: false
       - name: body
         label: Body
         widget: markdown
