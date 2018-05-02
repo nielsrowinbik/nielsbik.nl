@@ -1,10 +1,14 @@
 import React from 'react';
 import { get } from 'lodash';
+import Title from '../components/Title';
 import Main from '../components/Main';
 
-const ProjectPageTemplate = () => (
+const ProjectPageTemplate = ({ frontmatter: project }) => (
 	<Main>
-		<h1>Project page</h1>
+		<Title>{ project.title }</Title>
+		<p>
+			<i>More information about this project will be made available later.</i>
+		</p>
 	</Main>
 );
 
