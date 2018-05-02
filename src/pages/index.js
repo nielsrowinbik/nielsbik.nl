@@ -14,7 +14,7 @@ const Home = (props) => {
 		<Main>
 			<Title>Niels Bik</Title>
 			<p>I am a Master Business Informatics student based in Utrecht, The Netherlands. I currently work for ProRail.</p>
-			<p>I'm really passionate about building cool products, which is why, in my spare time, I build modern web apps for my clients. Take a look at some of my previous work below.</p>
+			<p>I'm really passionate about building cool products, which is why, in my spare time, I build modern web applications for clients. Take a look at some of my work below.</p>
 			<a href="https://www.linkedin.com/in/nielsrowinbik" rel="noopener noreferrer" target="_blank"><LinkedIn />LinkedIn</a>
 			<a href="https://github.com/nielsrowinbik" rel="noopener noreferrer" target="_blank"><Github />GitHub</a>
 			<WorkGrid>
@@ -36,7 +36,10 @@ export default Home;
 // eslint-disable-next-line no-undef
 export const pageQuery = graphql`
 	query IndexQuery {
-		allMarkdownRemark(filter:{ frontmatter: { templateKey: { eq: "project-page" } } }) {
+		allMarkdownRemark(
+			filter: { frontmatter: { templateKey: { eq: "project-page" } } },
+			sort: { fields: [ frontmatter___date ], order: DESC }
+		) {
 			edges {
 				node {
 					fields {
