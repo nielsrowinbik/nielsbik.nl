@@ -1,0 +1,9 @@
+{
+	"name": "Niels Bik",
+	"short_name": "N. Bik",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#ffffff",
+	"description": "Business Informatics student from Utrecht"
+}
