@@ -3,7 +3,7 @@
 	"short_name": "N. Bik",
 	"start_url": ".",
 	"display": "standalone",
-	"background_color": "#ffffff",
-	"theme_color": "#ffffff",
-	"description": "Business Informatics student from Utrecht"
+	"background_color": "#6573ff",
+	"theme_color": "#6573ff",
+	"description": "Product Owner from Utrecht"
 }
