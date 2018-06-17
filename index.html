@@ -111,7 +111,7 @@
 		}
 
 		footer {
-			font-size: 12px;
+			font-size: 0.5rem;
 			margin-top: 3rem;
 		}
 
@@ -175,7 +175,6 @@
 	</main>
 	<div id="notification"></div>
 	<script>
-		window.addEventListener('beforeinstallprompt', (e) => e.preventDefault());
 		if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').then((registration) => {
 			registration.onupdatefound = () => {
 				const installing = registration.installing;
