@@ -96,7 +96,7 @@
 
 		main > a {
 			color: inherit;
-			font-size: 14px;
+			font-size: 0.65rem;
 			font-weight: 600;
 			margin: 0px 30px 0px 0px;
 			text-decoration: none;
@@ -175,19 +175,21 @@
 	</main>
 	<div id="notification"></div>
 	<script>
-		if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').then((registration) => {
-			registration.onupdatefound = () => {
-				const installing = registration.installing;
-				if (installing) installing.onstatechange = () => {
-					if (installing.state === 'installed' && navigator.serviceWorker.controller) {
-						const notification = document.getElementById('notification');
-						notification.innerHTML = `👋 Hi! Click here to see the newest version of this site`;
-						notification.onclick = () => window.location.reload();
-						notification.classList.add('active');
-					};
-				}
-			}
-		}));
+		if ('serviceWorker' in navigator && window.location.hostname !== 'localhost') {
+			window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').then((registration) => {
+				registration.onupdatefound = () => {
+					const installing = registration.installing;
+					if (installing) installing.onstatechange = () => {
+						if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+							const notification = document.getElementById('notification');
+							notification.innerHTML = `👋 Hi! Click here to see the newest version of this site`;
+							notification.onclick = () => window.location.reload();
+							notification.classList.add('active');
+						};
+					}
+				};
+			}));
+		};
 	</script>
 </body>
 </html>
