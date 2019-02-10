@@ -75,13 +75,9 @@
 			box-sizing: border-box;
 		}
 
-		*::selection {
-			background: rgba(255, 255, 255, 0.5);
-		}
-
 		html, body {
-			background-color: #e91b2b;
-			color: #ffffff;
+			background-color: #ffffff;
+			color: #4e616c;
 			font-family: "Inter UI", sans-serif;
 			font-size: 24px;
 			line-height: normal;
@@ -98,6 +94,7 @@
 		}
 
 		h1 {
+            color: #383c43;
 			font-family: Ubuntu, sans-serif;
 			font-size: 3rem;
 			font-weight: 700;
@@ -116,7 +113,7 @@
 		}
 
 		p > a {
-			color: inherit;
+			color: #383c43;
 			text-decoration: none;
 		}
 
@@ -135,9 +132,13 @@
 			text-decoration: none;
 		}
 
+        main > a:hover{
+            color: #383c43;
+        }
+
 		main > a > img,
 		main > a > svg {
-			fill: #ffffff;
+			fill: currentColor;
 			height: 18px;
 			margin-right: 8px;
 			transform: translateY(3px);
