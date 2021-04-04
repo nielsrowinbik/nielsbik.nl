@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  nielsbik.nl:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nielsbik.nl
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    ports:
+      - ${SERVER_PORT:-3000}:3000
