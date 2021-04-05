@@ -1,9 +1,9 @@
-import Container from '../components/Container';
+import { BusinessCard } from '../components/BusinessCard';
 
 export default function Index() {
     return (
-        <Container>
-            <h1 className="text-gray-900 dark:text-gray-100">Hello World!</h1>
-        </Container>
+        <div className="flex-1 flex items-center justify-center">
+            <BusinessCard />
+        </div>
     );
 }

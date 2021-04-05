@@ -7,11 +7,7 @@ import NextLink from 'next/link';
 // import Footer from '@/components/Footer';
 
 export default function Container(props) {
-    const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
-
-    // After mounting, we have access to the theme
-    useEffect(() => setMounted(true), []);
 
     const { children, ...customMeta } = props;
     const router = useRouter();
@@ -25,7 +21,7 @@ export default function Container(props) {
     };
 
     return (
-        <div className="bg-white dark:bg-black">
+        <div className="min-h-screen flex flex-col">
             <Head>
                 <title>{meta.title}</title>
                 <meta name="robots" content="follow, index" />
@@ -55,60 +51,31 @@ export default function Container(props) {
                     />
                 )}
             </Head>
-            <nav className="sticky-nav flex justify-between items-center max-w-4xl w-full p-8 my-0 md:my-8 mx-auto bg-white dark:bg-black bg-opacity-60">
-                <a href="#skip" className="sr-only focus:not-sr-only">
+            <nav className="sticky-nav flex justify-end items-center w-full my-0">
+                {/* <a href="#skip" className="sr-only focus:not-sr-only">
                     Skip to content
-                </a>
-                <div>
-                    <NextLink href="/">
-                        <a className="p-1 sm:p-4 text-gray-900 dark:text-gray-100">
-                            Home
-                        </a>
-                    </NextLink>
-                    <NextLink href="/about">
-                        <a className="p-1 sm:p-4 text-gray-900 dark:text-gray-100">
-                            About
-                        </a>
-                    </NextLink>
-                </div>
+                </a> */}
                 <button
                     aria-label="Toggle Dark Mode"
                     type="button"
-                    className="bg-gray-200 dark:bg-gray-800 rounded p-3 h-10 w-10"
+                    className="bg-transparent rounded h-14 w-14 flex justify-center items-center"
                     onClick={() =>
                         setTheme(theme === 'dark' ? 'light' : 'dark')
                     }
                 >
-                    {mounted && (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            stroke="currentColor"
-                            className="h-4 w-4 text-gray-800 dark:text-gray-200"
-                        >
-                            {theme === 'dark' ? (
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                                />
-                            ) : (
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                                />
-                            )}
-                        </svg>
-                    )}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 48 48"
+                        fill="currentColor"
+                        className="h-6 w-6 text-gray-800 dark:text-gray-200"
+                    >
+                        <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22 3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z" />
+                    </svg>
                 </button>
             </nav>
             <main
                 id="skip"
-                className="flex flex-col justify-center bg-white dark:bg-black px-8"
+                className="flex flex-col justify-center px-8 flex-1 "
             >
                 {children}
                 {/* <Footer /> */}
