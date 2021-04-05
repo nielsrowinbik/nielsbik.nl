@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 export const BusinessCard = () => (
-    <div className="prose prose-lg max-w-md mb-28">
+    <div className="prose prose-lg max-w-md mb-36">
         <Image
             alt="Picture of the Niels Bik"
             className="rounded-full"
