@@ -7,13 +7,14 @@ $ git clone https://github.com/nielsrowinbik/nielsbik.nl
 $ cd nielsbik.nl
 ```
 
-With Docker:
+### With Docker:
 
 ```bash
 $ docker-compose up --build
+$ docker-compose exec nielsbik.nl sh # Run this to run commands within the container
 ```
 
-Or, without Docker:
+### Without Docker:
 
 ```bash
 $ npm i
