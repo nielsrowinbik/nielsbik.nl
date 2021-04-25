@@ -5,4 +5,6 @@ node_modules
 .env.local
 public/sitemap.xml
 public/feed.xml
+public/sw*
+public/workbox*
 .vercel
