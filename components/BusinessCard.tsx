@@ -1,18 +1,19 @@
 import Image from 'next/image';
 
 export const BusinessCard = () => (
-    <div className="prose prose-lg max-w-md mb-36">
+    <div className="max-w-sm mb-36">
         <Image
-            alt="Picture of the Niels Bik"
+            alt="Picture of Niels Bik"
             className="rounded-full"
             height={80}
             priority
             src="/assets/images/niels.jpg"
             width={80}
         />
-        <h1>Niels Bik</h1>
-        <p>
+        <h1 className="text-3xl font-bold leading-relaxed">Niels Bik</h1>
+        <p className="leading-10">
             <a
+                className="text-blue-600 dark:text-blue-400 hover:underline"
                 href="//www.linkedin.com/in/nielsrowinbik"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -21,6 +22,7 @@ export const BusinessCard = () => (
             </a>
             <span className="mx-2">·</span>
             <a
+                className="text-blue-600 dark:text-blue-400 hover:underline"
                 href="//github.com/nielsrowinbik"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -28,14 +30,19 @@ export const BusinessCard = () => (
                 github
             </a>
             <span className="mx-2">·</span>
-            <a href="mailto:hey@nielsbik.nl" rel="noopener noreferrer">
+            <a
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+                href="mailto:hey@nielsbik.nl"
+                rel="noopener noreferrer"
+            >
                 mail
             </a>
         </p>
-        <p>
+        <p className="leading-normal my-2">
             Niels is a passionate Product Manager from Utrecht, currently
             working for{' '}
             <a
+                className="text-blue-600 dark:text-blue-400 hover:underline"
                 href="//www.prorail.nl"
                 rel="noopener noreferrer"
                 target="_blank"

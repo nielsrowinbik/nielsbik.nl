@@ -1,10 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import NextLink from 'next/link';
-
-// import Footer from '@/components/Footer';
 
 export default function Container(props) {
     const { theme, setTheme } = useTheme();
@@ -15,7 +11,7 @@ export default function Container(props) {
         title: 'Niels Bik - Product Manager from Utrecht',
         description:
             'Product Manager from Utrecht currently working for ProRail',
-        image: 'https://leerob.io/static/images/banner.png',
+        image: 'https://nielsbik.nl/assets/images/niels.jpg',
         type: 'website',
         ...customMeta,
     };
@@ -51,14 +47,17 @@ export default function Container(props) {
                     />
                 )}
             </Head>
-            <nav className="sticky-nav flex justify-end items-center w-full my-0">
+            <nav className="sticky-nav flex justify-end items-center max-w-4xl w-full my-0 mx-auto">
                 {/* <a href="#skip" className="sr-only focus:not-sr-only">
                     Skip to content
                 </a> */}
+                {/* <div>
+                    <NextLink href="/">Home</NextLink>
+                </div> */}
                 <button
                     aria-label="Toggle Dark Mode"
                     type="button"
-                    className="bg-transparent rounded h-14 w-14 flex justify-center items-center"
+                    className="bg-transparent rounded h-14 w-14 flex justify-center items-center opacity-70"
                     onClick={() =>
                         setTheme(theme === 'dark' ? 'light' : 'dark')
                     }
@@ -78,7 +77,6 @@ export default function Container(props) {
                 className="flex flex-col justify-center px-8 flex-1 "
             >
                 {children}
-                {/* <Footer /> */}
             </main>
         </div>
     );
