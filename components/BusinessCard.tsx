@@ -76,8 +76,6 @@ export const BusinessCard = () => (
             As passionate as I am about being a Product Manager, there is
             nothing I love more than music.
         </p>
-        <p>
-            <NowPlaying />
-        </p>
+        <NowPlaying />
     </div>
 );

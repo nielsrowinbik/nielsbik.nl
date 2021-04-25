@@ -24,12 +24,12 @@ export const NowPlaying = () => {
                         {data.title}
                     </a>
                 ) : (
-                    <p className="font-medium">Not Playing</p>
+                    <span className="font-medium">Not Playing</span>
                 )}
                 <span className="mx-2 hidden sm:block">{' – '}</span>
-                <p className="max-w-max truncate">
+                <span className="max-w-max truncate">
                     {data?.artist ?? 'Spotify'}
-                </p>
+                </span>
             </div>
         </div>
     );
