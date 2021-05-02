@@ -1,5 +1,7 @@
 import 'spotify-api';
 
-interface Window {
-    workbox: any;
+declare global {
+    interface Window {
+        workbox: any;
+    }
 }
