@@ -1,3 +1,10 @@
-dist
-node_modules
 *.log
+.DS_Store
+.next
+node_modules
+.env
+public/sitemap.xml
+public/feed.xml
+public/sw*
+public/workbox*
+.vercel
