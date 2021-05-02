@@ -7,7 +7,6 @@ class MyDocument extends Document {
                 <Head>
                     <meta charSet="utf-8" />
                     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                    <title>Niels Bik - Product Manager from Utrecht</title>
                     <link
                         rel="apple-touch-icon"
                         sizes="57x57"
@@ -93,10 +92,6 @@ class MyDocument extends Document {
                         content="/assets/icons/mstile-144x144.png"
                     />
                     <meta name="theme-color" content="#ffffff" />
-                    <meta
-                        name="viewport"
-                        content="width=device-width, initial-scale=1"
-                    />
                 </Head>
                 <body className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white dark:text-opacity-90">
                     <Main />
