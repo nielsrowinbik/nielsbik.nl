@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 
@@ -51,9 +52,10 @@ export default function Container(props) {
                 {/* <a href="#skip" className="sr-only focus:not-sr-only">
                     Skip to content
                 </a> */}
-                {/* <div>
-                    <NextLink href="/">Home</NextLink>
-                </div> */}
+                <div>
+                    <Link href="/">Home</Link>
+                    <Link href="/blog">Blog</Link>
+                </div>
                 <button
                     aria-label="Toggle Dark Mode"
                     type="button"
