@@ -28,7 +28,7 @@ export const NowPlaying = () => {
                 )}
                 <span className="mx-2 hidden sm:block">{' – '}</span>
                 <span className="max-w-max truncate">
-                    {(data?.isPlaying && data?.artist) ?? 'Spotify'}
+                    {data?.isPlaying ? data?.artist ?? 'Spotify' : 'Spotify'}
                 </span>
             </span>
         </span>
