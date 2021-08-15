@@ -2,7 +2,7 @@ const { trueGray } = require('tailwindcss/colors');
 const { colors } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    darkMode: 'class',
+    darkMode: 'media',
     mode: 'jit',
     plugins: [require('@tailwindcss/typography')],
     purge: ['./pages/**/*.tsx', './components/**/*.tsx', './layouts/**/*.tsx'],
