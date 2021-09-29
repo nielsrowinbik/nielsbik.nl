@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { NowPlaying } from './NowPlaying';
-import { ProRailLogo } from './ProRailLogo';
+import { ProRail } from './Logo';
 
 export const BusinessCard = () => (
     <div className="max-w-md mb-36">
@@ -17,11 +17,11 @@ export const BusinessCard = () => (
         <p className="leading-normal my-4">
             I currently work as a Product Manager at{' '}
             <a
-                href="//www.prorail.nl"
+                href="https://www.prorail.nl"
                 rel="noopener noreferrer"
                 target="_blank"
             >
-                <ProRailLogo />
+                <ProRail />
             </a>{' '}
             where I'm responsible for translating and prioritising business
             needs for Donna, the Dutch railroad sector's primary application for
@@ -32,7 +32,7 @@ export const BusinessCard = () => (
             nothing I love more than{' '}
             <a
                 className="text-blue-600 dark:text-blue-400 hover:underline"
-                href="//www.last.fm/user/nielsrowinbik"
+                href="https://www.last.fm/user/nielsrowinbik"
                 rel="noopener noreferrer"
                 target="_blank"
             >
@@ -41,7 +41,7 @@ export const BusinessCard = () => (
             . I also enjoy doing CrossFit, reading, and{' '}
             <a
                 className="text-blue-600 dark:text-blue-400 hover:underline"
-                href="//www.github.com/nielsrowinbik"
+                href="https://www.github.com/nielsrowinbik"
                 rel="noopener noreferrer"
                 target="_blank"
             >
@@ -54,7 +54,7 @@ export const BusinessCard = () => (
             through{' '}
             <a
                 className="text-blue-600 dark:text-blue-400 hover:underline"
-                href="//www.linkedin.com/in/nielsrowinbik"
+                href="https://www.linkedin.com/in/nielsrowinbik"
                 rel="noopener noreferrer"
                 target="_blank"
             >
@@ -70,7 +70,7 @@ export const BusinessCard = () => (
             </a>
             .
         </p>
-        <p className="leading-normal mt-6 pt-4 border-t">
+        <p className="leading-normal mt-6 empty:mt-0 pt-4 empty:pt-0 border-t empty:border-0">
             <NowPlaying />
         </p>
     </div>
