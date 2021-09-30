@@ -14,14 +14,10 @@ import querystring from 'querystring';
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
-
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
-const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
-const TRACK_ANALYSIS_ENDPOINT = `https://api.spotify.com/v1/audio-analysis`;
-const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
 const getAccessToken = async () => {
-    const response = await fetch(TOKEN_ENDPOINT, {
+    const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
             Authorization: `Basic ${basic}`,
@@ -39,7 +35,7 @@ const getAccessToken = async () => {
 export const getNowPlaying = async () => {
     const { access_token } = await getAccessToken();
 
-    return fetch(NOW_PLAYING_ENDPOINT, {
+    return fetch('https://api.spotify.com/v1/me/player/currently-playing', {
         headers: {
             Authorization: `Bearer ${access_token}`,
         },
@@ -49,7 +45,7 @@ export const getNowPlaying = async () => {
 export const getAudioAnalysis = async (id: string) => {
     const { access_token } = await getAccessToken();
 
-    return fetch(`${TRACK_ANALYSIS_ENDPOINT}/${id}`, {
+    return fetch(`https://api.spotify.com/v1/audio-analysis/${id}`, {
         headers: {
             Authorization: `Bearer ${access_token}`,
         },
