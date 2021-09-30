@@ -7,8 +7,8 @@ import querystring from 'querystring';
 //    - Auth URL: https://accounts.spotify.com/authorize
 //    - Access Token URL: https://accounts.spotify.com/api/token
 //    - Client ID
-//    - Client Secret:
-//    - Scope: user-read-currently-playing
+//    - Client Secret
+//    - Scope: `user-read-currently-playing`
 // 4. Authorize the request with your account, and get the Refresh Token from Postman
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
