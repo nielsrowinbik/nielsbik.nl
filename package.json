@@ -26,7 +26,7 @@
         "swr": "^0.5.5"
     },
     "devDependencies": {
-        "@types/react": "^17.0.20",
+        "@types/react": "^17.0.26",
         "@types/spotify-api": "^0.0.11",
         "autoprefixer": "^10.3.6",
         "postcss": "^8.3.6",
