@@ -1,23 +1,25 @@
+import classNames from 'classnames';
 import useSWR from 'swr';
 
 import fetcher from '../lib/fetcher';
-import { NowPlayingResponse } from '../lib/types';
+import { LastPlayedResponse, NowPlayingResponse } from '../lib/types';
 
 import { Spotify } from './Logo';
 
 export const NowPlaying = () => {
-    const response = useSWR('/api/now-playing', fetcher);
-    const data: NowPlayingResponse = response.data;
+    const { data } = useSWR<NowPlayingResponse | LastPlayedResponse>(
+        '/api/now-playing',
+        fetcher
+    );
 
-    if (!data || !data.isPlaying) return null;
+    if (!data) return null;
 
-    const { artist, artistUrl, songBps, songTimeSignature, songUrl, title } =
-        data;
-    const prefersReducedMotion = window.matchMedia(
+    const { artist, isPlaying, track } = data;
+    const reduceMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
     ).matches;
     const animationDuration = `${
-        (1 / songBps) * (prefersReducedMotion ? songTimeSignature : 1)
+        isPlaying ? (1 / track.bps) * (reduceMotion ? track.ts : 1) : 1
     }s`;
 
     return (
@@ -26,36 +28,54 @@ export const NowPlaying = () => {
                 className="relative flex h-5 w-5 rounded-full"
                 href="https://open.spotify.com/user/nielsrowinbik"
                 target="_blank"
-                title={`This pulses at the BPM of ${title}, which is ${
-                    songBps * 60
-                }`}
+                title={
+                    isPlaying &&
+                    `This pulses at the BPM of ${track.name}, which is ${track.tempo}`
+                }
                 rel="noopener noreferrer"
             >
                 <span
-                    className="animate-ping absolute inline-flex h-full w-full rounded-full bg-spotify-green opacity-60"
+                    className={classNames(
+                        'animate-ping absolute inline-flex h-full w-full rounded-full bg-spotify-green opacity-60',
+                        { hidden: !isPlaying }
+                    )}
                     style={{
                         animationDuration,
                     }}
                 />
-                <Spotify className="relative h-full w-full" />
+                <Spotify
+                    className={classNames(
+                        'relative h-full w-full transition-opacity',
+                        {
+                            'opacity-50 hover:opacity-100': !isPlaying,
+                        }
+                    )}
+                />
             </a>
-            <span className="truncate">
+            <span
+                className={classNames('truncate transition-opacity', {
+                    'italic opacity-20': !isPlaying,
+                })}
+            >
                 <a
-                    className="font-medium max-w-max truncate hover:underline"
-                    href={songUrl}
+                    className={classNames(
+                        'max-w-max truncate hover:underline',
+                        { 'font-medium': isPlaying }
+                    )}
+                    href={track.url}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {title}
+                    {track.name}
                 </a>
                 <span className="mx-1">{' – '}</span>
                 <a
                     className="max-w-max truncate hover:underline"
-                    href={artistUrl}
+                    href={artist.url}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {artist}
+                    {artist.name}
                 </a>
             </span>
         </span>
