@@ -1,49 +1,58 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getNowPlaying, getAudioAnalysis } from '../../lib/spotify';
+import { getNowPlaying, getAudioFeatures } from '../../lib/spotify';
 import type { NowPlayingResponse as Response } from '../../lib/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const nowPlayingResponse = await getNowPlaying();
 
-    // Return "not playing" if we get an error back from Spotify:
-    if (nowPlayingResponse.status === 204 || nowPlayingResponse.status > 400) {
-        return res.status(200).json({ isPlaying: false });
-    }
+    const redirectToLastPlayed = () => res.redirect(303, '/api/last-played');
 
-    const song: SpotifyApi.CurrentlyPlayingObject =
+    // Check if we're playing anything and catch any errors by redirecting:
+    if (
+        nowPlayingResponse.status === 204 || // Spotify will return a 204 when we're not playing anything (or when a private session is on)
+        nowPlayingResponse.status > 400 // Catch any client (introduced by us) or server errors (from Spotify)
+    )
+        return redirectToLastPlayed();
+
+    // We are playing something, parse the reponse body:
+    const currentlyPlaying: SpotifyApi.CurrentlyPlayingObject =
         await nowPlayingResponse.json();
 
-    // Ignore podcasts:
-    if (song.item.type === 'episode') {
-        return res.status(200).json({ isPlaying: false });
-    }
+    // Check if what we're playing is music, we don't want to show podcast episodes so redirect if we are:
+    if (currentlyPlaying.item.type === 'episode') return redirectToLastPlayed();
 
-    // Get track analysis information:
-    const analysisResponse = await getAudioAnalysis(song.item.id);
-    const trackDetails: SpotifyApi.AudioAnalysisResponse =
-        await analysisResponse.json();
+    // Get audio features for the currently playing item:
+    const audioFeatures: SpotifyApi.AudioFeaturesResponse = await (
+        await getAudioFeatures(currentlyPlaying.item.id)
+    ).json();
 
+    // Construct response:
+    const response: Response = {
+        album: {
+            name: currentlyPlaying.item.album.name,
+            image: currentlyPlaying.item.album.images[0].url,
+            url: currentlyPlaying.item.album.external_urls.spotify,
+        },
+        artist: {
+            name: currentlyPlaying.item.artists[0].name,
+            url: currentlyPlaying.item.artists[0].external_urls.spotify,
+        },
+        isPlaying: true,
+        track: {
+            bps: audioFeatures.tempo / 60,
+            name: currentlyPlaying.item.name,
+            tempo: audioFeatures.tempo,
+            ts: audioFeatures.time_signature,
+            url: currentlyPlaying.item.external_urls.spotify,
+        },
+    };
+
+    // Make browsers cache our response for a minute tops:
     res.setHeader(
         'Cache-Control',
         'public, s-maxage=60, stale-while-revalidate=30'
     );
-
-    // Construct response:
-    const response: Response = {
-        album: song.item.album.name,
-        albumImageUrl: song.item.album.images[0].url,
-        albumUrl: song.item.album.external_urls.spotify,
-        artist: song.item.artists.map(({ name }) => name).join(', '),
-        artistUrl: song.item.artists[0].external_urls.spotify,
-        isPlaying: song.is_playing,
-        // @ts-expect-error
-        songBps: trackDetails.track.tempo / 60,
-        // @ts-expect-error
-        songTimeSignature: trackDetails.track.time_signature,
-        songUrl: song.item.external_urls.spotify,
-        title: song.item.name,
-    };
 
     return res.status(200).json(response);
 };
