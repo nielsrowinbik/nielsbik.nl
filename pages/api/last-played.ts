@@ -11,10 +11,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Construct response:
     const response: Response = {
-        artist: {
-            name: track.artists[0].name,
-            url: track.artists[0].external_urls.spotify,
-        },
+        artists: track.artists.map(
+            ({ name, external_urls: { spotify: url } }) => ({ name, url })
+        ),
         isPlaying: false,
         track: {
             name: track.name,

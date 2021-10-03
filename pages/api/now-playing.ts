@@ -34,10 +34,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             image: currentlyPlaying.item.album.images[0].url,
             url: currentlyPlaying.item.album.external_urls.spotify,
         },
-        artist: {
-            name: currentlyPlaying.item.artists[0].name,
-            url: currentlyPlaying.item.artists[0].external_urls.spotify,
-        },
+        artists: currentlyPlaying.item.artists.map(
+            ({ name, external_urls: { spotify: url } }) => ({ name, url })
+        ),
         isPlaying: true,
         track: {
             bps: audioFeatures.tempo / 60,
