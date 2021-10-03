@@ -14,12 +14,13 @@ export const NowPlaying = () => {
 
     if (!data) return null;
 
-    const { artist, isPlaying, track } = data;
     const reduceMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
     ).matches;
     const animationDuration = `${
-        isPlaying ? (1 / track.bps) * (reduceMotion ? track.ts : 1) : 1
+        data.isPlaying
+            ? (1 / data.track.bps) * (reduceMotion ? data.track.ts : 1)
+            : 1
     }s`;
 
     return (
@@ -29,15 +30,15 @@ export const NowPlaying = () => {
                 href="https://open.spotify.com/user/nielsrowinbik"
                 target="_blank"
                 title={
-                    isPlaying &&
-                    `This pulses at the BPM of ${track.name}, which is ${track.tempo}`
+                    data.isPlaying &&
+                    `This pulses at the BPM of ${data.track.name}, which is ${data.track.tempo}`
                 }
                 rel="noopener noreferrer"
             >
                 <span
                     className={classNames(
                         'animate-ping absolute inline-flex h-full w-full rounded-full bg-spotify-green opacity-60',
-                        { hidden: !isPlaying }
+                        { hidden: !data.isPlaying }
                     )}
                     style={{
                         animationDuration,
@@ -47,36 +48,39 @@ export const NowPlaying = () => {
                     className={classNames(
                         'relative h-full w-full transition-opacity',
                         {
-                            'opacity-50 hover:opacity-100': !isPlaying,
+                            'opacity-50 hover:opacity-100': !data.isPlaying,
                         }
                     )}
                 />
             </a>
             <span
                 className={classNames('truncate transition-opacity', {
-                    'italic opacity-20': !isPlaying,
+                    'italic opacity-20': !data.isPlaying,
                 })}
             >
                 <a
                     className={classNames(
                         'max-w-max truncate hover:underline',
-                        { 'font-medium': isPlaying }
+                        { 'font-medium': data.isPlaying }
                     )}
-                    href={track.url}
+                    href={data.track.url}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {track.name}
+                    {data.track.name}
                 </a>
                 <span className="mx-1">{' – '}</span>
-                <a
-                    className="max-w-max truncate hover:underline"
-                    href={artist.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {artist.name}
-                </a>
+                {data.artists.map(({ name, url }, i) => (
+                    <a
+                        className="max-w-max truncate hover:underline"
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {name}
+                        {i !== data.artists.length - 1 && ', '}
+                    </a>
+                ))}
             </span>
         </span>
     );

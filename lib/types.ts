@@ -1,25 +1,25 @@
-export type LastPlayedResponse = {
-    artist: {
+export interface LastPlayedResponse {
+    artists: {
         name: string;
         url: string;
-    };
+    }[];
     isPlaying: false;
     track: {
         name: string;
         url: string;
     };
-};
+}
 
-export type NowPlayingResponse = {
+export interface NowPlayingResponse {
     album: {
         name: string;
         image: string;
         url: string;
     };
-    artist: {
+    artists: {
         name: string;
         url: string;
-    };
+    }[];
     isPlaying: true;
     track: {
         bps: number;
@@ -28,4 +28,4 @@ export type NowPlayingResponse = {
         ts: number;
         url: string;
     };
-};
+}
