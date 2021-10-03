@@ -12,7 +12,14 @@ export const NowPlaying = () => {
         fetcher
     );
 
-    if (!data) return null;
+    if (!data)
+        return (
+            <span className="flex items-center flex-row space-x-3 w-full animate-pulse">
+                <span className="bg-spotify-green rounded-full h-6 w-6 opacity-50" />
+                <span className="h-5 w-1/3 bg-gray-100 opacity-50 rounded-md" />
+                <span className="h-5 w-1/3 bg-gray-100 opacity-50  rounded-md" />
+            </span>
+        );
 
     const reduceMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
