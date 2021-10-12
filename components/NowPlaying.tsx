@@ -6,11 +6,17 @@ import { LastPlayedResponse, NowPlayingResponse } from '../lib/types';
 
 import { Spotify } from './Logo';
 
-export const NowPlaying = () => {
+export const useNowPlaying = () => {
     const { data } = useSWR<NowPlayingResponse | LastPlayedResponse>(
         '/api/now-playing',
         fetcher
     );
+
+    return data;
+};
+
+const NowPlaying = () => {
+    const data = useNowPlaying();
 
     if (!data)
         return (
@@ -33,12 +39,13 @@ export const NowPlaying = () => {
     return (
         <span className="flex items-center flex-row space-x-3 w-full">
             <a
-                className="relative flex h-5 w-5 rounded-full"
+                className="relative flex h-5 w-5 rounded-full flex-grow-0 flex-shrink-0"
                 href="https://open.spotify.com/user/nielsrowinbik"
                 target="_blank"
                 title={
-                    data.isPlaying &&
-                    `This pulses at the BPM of ${data.track.name}, which is ${data.track.tempo}`
+                    data.isPlaying
+                        ? `This pulses at the BPM of ${data.track.name}, which is ${data.track.tempo}`
+                        : undefined
                 }
                 rel="noopener noreferrer"
             >
@@ -81,6 +88,7 @@ export const NowPlaying = () => {
                     <a
                         className="max-w-max truncate hover:underline"
                         href={url}
+                        key={url}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -92,3 +100,5 @@ export const NowPlaying = () => {
         </span>
     );
 };
+
+export default NowPlaying;
