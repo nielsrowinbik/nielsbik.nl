@@ -1,23 +1,15 @@
-import Head from 'next/head';
-import { ThemeProvider } from 'next-themes';
-
 import '../styles/globals.css';
 
-import Container from '../components/Container';
+import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }) {
-    return (
-        <ThemeProvider attribute="class">
-            <Head>
-                <title>Niels Bik - Product Manager from Utrecht</title>
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
-            </Head>
-            <Container>
-                <Component {...pageProps} />
-            </Container>
-        </ThemeProvider>
-    );
-}
+import SiteLayout from '../components/SiteLayout';
+
+const App = ({ Component, pageProps }: AppProps) => {
+    const getLayout =
+        // @ts-ignore
+        Component.getLayout || ((page) => <SiteLayout>{page}</SiteLayout>);
+
+    return getLayout(<Component {...pageProps} />);
+};
+
+export default App;
