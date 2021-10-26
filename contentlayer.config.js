@@ -1,14 +1,10 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 
-import readingTime from 'reading-time';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
-import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypePrism from 'rehype-prism-plus';
 
 const computedFields = {
-    readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
     wordCount: {
         type: 'number',
         resolve: (doc) => doc.body.raw.split(/\s+/gu).length,
@@ -19,32 +15,9 @@ const computedFields = {
     },
 };
 
-const Blog = defineDocumentType(() => ({
-    name: 'Blog',
-    filePathPattern: 'blog/*.mdx',
-    bodyType: 'mdx',
-    fields: {
-        title: { type: 'string', required: true },
-        publishedAt: { type: 'date', required: true },
-        summary: { type: 'string', required: true },
-        image: { type: 'string', required: true },
-    },
-    computedFields,
-}));
-
-const OtherPage = defineDocumentType(() => ({
-    name: 'OtherPage',
-    filePathPattern: '*.mdx',
-    bodyType: 'mdx',
-    fields: {
-        title: { type: 'string', required: true },
-    },
-    computedFields,
-}));
-
 const ResumeItem = defineDocumentType(() => ({
     name: 'ResumeItem',
-    filePathPattern: 'resume/*.mdx',
+    filePathPattern: 'resume/items/*.mdx',
     bodyType: 'mdx',
     fields: {
         category: {
@@ -61,15 +34,30 @@ const ResumeItem = defineDocumentType(() => ({
     computedFields,
 }));
 
+const PublicationItem = defineDocumentType(() => ({
+    name: 'PublicationItem',
+    filePathPattern: 'resume/publications/*.mdx',
+    bodyType: 'mdx',
+    fields: {
+        title: { type: 'string', required: true },
+        authors: { type: 'string', required: true },
+        conference: { type: 'string' },
+        year: { type: 'number' },
+        location: { type: 'string' },
+        pageStart: { type: 'number' },
+        pageEnd: { type: 'number' },
+        doi: { type: 'string', required: true },
+    },
+    computedFields,
+}));
+
 const contentLayerConfig = makeSource({
     contentDirPath: 'data',
-    documentTypes: [Blog, OtherPage, ResumeItem],
+    documentTypes: [PublicationItem, ResumeItem],
     mdx: {
         remarkPlugins: [remarkGfm],
         rehypePlugins: [
             rehypeSlug,
-            rehypeCodeTitles,
-            rehypePrism,
             [
                 rehypeAutolinkHeadings,
                 {
