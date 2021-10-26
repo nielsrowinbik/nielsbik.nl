@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import useSWR from 'swr';
 
 import fetcher from '../lib/fetcher';
@@ -18,22 +18,13 @@ export const useNowPlaying = () => {
 const NowPlaying = () => {
     const data = useNowPlaying();
 
-    if (!data)
-        return (
-            <span className="flex items-center flex-row space-x-3 w-full animate-pulse">
-                <span className="bg-spotify-green rounded-full h-6 w-6 opacity-30" />
-                <span className="h-5 w-1/3 bg-gray-100 rounded-sm" />
-                <span className="h-5 w-1/4 bg-gray-100 rounded-sm" />
-            </span>
-        );
+    if (!data || !data.isPlaying) return null;
 
     const reduceMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
     ).matches;
     const animationDuration = `${
-        data.isPlaying
-            ? (1 / data.track.bps) * (reduceMotion ? data.track.ts : 1)
-            : 1
+        (1 / data.track.bps) * (reduceMotion ? data.track.ts : 1)
     }s`;
 
     return (
@@ -42,41 +33,18 @@ const NowPlaying = () => {
                 className="relative flex h-5 w-5 rounded-full flex-grow-0 flex-shrink-0"
                 href="https://open.spotify.com/user/nielsrowinbik"
                 target="_blank"
-                title={
-                    data.isPlaying
-                        ? `This pulses at the BPM of ${data.track.name}, which is ${data.track.tempo}`
-                        : undefined
-                }
+                title="This pulses in sync with the beats per minute of the currently playing track"
                 rel="noopener noreferrer"
             >
                 <span
-                    className={classNames(
-                        'animate-ping absolute inline-flex h-full w-full rounded-full bg-spotify-green opacity-60',
-                        { hidden: !data.isPlaying }
-                    )}
-                    style={{
-                        animationDuration,
-                    }}
+                    className="animate-ping absolute inline-flex h-full w-full rounded-full bg-spotify-green opacity-60"
+                    style={{ animationDuration }}
                 />
-                <Spotify
-                    className={classNames(
-                        'relative h-full w-full transition-opacity',
-                        {
-                            'opacity-50 hover:opacity-100': !data.isPlaying,
-                        }
-                    )}
-                />
+                <Spotify className="relative h-full w-full" />
             </a>
-            <span
-                className={classNames('truncate transition-opacity', {
-                    'italic opacity-20': !data.isPlaying,
-                })}
-            >
+            <span className="flex-auto flex truncate">
                 <a
-                    className={classNames(
-                        'max-w-max truncate hover:underline',
-                        { 'font-medium': data.isPlaying }
-                    )}
+                    className="truncate !text-current"
                     href={data.track.url}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -86,7 +54,7 @@ const NowPlaying = () => {
                 <span className="mx-1">{' – '}</span>
                 {data.artists.map(({ name, url }, i) => (
                     <a
-                        className="max-w-max truncate hover:underline"
+                        className="truncate !text-current"
                         href={url}
                         key={url}
                         target="_blank"

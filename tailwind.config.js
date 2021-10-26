@@ -7,18 +7,29 @@ module.exports = {
     mode: 'jit',
     plugins: [
         require('@tailwindcss/typography'),
-        plugin(function ({ addVariant, e }) {
+        // Add `:empty` variant:
+        plugin(({ addVariant, e }) => {
             addVariant('empty', ({ modifySelectors, separator }) => {
                 modifySelectors(({ className }) => {
                     return `.${e(`empty${separator}${className}`)}:empty`;
                 });
             });
         }),
-        plugin(function ({ addUtilities }) {
+        // Add utility to capitalise the first letter:
+        plugin(({ addUtilities }) => {
             addUtilities({
                 '.capitalize-first:first-letter': {
                     textTransform: 'uppercase',
                 },
+            });
+        }),
+        plugin(({ addVariant, e }) => {
+            addVariant('selection', ({ modifySelectors, separator }) => {
+                modifySelectors(({ className }) => {
+                    return `.${e(
+                        `selection${separator}${className}`
+                    )}::selection`;
+                });
             });
         }),
     ],
@@ -38,17 +49,21 @@ module.exports = {
             typography: {
                 DEFAULT: {
                     css: {
+                        color: 'inherit',
                         a: {
                             '@apply font-normal text-blue-600 dark:text-blue-400 no-underline hover:underline':
                                 '',
                         },
                         h1: {
-                            '@apply font-bold text-3xl md:text-5xl tracking-tight':
+                            '@apply font-bold text-3xl md:text-5xl tracking-tight text-current':
                                 '',
                         },
                         h2: {
-                            '@apply font-bold text-2xl md:text-4xl tracking-tight':
+                            '@apply font-bold text-2xl md:text-4xl tracking-tight text-current':
                                 '',
+                        },
+                        h3: {
+                            '@apply text-current': '',
                         },
                     },
                 },

@@ -2,24 +2,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { ProRail } from '../components/Logo';
-import { useNowPlaying } from '../components/NowPlaying';
+import NowPlaying, { useNowPlaying } from '../components/NowPlaying';
 
 const IndexPage = () => {
     const data = useNowPlaying();
 
     return (
-        <article className="prose">
-            <header className="flex flex-row items-center justify-between">
-                <h1 className="!mb-0">Hey, I'm Niels Bik</h1>
-                <Image
-                    alt="Picture of Niels Bik"
-                    className="rounded-full"
-                    height={80}
-                    priority
-                    src="/assets/images/niels.jpg"
-                    width={80}
-                />
-            </header>
+        <article className="prose max-w-md mx-auto mt-8 md:mt-[25%]">
+            <Image
+                alt="Picture of Niels Bik"
+                className="rounded-full"
+                height={80}
+                priority
+                src="/assets/images/niels.jpg"
+                width={80}
+            />
+            {/* We decrease the size of the h1 by overriding the tailwind typography settings here.
+                We also add 2rem of margin-top because tailwind typography would normally margin-bottom
+                to the img tag, but since we're using Next.js Image, that doesn't work. */}
+            <h1 className="!text-4xl !mt-8">Hey, I'm Niels Bik</h1>
             <p>
                 I currently work as a Product Manager at{' '}
                 <a
@@ -29,57 +30,54 @@ const IndexPage = () => {
                 >
                     <ProRail />
                 </a>{' '}
-                where I'm responsible for translating and prioritising business
-                needs for Donna, the Dutch railroad sector's primary application
-                for capacity planning and allocation.
-            </p>
-            <p>
-                Learn more about my current and previous positions as well as
-                education history, publications, and so forth in my{' '}
+                where I'm responsible for Donna, the Dutch railroad sector's
+                primary application for capacity planning and allocation. More
+                information about this and previous positions as well as
+                education history, publications, and so forth is available in my{' '}
                 <Link href="/resume">
                     <a>resume</a>
                 </Link>
                 .
             </p>
             <p>
-                Now, I'm passionate about the work I do, but there's nothing I
-                love more than music.{' '}
-                {!!data && (
+                Outside of work chances are I'm listening to music.
+                {!!data && !!data?.isPlaying && (
                     <span>
-                        You can check out what{' '}
-                        {data?.isPlaying
-                            ? "I'm currently listening to"
-                            : 'I listened to last'}{' '}
-                        below.
+                        {' '}
+                        In fact, I'm listening to some right now - see below!
                     </span>
-                )}
-            </p>
-            <p>
-                I also enjoy doing CrossFit, reading, and{' '}
+                )}{' '}
+                Other than that I love to read, work out (I do CrossFit), and{' '}
                 <a
-                    href="https://www.github.com/nielsrowinbik"
+                    href="https://github.com/nielsrowinbik"
                     rel="noopener noreferrer"
                     target="_blank"
                 >
-                    coding
-                </a>{' '}
-                for the web.
+                    code for the web
+                </a>
+                .
             </p>
             <p>
-                If you'd like to get in touch with me, the best ways to reach me
-                are through{' '}
+                If you'd like to get in touch,{' '}
+                <a
+                    href="mailto:hey@nielsbik.nl"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    send me an e-mail
+                </a>{' '}
+                or message me on{' '}
                 <a
                     href="https://www.linkedin.com/in/nielsrowinbik"
                     rel="noopener noreferrer"
                     target="_blank"
                 >
                     LinkedIn
-                </a>{' '}
-                or{' '}
-                <a href="mailto:hey@nielsbik.nl" rel="noopener noreferrer">
-                    e-mail
                 </a>
                 .
+            </p>
+            <p className="leading-norma pt-4 empty:pt-0 border-t empty:border-0 dark:border-white border-black border-opacity-25 dark:border-opacity-25">
+                <NowPlaying />
             </p>
         </article>
     );

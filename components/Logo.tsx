@@ -7,7 +7,7 @@ export const ProRail = () => (
         ProRail
         <svg
             aria-hidden="true"
-            className="text-red-700 dark:text-red-400 bg-white dark:bg-gray-900 absolute inset-0 transform-gpu translate-y-1"
+            className="text-red-700 dark:text-red-400 bg-white dark:bg-gray-900 absolute inset-0 transform-gpu translate-y-[50%]"
             role="img"
             viewBox="0 0 130 29"
         >
