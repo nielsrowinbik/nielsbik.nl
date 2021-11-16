@@ -91,7 +91,7 @@ const IndexPage = () => {
                     .
                 </Trans>
             </p>
-            <p className="leading-normal mt-6 empty:mt-0 pt-4 empty:pt-0 border-t empty:border-0">
+            <p className="leading-normal mt-6 empty:mt-0 pt-4 empty:pt-0 border-t empty:border-0 dark:border-opacity-20">
                 <NowPlaying />
             </p>
         </article>
