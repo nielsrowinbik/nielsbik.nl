@@ -51,10 +51,12 @@ const IndexPage = () => {
                 </Trans>
             </p>
             <p>
-                {t('musicIntro')}
+                {t('musicIntro')}{' '}
                 {!!data && !!data?.isPlaying && (
-                    <span>{t('musicPlaying')}</span>
-                )}{' '}
+                    <>
+                        <span>{t('musicPlaying')}</span>{' '}
+                    </>
+                )}
                 <Trans i18nKey="otherHobbies" t={t}>
                     Other than that I love to read, work out (I do CrossFit),
                     and{' '}
