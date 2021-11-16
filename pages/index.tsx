@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { ProRail } from '../components/Logo';
 import NowPlaying, { useNowPlaying } from '../components/NowPlaying';
@@ -31,12 +30,16 @@ const IndexPage = () => {
                     <ProRail />
                 </a>{' '}
                 where I'm responsible for Donna, the Dutch railroad sector's
-                primary application for capacity planning and allocation. More
-                information about this and previous positions as well as
-                education history, publications, and so forth is available in my{' '}
-                <Link href="/resume">
+                primary application for capacity allocation, its primary output
+                being the timetable. More information about this and previous
+                positions as well as education history, publications, and so
+                forth is available in my{' '}
+                <a
+                    href="https://github.com/nielsrowinbik/resume/releases/latest/download/en.pdf"
+                    rel="noopener noreferrer"
+                >
                     <a>resume</a>
-                </Link>
+                </a>
                 .
             </p>
             <p>
@@ -76,7 +79,7 @@ const IndexPage = () => {
                 </a>
                 .
             </p>
-            <p className="leading-norma pt-4 empty:pt-0 border-t empty:border-0 dark:border-white border-black border-opacity-25 dark:border-opacity-25">
+            <p className="leading-normal mt-6 empty:mt-0 pt-4 empty:pt-0 border-t empty:border-0">
                 <NowPlaying />
             </p>
         </article>

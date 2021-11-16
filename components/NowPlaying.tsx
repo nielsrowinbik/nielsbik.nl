@@ -44,24 +44,26 @@ const NowPlaying = () => {
             </a>
             <span className="flex-auto flex truncate">
                 <a
-                    className="truncate !text-current"
+                    className="truncate !text-current !font-semibold"
                     href={data.track.url}
                     target="_blank"
+                    title={data.track.name}
                     rel="noopener noreferrer"
                 >
                     {data.track.name}
                 </a>
-                <span className="mx-1">{' – '}</span>
+                <span className="mx-2">{' – '}</span>
                 {data.artists.map(({ name, url }, i) => (
                     <a
-                        className="truncate !text-current"
+                        className={cn('truncate !text-current mr-1 last:mr-0')}
                         href={url}
                         key={url}
                         target="_blank"
+                        title={name}
                         rel="noopener noreferrer"
                     >
                         {name}
-                        {i !== data.artists.length - 1 && ', '}
+                        {i !== data.artists.length - 1 && ','}
                     </a>
                 ))}
             </span>
