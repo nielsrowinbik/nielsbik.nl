@@ -38,7 +38,7 @@ const IndexPage = () => {
                     href="https://github.com/nielsrowinbik/resume/releases/latest/download/en.pdf"
                     rel="noopener noreferrer"
                 >
-                    <a>resume</a>
+                    resume
                 </a>
                 .
             </p>
