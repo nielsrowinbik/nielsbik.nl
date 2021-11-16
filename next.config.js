@@ -1,6 +1,4 @@
-const { withContentlayer } = require('next-contentlayer');
-
-module.exports = withContentlayer()({
+module.exports = {
     async headers() {
         return [
             {
@@ -9,7 +7,7 @@ module.exports = withContentlayer()({
             },
         ];
     },
-});
+};
 
 // https://securityheaders.com
 const ContentSecurityPolicy = `
