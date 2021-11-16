@@ -8,6 +8,3 @@ public/feed.xml
 public/sw*
 public/workbox*
 .vercel
-
-# Contentlayer
-.contentlayer
