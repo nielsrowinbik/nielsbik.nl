@@ -1,5 +1,7 @@
 import '../styles/globals.css';
 
+import { appWithTranslation } from 'next-i18next';
+
 import type { AppProps } from 'next/app';
 
 import SiteLayout from '../components/SiteLayout';
@@ -12,4 +14,4 @@ const App = ({ Component, pageProps }: AppProps) => {
     return getLayout(<Component {...pageProps} />);
 };
 
-export default App;
+export default appWithTranslation(App);
