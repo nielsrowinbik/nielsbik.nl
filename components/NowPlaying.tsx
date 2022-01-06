@@ -28,9 +28,9 @@ const NowPlaying = () => {
     }s`;
 
     return (
-        <span className="flex items-center flex-row space-x-3 w-full">
+        <span className="flex items-center flex-row space-x-3 w-full not-prose">
             <a
-                className="relative flex h-5 w-5 rounded-full flex-grow-0 flex-shrink-0"
+                className="relative flex h-5 w-5 rounded-full grow-0 shrink-0"
                 href="https://open.spotify.com/user/nielsrowinbik"
                 target="_blank"
                 title="This pulses in sync with the beats per minute of the currently playing track"
@@ -44,7 +44,7 @@ const NowPlaying = () => {
             </a>
             <span className="flex-auto flex truncate">
                 <a
-                    className="truncate !text-current !font-semibold"
+                    className="font-semibold no-underline hover:underline"
                     href={data.track.url}
                     target="_blank"
                     title={data.track.name}
@@ -55,7 +55,7 @@ const NowPlaying = () => {
                 <span className="mx-2">{' – '}</span>
                 {data.artists.map(({ name, url }, i) => (
                     <a
-                        className={cn('truncate !text-current mr-1 last:mr-0')}
+                        className="no-underline hover:underline truncate mr-1 last:mr-0"
                         href={url}
                         key={url}
                         target="_blank"

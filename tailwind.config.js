@@ -1,10 +1,12 @@
-const { trueGray } = require('tailwindcss/colors');
-const { colors } = require('tailwindcss/defaultTheme');
+const { neutral } = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-    darkMode: 'media',
-    mode: 'jit',
+    content: [
+        './pages/**/*.tsx',
+        './components/**/*.tsx',
+        './layouts/**/*.tsx',
+    ],
     plugins: [
         require('@tailwindcss/typography'),
         // Add `:empty` variant:
@@ -33,15 +35,11 @@ module.exports = {
             });
         }),
     ],
-    purge: ['./pages/**/*.tsx', './components/**/*.tsx', './layouts/**/*.tsx'],
     theme: {
-        colors: {
-            ...colors,
-            gray: trueGray,
-        },
         extend: {
             colors: {
                 'spotify-green': '#1ed760',
+                gray: neutral,
             },
             screens: {
                 print: { raw: 'print' },
@@ -49,28 +47,17 @@ module.exports = {
             typography: {
                 DEFAULT: {
                     css: {
-                        color: 'inherit',
-                        a: {
-                            '@apply font-normal text-blue-600 dark:text-blue-400 no-underline hover:underline':
-                                '',
-                        },
                         h1: {
-                            '@apply font-bold text-3xl md:text-5xl tracking-tight text-current':
+                            '@apply font-bold text-3xl md:text-5xl tracking-tight':
                                 '',
                         },
                         h2: {
-                            '@apply font-bold text-2xl md:text-4xl tracking-tight text-current':
+                            '@apply font-bold text-2xl md:text-4xl tracking-tight':
                                 '',
-                        },
-                        h3: {
-                            '@apply text-current': '',
                         },
                     },
                 },
             },
         },
-    },
-    variants: {
-        typography: ['dark'],
     },
 };
