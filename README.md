@@ -10,9 +10,9 @@ $ cd nielsbik.nl
 ### With Docker:
 
 ```bash
-$ docker-compose run --rm nielsbik.nl npm ci # Only on first run to install dependencies
-$ docker-compose up # To start development server
-$ docker-compose exec nielsbik.nl sh # Run this to run commands within the container
+$ docker compose run --rm nielsbik.nl npm ci # Only on first run to install dependencies
+$ docker compose up # To start development server
+$ docker compose exec nielsbik.nl sh # Run this to run commands within the container
 ```
 
 ### Without Docker:
