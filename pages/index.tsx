@@ -19,7 +19,7 @@ const IndexPage = () => {
     } = useTranslation('home');
 
     return (
-        <article className="prose max-w-md mx-auto mt-8 md:mt-[25%]">
+        <article className="prose prose-neutral prose-a:text-blue-600 prose-a:font-normal prose-a:no-underline hover:prose-a:underline dark:prose-invert dark:prose-a:text-blue-400 max-w-md mx-auto mt-8 md:mt-[25%]">
             <Image
                 alt="Picture of Niels Bik"
                 className="rounded-full"
