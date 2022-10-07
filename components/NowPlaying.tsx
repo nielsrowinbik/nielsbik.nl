@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import useSWR from 'swr';
+import { useTranslation } from 'next-i18next';
 
 import fetcher from '../lib/fetcher';
 import { LastPlayedResponse, NowPlayingResponse } from '../lib/types';
@@ -11,12 +12,13 @@ export const useNowPlaying = () => {
         '/api/now-playing',
         fetcher
     );
+    const { t } = useTranslation('home');
 
-    return data;
+    return { data, t };
 };
 
 const NowPlaying = () => {
-    const data = useNowPlaying();
+    const { data, t } = useNowPlaying();
 
     if (!data || !data.isPlaying) return null;
 
@@ -33,7 +35,7 @@ const NowPlaying = () => {
                 className="relative flex h-5 w-5 rounded-full grow-0 shrink-0"
                 href="https://open.spotify.com/user/nielsrowinbik"
                 target="_blank"
-                title="This pulses in sync with the beats per minute of the currently playing track"
+                title={t('pulse-hover')}
                 rel="noopener noreferrer"
             >
                 <span
