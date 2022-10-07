@@ -12,13 +12,13 @@ export const useNowPlaying = () => {
         '/api/now-playing',
         fetcher
     );
-    const { t } = useTranslation('home');
 
-    return { data, t };
+    return data;
 };
 
 const NowPlaying = () => {
-    const { data, t } = useNowPlaying();
+    const data = useNowPlaying();
+    const { t } = useTranslation('home');
 
     if (!data || !data.isPlaying) return null;
 
