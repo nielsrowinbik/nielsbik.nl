@@ -28,7 +28,7 @@
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.7",
         "@types/node": "^18.7.23",
-        "@types/react": "^18.0.24",
+        "@types/react": "^18.0.25",
         "@types/spotify-api": "^0.0.19",
         "autoprefixer": "^10.4.13",
         "postcss": "^8.4.19",
