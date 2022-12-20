@@ -1,17 +1,15 @@
-import '../styles/globals.css';
-
-import { appWithTranslation } from 'next-i18next';
+import '@/styles/globals.css';
 
 import type { AppProps } from 'next/app';
-
-import SiteLayout from '../components/SiteLayout';
+import { MDXComponents } from '@/components/MDXComponents';
+import { MDXProvider } from '@mdx-js/react';
 
 const App = ({ Component, pageProps }: AppProps) => {
-    const getLayout =
-        // @ts-ignore
-        Component.getLayout || ((page) => <SiteLayout>{page}</SiteLayout>);
-
-    return getLayout(<Component {...pageProps} />);
+  return (
+    <MDXProvider components={MDXComponents}>
+      <Component {...pageProps} />
+    </MDXProvider>
+  );
 };
 
-export default appWithTranslation(App);
+export default App;
