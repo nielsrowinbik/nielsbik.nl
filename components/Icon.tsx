@@ -1,12 +1,12 @@
-import { CgSpinner } from 'react-icons/cg';
-import type { IconBaseProps } from 'react-icons';
-import { SiSpotify } from 'react-icons/si';
-import { cn } from '@/lib/utils';
+import { CgSpinner } from "react-icons/cg";
+import type { IconBaseProps } from "react-icons";
+import { SiSpotify } from "react-icons/si";
+import { cn } from "@/lib/utils";
 
 function ProRail({ className, ...props }: IconBaseProps) {
   return (
     <svg
-      className={cn('text-red-700 dark:text-red-400', className)}
+      className={cn("text-red-700 dark:text-red-400", className)}
       viewBox="0 0 130 29"
       {...props}
     >
@@ -27,7 +27,7 @@ function ProRail({ className, ...props }: IconBaseProps) {
 function Stuvia({ className, ...props }: IconBaseProps) {
   return (
     <svg
-      className={cn('text-blue-500', className)}
+      className={cn("text-blue-500", className)}
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 353 121"
       {...props}

@@ -1,7 +1,7 @@
-import type { AnchorHTMLAttributes, DetailedHTMLProps } from 'react';
+import type { AnchorHTMLAttributes, DetailedHTMLProps } from "react";
 
-import { ExternalLink } from './ExternalLink';
-import Link from 'next/link';
+import { ExternalLink } from "./ExternalLink";
+import Link from "next/link";
 
 function CustomLink(
   props: DetailedHTMLProps<
@@ -10,7 +10,7 @@ function CustomLink(
   >
 ) {
   const isInternalLink =
-    props.href && (props.href.startsWith('/') || props.href.startsWith('#'));
+    props.href && (props.href.startsWith("/") || props.href.startsWith("#"));
 
   if (isInternalLink) {
     return <Link href={props.href!}>{props.children}</Link>;

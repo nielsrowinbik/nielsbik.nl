@@ -2,10 +2,10 @@ import type {
   AccessTokenResponse,
   AudioFeaturesResponse,
   NowPlayingResponse,
-} from 'types';
+} from "types";
 
-import querystring from 'querystring';
-import superagent from 'superagent';
+import querystring from "querystring";
+import superagent from "superagent";
 
 // Refer to https://documenter.getpostman.com/view/583/spotify-playlist-generator/2MtDWP to get a refresh token.
 // 1. Open Postman (https://web.postman.co/) and create a new request
@@ -22,17 +22,17 @@ import superagent from 'superagent';
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 
 async function getAccessToken(): Promise<AccessTokenResponse> {
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
     headers: {
       Authorization: `Basic ${basic}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     body: querystring.stringify({
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
       refresh_token,
     }),
   });
@@ -57,16 +57,16 @@ export async function getNowPlaying(): Promise<NowPlayingResponse | null> {
   const { access_token } = await getAccessToken();
 
   const { body, statusCode } = await superagent
-    .get('https://api.spotify.com/v1/me/player/currently-playing')
-    .set('Authorization', `Bearer ${access_token}`);
+    .get("https://api.spotify.com/v1/me/player/currently-playing")
+    .set("Authorization", `Bearer ${access_token}`);
 
   if (statusCode === 204 || statusCode > 400) {
     return null;
   }
 
-  const item = body.item as SpotifyApi.CurrentlyPlayingObject['item'];
+  const item = body.item as SpotifyApi.CurrentlyPlayingObject["item"];
 
-  if (!item || item.type === 'episode') {
+  if (!item || item.type === "episode") {
     return null;
   }
 
@@ -98,7 +98,7 @@ export const getAudioFeatures = async (
 
   const response = await superagent
     .get(`https://api.spotify.com/v1/audio-features/${id}`)
-    .set('Authorization', `Bearer ${access_token}`);
+    .set("Authorization", `Bearer ${access_token}`);
 
   const features = response.body as SpotifyApi.AudioFeaturesObject;
 
