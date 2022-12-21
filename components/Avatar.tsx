@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import niels from '../public/assets/images/niels.jpg';
+import Image from "next/image";
+import niels from "../public/assets/images/niels.jpg";
 
 export function Avatar() {
   return (
