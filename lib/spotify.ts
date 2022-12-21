@@ -1,10 +1,9 @@
 import type {
   AccessTokenResponse,
   AudioFeaturesResponse,
-  NowPlayingResponse,
+  PlaybackResponse,
 } from "types";
 
-import querystring from "querystring";
 import superagent from "superagent";
 
 // Refer to https://documenter.getpostman.com/view/583/spotify-playlist-generator/2MtDWP to get a refresh token.
@@ -24,37 +23,52 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 
-async function getAccessToken(): Promise<AccessTokenResponse> {
-  const response = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${basic}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: querystring.stringify({
+async function getAccessToken(): Promise<string> {
+  const { body } = await superagent
+    .post("https://accounts.spotify.com/api/token")
+    .set("Authorization", `Basic ${basic}`)
+    .set("Content-Type", "application/x-www-form-urlencoded")
+    .send({
       grant_type: "refresh_token",
       refresh_token,
-    }),
-  });
+    });
 
-  return await response.json();
+  const { access_token } = body as AccessTokenResponse;
+
+  return access_token;
 }
 
-export const getRecentlyPlayed = async (limit: number = 10) => {
-  const { access_token } = await getAccessToken();
+export async function getRecentlyPlayed(
+  limit: number = 10
+): Promise<PlaybackResponse[]> {
+  const access_token = await getAccessToken();
 
-  return fetch(
-    `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`,
-    {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    }
-  );
-};
+  const { body } = await superagent
+    .get(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`)
+    .set("Authorization", `Bearer ${access_token}`);
 
-export async function getNowPlaying(): Promise<NowPlayingResponse | null> {
-  const { access_token } = await getAccessToken();
+  const { items } = body as SpotifyApi.UsersRecentlyPlayedTracksResponse;
+
+  return items.map<PlaybackResponse>(({ track }) => ({
+    album: {
+      name: track.album.name,
+      image: track.album.images[0].url,
+      url: track.album.external_urls.spotify,
+    },
+    artists: track.artists.map((artist) => ({
+      name: artist.name,
+      url: artist.external_urls.spotify,
+    })),
+    isPlaying: false,
+    track: {
+      name: track.name,
+      url: track.external_urls.spotify,
+    },
+  }));
+}
+
+export async function getNowPlaying(): Promise<PlaybackResponse | null> {
+  const access_token = await getAccessToken();
 
   const { body, statusCode } = await superagent
     .get("https://api.spotify.com/v1/me/player/currently-playing")
@@ -94,7 +108,7 @@ export async function getNowPlaying(): Promise<NowPlayingResponse | null> {
 export const getAudioFeatures = async (
   id: string
 ): Promise<AudioFeaturesResponse> => {
-  const { access_token } = await getAccessToken();
+  const access_token = await getAccessToken();
 
   const response = await superagent
     .get(`https://api.spotify.com/v1/audio-features/${id}`)
