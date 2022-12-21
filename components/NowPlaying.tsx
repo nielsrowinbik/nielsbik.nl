@@ -6,7 +6,7 @@ import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 export function NowPlaying() {
   const { data } = useNowPlaying();
 
-  if (!data) return null;
+  if (!data || !data.isPlaying) return null;
 
   const { artists, track } = data;
 
