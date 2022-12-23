@@ -20,7 +20,6 @@ export function NowPlaying() {
       <ExternalLink
         className="relative flex h-5 w-5 shrink-0 grow-0 rounded-full"
         href="https://open.spotify.com/user/nielsrowinbik"
-        title="This pulses to the beat of the currently playing track"
       >
         <span
           className="absolute inline-flex h-full w-full animate-ping rounded-full bg-spotify-green opacity-60"
