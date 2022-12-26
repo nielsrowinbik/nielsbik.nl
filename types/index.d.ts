@@ -35,7 +35,7 @@ type TrackWithAudioFeatures = {
   url: SpotifyApi.TrackObjectFull["external_urls"]["spotify"];
 };
 
-export type PlaybackResponse =
+export type NowPlayingResponse =
   | {
       album: Album;
       artists: Artist[];
@@ -43,8 +43,11 @@ export type PlaybackResponse =
       track: TrackWithAudioFeatures;
     }
   | {
-      album: Album;
-      artists: Artist[];
       isPlaying: false;
-      track: Track;
     };
+
+export type RecentlyPlayedResponse = {
+  album: Album;
+  artists: Artist[];
+  track: Track;
+};
