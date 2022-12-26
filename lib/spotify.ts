@@ -2,7 +2,6 @@ import type {
   AccessTokenResponse,
   AudioFeaturesResponse,
   NowPlayingResponse,
-  PlaybackResponse,
   RecentlyPlayedResponse,
 } from "types";
 
