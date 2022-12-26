@@ -1,7 +1,9 @@
 import type {
   AccessTokenResponse,
   AudioFeaturesResponse,
+  NowPlayingResponse,
   PlaybackResponse,
+  RecentlyPlayedResponse,
 } from "types";
 
 import superagent from "superagent";
@@ -40,7 +42,7 @@ async function getAccessToken(): Promise<string> {
 
 export async function getRecentlyPlayed(
   limit: number = 10
-): Promise<PlaybackResponse[]> {
+): Promise<RecentlyPlayedResponse[]> {
   const access_token = await getAccessToken();
 
   const { body } = await superagent
@@ -49,7 +51,7 @@ export async function getRecentlyPlayed(
 
   const { items } = body as SpotifyApi.UsersRecentlyPlayedTracksResponse;
 
-  return items.map<PlaybackResponse>(({ track }) => ({
+  return items.map<RecentlyPlayedResponse>(({ track }) => ({
     album: {
       name: track.album.name,
       image: track.album.images[0].url,
@@ -59,7 +61,6 @@ export async function getRecentlyPlayed(
       name: artist.name,
       url: artist.external_urls.spotify,
     })),
-    isPlaying: false,
     track: {
       name: track.name,
       url: track.external_urls.spotify,
@@ -67,7 +68,7 @@ export async function getRecentlyPlayed(
   }));
 }
 
-export async function getNowPlaying(): Promise<PlaybackResponse | null> {
+export async function getNowPlaying(): Promise<NowPlayingResponse> {
   const access_token = await getAccessToken();
 
   const { body, statusCode } = await superagent
@@ -75,13 +76,17 @@ export async function getNowPlaying(): Promise<PlaybackResponse | null> {
     .set("Authorization", `Bearer ${access_token}`);
 
   if (statusCode === 204 || statusCode > 400) {
-    return null;
+    return {
+      isPlaying: false,
+    };
   }
 
   const item = body.item as SpotifyApi.CurrentlyPlayingObject["item"];
 
   if (!item || item.type === "episode") {
-    return null;
+    return {
+      isPlaying: false,
+    };
   }
 
   const audioFeatures = await getAudioFeatures(item.id);
