@@ -1,42 +1,31 @@
-const { neutral } = require('tailwindcss/colors');
-const plugin = require('tailwindcss/plugin');
-
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./pages/**/*.{ts,md}x', './components/**/*.tsx'],
-  plugins: [
-    require('@tailwindcss/typography'),
-    // Add `:empty` variant:
-    plugin(({ addVariant, e }) => {
-      addVariant('empty', ({ modifySelectors, separator }) => {
-        modifySelectors(({ className }) => {
-          return `.${e(`empty${separator}${className}`)}:empty`;
-        });
-      });
-    }),
-    // Add utility to capitalise the first letter:
-    plugin(({ addUtilities }) => {
-      addUtilities({
-        '.capitalize-first:first-letter': {
-          textTransform: 'uppercase',
-        },
-      });
-    }),
-    plugin(({ addVariant, e }) => {
-      addVariant('selection', ({ modifySelectors, separator }) => {
-        modifySelectors(({ className }) => {
-          return `.${e(`selection${separator}${className}`)}::selection`;
-        });
-      });
-    }),
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./content/**/*.mdx",
   ],
   theme: {
     extend: {
       colors: {
-        'spotify-green': '#1ed760',
+        "lastfm-red": "#bb0001",
+        "spotify-green": "#1ed760",
       },
-      screens: {
-        print: { raw: 'print' },
+      fontFamily: {
+        serif: ["var(--font-kaisei)"],
+      },
+      typography: {
+        quoteless: {
+          css: {
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:first-of-type::after": { content: "none" },
+          },
+        },
       },
     },
   },
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+  plugins: [require("@tailwindcss/typography")],
 };
