@@ -103,7 +103,7 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
 
 export async function getRecentlyPlayed(
   limit: number = 10
-): Promise<RecentlyPlayedResponse[]> {
+): Promise<RecentlyPlayedResponse> {
   const access_token = await getAccessToken();
 
   const params = qs.stringify({
@@ -116,7 +116,7 @@ export async function getRecentlyPlayed(
 
   const { items } = body as SpotifyApi.UsersRecentlyPlayedTracksResponse;
 
-  return items.map<RecentlyPlayedResponse>(({ track }) => ({
+  return items.map(({ track }) => ({
     album: {
       name: track.album.name,
       image: track.album.images[0].url,
@@ -138,7 +138,7 @@ type TimeRange = "short_term" | "medium_term" | "long_term";
 export async function getTopTracks(
   limit: number = 10,
   time_range: TimeRange = "short_term"
-): Promise<TopTracksResponse[]> {
+): Promise<TopTracksResponse> {
   const access_token = await getAccessToken();
 
   const params = qs.stringify({
@@ -152,7 +152,7 @@ export async function getTopTracks(
 
   const { items } = body as SpotifyApi.UsersTopTracksResponse;
 
-  return items.map<TopTracksResponse>((track) => ({
+  return items.map((track) => ({
     album: {
       name: track.album.name,
       image: track.album.images[0].url,
