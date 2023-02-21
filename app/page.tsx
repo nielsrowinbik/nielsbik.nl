@@ -3,12 +3,18 @@ import Image from "next/image";
 import { ListensStat } from "@/components/ListensStat";
 import { NowPlayingStat } from "@/components/NowPlayingStat";
 import { RecordsStat } from "@/components/RecordsStat";
-import { Suspense } from "react";
 import avatar from "./niels.jpg";
+import { getCollectionSize } from "@/lib/discogs";
+import { getNowPlaying } from "@/lib/spotify";
+import { getScrobbleCount } from "@/lib/lastfm";
 
 export const revalidate = 60;
 
 export default async function HomePage() {
+  const nowPlaying = await getNowPlaying();
+  const scrobbleCount = await getScrobbleCount();
+  const collectionSize = await getCollectionSize();
+
   return (
     <section className="prose prose-neutral text-neutral-800 prose-headings:font-serif dark:prose-invert dark:text-neutral-200">
       <h1>Niels Bik</h1>
@@ -19,18 +25,16 @@ export default async function HomePage() {
       <div className="not-prose my-8 flex max-w-[600px] flex-col items-start md:flex-row md:items-center">
         <Image
           alt="Niels Bik"
-          className="rounded-full grayscale"
+          className="rounded-full grayscale hover:filter-none"
           src={avatar}
           placeholder="blur"
           width={100}
           priority
         />
         <div className="mt-8 ml-0 space-y-2 text-neutral-500 dark:text-neutral-400 md:mt-0 md:ml-6">
-          <NowPlayingStat />
-          {/* @ts-expect-error async components */}
-          <ListensStat />
-          {/* @ts-expect-error async components */}
-          <RecordsStat />
+          <NowPlayingStat fallbackData={nowPlaying} />
+          <ListensStat fallbackData={scrobbleCount} />
+          <RecordsStat fallbackData={collectionSize} />
         </div>
       </div>
       <p className="max-w-[600px]">
