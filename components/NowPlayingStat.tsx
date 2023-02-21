@@ -6,6 +6,7 @@ import type {
   Track,
   TrackWithAudioFeatures,
 } from "types";
+import { useEffect, useState } from "react";
 
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
@@ -15,10 +16,14 @@ function PulsingIcon({
   beatsPerSecond,
   timeSignature,
 }: TrackWithAudioFeatures) {
-  const slow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [slow, setSlow] = useState(false);
   const animationDuration = `${
     (1 / beatsPerSecond) * (slow ? timeSignature : 1)
   }s`;
+
+  useEffect(() => {
+    setSlow(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
 
   return (
     <div className="relative flex h-5 w-5">
@@ -47,33 +52,29 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   );
 }
 
-export function NowPlayingStat() {
-  const { data, error, isLoading } = useSWR<NowPlayingResponse>(
-    "/api/now-playing",
-    fetcher
-  );
+type NowPlayingStatProps = {
+  fallbackData: NowPlayingResponse;
+};
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center gap-2">
-        <StillIcon />
-        <span>Loading...</span>
-      </div>
-    );
-  }
+export function NowPlayingStat({ fallbackData }: NowPlayingStatProps) {
+  const { data, error } = useSWR<NowPlayingResponse>(
+    "/api/now-playing",
+    fetcher,
+    { fallbackData }
+  );
 
   if (!data || (!!data && data.isPlaying === false) || !!error) {
     return (
       <div className="flex items-center gap-2">
         <StillIcon />
-        <span>Not listening</span>
+        <span>Not listening right now</span>
       </div>
     );
   }
 
   return (
     <a
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
       href={data.track.url}
       rel="noopener noreferrer"
       target="_blank"
