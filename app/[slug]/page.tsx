@@ -34,11 +34,14 @@ export async function generateMetadata({
   } = post;
   const ogImage = image
     ? `https://nielsbik.nl${image}`
-    : `https://nielsbik.nl/api/og?title=${title}`;
+    : `https://nielsbik.nl/api/og?title=${encodeURIComponent(title)}`;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://nielsbik.nl/${slug}`,
+    },
     openGraph: {
       title,
       description,
@@ -69,10 +72,9 @@ export default async function Blog({ params }: PageProps) {
 
   return (
     <section>
-      {/* TODO: Fix hydration error as a result of this being present */}
-      {/* <script type="application/ld+json">
+      <script type="application/ld+json">
         {JSON.stringify(post.structuredData)}
-      </script> */}
+      </script>
       <h1 className="max-w-[650px] font-serif text-3xl font-bold">
         <Balancer>{post.title}</Balancer>
       </h1>

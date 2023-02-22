@@ -5,6 +5,9 @@ import { allBlogs } from "contentlayer/generated";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Read my thoughts on software development, design, and more.",
+  alternates: {
+    canonical: "https://nielsbik.nl/blog",
+  },
 };
 
 export default async function BlogPage() {

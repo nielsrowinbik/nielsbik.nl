@@ -18,10 +18,13 @@ export const metadata: Metadata = {
     default: "Niels Bik",
     template: "%s | Niels Bik",
   },
-  description: "Product Manager based in Utrecht, the Netherlands.",
+  description: "Product Manager based in Utrecht, the Netherlands",
+  alternates: {
+    canonical: "https://nielsbik.nl",
+  },
   openGraph: {
     title: "Niels Bik",
-    description: "Product Manager based in Utrecht, the Netherlands.",
+    description: "Product Manager based in Utrecht, the Netherlands",
     url: "https://nielsbik.nl",
     siteName: "Niels Bik",
     images: [

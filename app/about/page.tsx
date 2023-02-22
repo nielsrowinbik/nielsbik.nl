@@ -5,7 +5,10 @@ import { getCollectionSize } from "@/lib/discogs";
 export const revalidate = 60 * 24;
 export const metadata: Metadata = {
   title: "About",
-  description: "Product Manager at Stuvia.",
+  description: "Product Manager at Stuvia",
+  alternates: {
+    canonical: "https://nielsbik.nl/about",
+  },
 };
 
 export default async function AboutPage() {
