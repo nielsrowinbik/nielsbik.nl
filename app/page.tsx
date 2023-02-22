@@ -47,7 +47,7 @@ export default async function HomePage() {
             className="flex items-center gap-2 transition-all hover:text-neutral-700 dark:hover:text-neutral-200"
             rel="noopener noreferrer"
             target="_blank"
-            href="https://www.linkedin.com/in/nielsrowinbik"
+            href="https://www.linkedin.com/in/nielsbik"
           >
             <Icon.ArrowUpRight className="h-5 w-5" />
             <p className="h-7">connect on linkedin</p>

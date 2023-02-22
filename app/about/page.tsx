@@ -60,7 +60,7 @@ export default async function AboutPage() {
         <a
           rel="noopener noreferrer"
           target="_blank"
-          href="https://www.linkedin.com/in/nielsrowinbik"
+          href="https://www.linkedin.com/in/nielsbik"
           className="flex w-full items-center justify-between rounded-lg border border-neutral-200 p-4 text-neutral-800 no-underline transition-all hover:bg-neutral-100 dark:border-neutral-800 dark:text-neutral-200 hover:dark:bg-neutral-900"
         >
           <div className="flex items-center">
