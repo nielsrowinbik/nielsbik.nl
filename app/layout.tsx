@@ -4,7 +4,7 @@ import { Analytics } from "@/components/Analytics";
 import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { cn } from "@/lib/utils";
-import localFont from "@next/font/local";
+import localFont from "next/font/local";
 
 const kaisei = localFont({
   src: "../public/fonts/kaisei-tokumin-latin-700-normal.woff2",
