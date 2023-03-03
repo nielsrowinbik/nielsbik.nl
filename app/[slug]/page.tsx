@@ -1,6 +1,7 @@
 import Balancer from "react-wrap-balancer";
 import { Mdx } from "@/components/Mdx";
 import type { Metadata } from "next";
+import Script from "next/script";
 import { allBlogs } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 
@@ -72,9 +73,12 @@ export default async function Blog({ params }: PageProps) {
 
   return (
     <section>
-      <script type="application/ld+json">
-        {JSON.stringify(post.structuredData)}
-      </script>
+      <Script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(post.structuredData),
+        }}
+        type="application/ld+json"
+      />
       <h1 className="max-w-[650px] font-serif text-3xl font-bold">
         <Balancer>{post.title}</Balancer>
       </h1>
