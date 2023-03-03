@@ -25,7 +25,7 @@ export default async function HomePage() {
       <div className="not-prose my-8 flex max-w-[600px] flex-col items-start md:flex-row md:items-center">
         <Image
           alt="Niels Bik"
-          className="rounded-full grayscale hover:filter-none"
+          className="rounded-full grayscale"
           src={avatar}
           placeholder="blur"
           width={100}
