@@ -23,13 +23,13 @@ export function Navbar() {
 
   return (
     <aside className="-mx-4 font-serif md:mx-0 md:w-[150px] md:flex-shrink-0 md:px-0">
-      <div className="lg:sticky lg:top-20">
-        <LayoutGroup>
-          <nav
-            className="fade relative flex scroll-pr-6 flex-row items-start overflow-scroll px-4 pb-0 md:relative md:flex-col md:overflow-auto md:px-0"
-            id="nav"
-          >
-            <div className="mb-2 mt-2 flex flex-row space-x-0 pr-10 md:mt-0 md:flex-col">
+      <div className="lg:sticky lg:top-32">
+        <nav
+          className="fade relative flex scroll-pr-6 flex-row items-start overflow-scroll px-4 pb-0 md:relative md:flex-col md:overflow-auto md:px-0"
+          id="nav"
+        >
+          <div className="mb-2 mt-2 flex flex-row space-x-0 pr-10 md:mt-0 md:flex-col">
+            <LayoutGroup>
               {Object.entries(navItems).map(([path, name]) => {
                 const isActive = path === pathname;
 
@@ -50,11 +50,10 @@ export function Navbar() {
                       {path === pathname ? (
                         <motion.div
                           className="absolute inset-0 z-[-1] rounded-md bg-neutral-100 dark:bg-neutral-800"
-                          layoutId="sidebar"
+                          layoutId="navbar"
                           transition={{
-                            type: "spring",
-                            stiffness: 350,
-                            damping: 30,
+                            duration: 0.2,
+                            ease: "easeOut",
                           }}
                         />
                       ) : null}
@@ -62,9 +61,9 @@ export function Navbar() {
                   </Link>
                 );
               })}
-            </div>
-          </nav>
-        </LayoutGroup>
+            </LayoutGroup>
+          </div>
+        </nav>
       </div>
     </aside>
   );
