@@ -46,7 +46,7 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   track,
 }: SpotifyResponse<T> & { prefix: string }) {
   return (
-    <span className="truncate">
+    <span className="max-w-xs truncate">
       {[prefix, track.name, "by", artists[0].name].join(" ")}
     </span>
   );
@@ -67,7 +67,7 @@ export function NowPlayingStat({ fallbackData }: NowPlayingStatProps) {
     return (
       <div className="flex items-center gap-2">
         <StillIcon />
-        <span>Not listening right now</span>
+        <span className="max-w-xs truncate">Not listening right now</span>
       </div>
     );
   }
