@@ -16,14 +16,8 @@ export default async function GET(req: NextRequest) {
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          // TODO: Replace URL and image
-          backgroundImage: "url(https://leerob.io/og-bg.png)",
-        }}
-        tw="flex h-full w-full flex-col items-start justify-center"
-      >
-        <div tw="mx-[190px] flex whitespace-pre-wrap font-serif text-9xl leading-[120px] tracking-tighter text-white">
+      <div tw="flex h-full w-full flex-col items-start justify-center">
+        <div tw="mx-[190px] flex whitespace-pre-wrap font-serif text-9xl leading-[120px] tracking-tighter text-black">
           {postTitle}
         </div>
       </div>
