@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   return (
-    <section className="prose prose-neutral text-neutral-800 prose-headings:font-serif dark:prose-invert dark:text-neutral-200">
+    <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
       <h1>Blog</h1>
       <div className="not-prose contents">
         {allBlogs
