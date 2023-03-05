@@ -9,18 +9,15 @@ specifiers:
   '@types/react-dom': ^18.0.11
   '@types/spotify-api': ^0.0.20
   '@types/superagent': ^4.1.16
-  '@vercel/analytics': ^0.1.11
   '@vercel/edge-config': ^0.1.1
   '@vercel/og': ^0.3.0
   autoprefixer: ^10.4.13
   clsx: ^1.2.1
   contentlayer: ^0.3.0
   date-fns: ^2.29.3
-  dotenv: ^16.0.3
   framer-motion: ^8.5.5
   husky: ^8.0.3
   next: ^13.2.3
-  next-connect: ^0.13.0
   next-contentlayer: ^0.3.0
   postcss: ^8.4.21
   prettier: ^2.8.4
@@ -34,7 +31,6 @@ specifiers:
   rehype-pretty-code: ^0.9.4
   rehype-slug: ^5.1.0
   remark-gfm: ^3.0.1
-  server-only: ^0.0.1
   sharp: ^0.31.3
   superagent: ^8.0.9
   swr: ^2.0.4
@@ -43,16 +39,13 @@ specifiers:
   typescript: ^4.9.5
 
 dependencies:
-  '@vercel/analytics': 0.1.11_react@18.2.0
   '@vercel/edge-config': 0.1.1
   '@vercel/og': 0.3.0
   clsx: 1.2.1
   contentlayer: 0.3.0_esbuild@0.17.11
   date-fns: 2.29.3
-  dotenv: 16.0.3
   framer-motion: 8.5.5_biqbaboplfbrettd7655fr4n2y
   next: 13.2.3_rfdx5ocjtvb4b2h5j5ipjicct4
-  next-connect: 0.13.0
   next-contentlayer: 0.3.0_gzyhf3yf2erhxxau4bnkah367q
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -63,7 +56,6 @@ dependencies:
   rehype-pretty-code: 0.9.4_shiki@0.14.1
   rehype-slug: 5.1.0
   remark-gfm: 3.0.1
-  server-only: 0.0.1
   sharp: 0.31.3
   superagent: 8.0.9
   swr: 2.0.4_react@18.2.0
@@ -1336,14 +1328,6 @@ packages:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: false
 
-  /@vercel/analytics/0.1.11_react@18.2.0:
-    resolution: {integrity: sha512-mj5CPR02y0BRs1tN3oZcBNAX9a8NxsIUl9vElDPcqxnMfP0RbRc9fI9Ud7+QDg/1Izvt5uMumsr+6YsmVHcyuw==}
-    peerDependencies:
-      react: ^16.8||^17||^18
-    dependencies:
-      react: 18.2.0
-    dev: false
-
   /@vercel/edge-config/0.1.1:
     resolution: {integrity: sha512-HDl+12tzW2RHIu8Y804kXg2VpZ02KVb7Nqsa+e1AFoACXXMb+7TfjI1wR19tXoDIu5enQz1dbat40YMEgaH13Q==}
     engines: {node: '>=14.6'}
@@ -1997,11 +1981,6 @@ packages:
     dependencies:
       is-obj: 2.0.0
     dev: true
-
-  /dotenv/16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
-    dev: false
 
   /electron-to-chromium/1.4.320:
     resolution: {integrity: sha512-h70iRscrNluMZPVICXYl5SSB+rBKo22XfuIS1ER0OQxQZpKTnFpuS6coj7wY9M/3trv7OR88rRMOlKmRvDty7Q==}
@@ -3561,12 +3540,6 @@ packages:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
     dev: false
 
-  /next-connect/0.13.0:
-    resolution: {integrity: sha512-f2G4edY01XomjCECSrgOpb/zzQinJO6Whd8Zds0+rLUYhj5cLwkh6FVvZsQCSSbxSc4k9nCwNuk5NLIhvO1gUA==}
-    dependencies:
-      trouter: 3.2.1
-    dev: false
-
   /next-contentlayer/0.3.0_gzyhf3yf2erhxxau4bnkah367q:
     resolution: {integrity: sha512-vt+RaD3nIgZ6oXadtZH19a1mpxvGEoiifdtmXqBSz4rHMRcMA1YZCuSWyj+P9uX7MDmIL6JT6QSp+hvTBMaxiw==}
     peerDependencies:
@@ -4197,11 +4170,6 @@ packages:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: false
 
-  /regexparam/1.3.0:
-    resolution: {integrity: sha512-6IQpFBv6e5vz1QAqI+V4k8P2e/3gRrqfCJ9FI+O1FLQTO+Uz6RXZEZOPmTJ6hlGj7gkERzY5BRCv09whKP96/g==}
-    engines: {node: '>=6'}
-    dev: false
-
   /rehype-autolink-headings/6.1.1:
     resolution: {integrity: sha512-NMYzZIsHM3sA14nC5rAFuUPIOfg+DFmf9EY1YMhaNlB7+3kK/ZlE6kqPfuxr1tsJ1XWkTrMtMoyHosU70d35mA==}
     dependencies:
@@ -4400,10 +4368,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-
-  /server-only/0.0.1:
-    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
-    dev: false
 
   /sharp/0.31.3:
     resolution: {integrity: sha512-XcR4+FCLBFKw1bdB+GEhnUNXNXvnt0tDo4WsBsraKymuo/IAuPuCBVAL2wIkUw2r/dwFW5Q5+g66Kwl2dgDFVg==}
@@ -4754,13 +4718,6 @@ packages:
 
   /trough/2.1.0:
     resolution: {integrity: sha512-AqTiAOLcj85xS7vQ8QkAV41hPDIJ71XJB4RCUrzo/1GM2CQwhkJGaf9Hgr7BOugMRpgGUrqRg/DrBDl4H40+8g==}
-    dev: false
-
-  /trouter/3.2.1:
-    resolution: {integrity: sha512-oY3CmIiEYOe1YMEzh++I67lrNOUldtCeuLL0vRPydvQLHZpSJ03B5dgDFlpFsiriMq6e//NDjjopjUzXOztHow==}
-    engines: {node: '>=6'}
-    dependencies:
-      regexparam: 1.3.0
     dev: false
 
   /ts-node/10.9.1_alpjt73dvgv6kni625hu7f2l4m:
