@@ -3,6 +3,7 @@ import { Mdx } from "@/components/Mdx";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { allBlogs } from "contentlayer/generated";
+import { format } from "date-fns";
 import { notFound } from "next/navigation";
 
 type PageProps = {
@@ -84,7 +85,7 @@ export default async function Blog({ params }: PageProps) {
       </h1>
       <div className="mt-4 mb-8 grid max-w-[650px] grid-cols-[auto_1fr_auto] items-center font-mono text-sm">
         <div className="rounded-md bg-neutral-100 px-2 py-1 tracking-tighter dark:bg-neutral-800">
-          {post.publishedAt}
+          {format(new Date(post.publishedAt), "dd-MM-yyyy")}
         </div>
         <div className="mx-2 h-[0.2em] bg-neutral-50 dark:bg-neutral-800" />
         <div className="font-mono text-sm text-neutral-500">
