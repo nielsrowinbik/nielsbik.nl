@@ -60,7 +60,7 @@ export function NowPlayingStat({ fallbackData }: NowPlayingStatProps) {
   const { data, error } = useSWR<NowPlayingResponse>(
     "/api/now-playing",
     fetcher,
-    { fallbackData }
+    { fallbackData, refreshInterval: 15_000 }
   );
 
   if (!data || (!!data && data.isPlaying === false) || !!error) {
