@@ -6,24 +6,13 @@ import type {
   Track,
   TrackWithAudioFeatures,
 } from "types";
-import { useEffect, useState } from "react";
 
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
 
-function PulsingIcon({
-  beatsPerSecond,
-  timeSignature,
-}: TrackWithAudioFeatures) {
-  const [slow, setSlow] = useState(false);
-  const animationDuration = `${
-    (1 / beatsPerSecond) * (slow ? timeSignature : 1)
-  }s`;
-
-  useEffect(() => {
-    setSlow(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  }, []);
+function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
+  const animationDuration = `${1 / beatsPerSecond}s`;
 
   return (
     <div className="relative flex h-5 w-5">
