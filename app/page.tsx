@@ -16,11 +16,12 @@ export default async function HomePage() {
   const collectionSize = await getCollectionSize();
 
   return (
-    <section className="prose prose-neutral text-neutral-800 prose-headings:font-serif dark:prose-invert dark:text-neutral-200">
+    <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
       <h1>Niels Bik</h1>
       <p className="max-w-[460px]">
-        Hey, I'm Niels. I'm a <strong>Product Manager at Stuvia</strong> where I
-        work to make buying and selling study materials easy and fast.
+        Hey, I&aspos;m Niels. I&aspos;m a{" "}
+        <strong>Product Manager at Stuvia</strong> where I work to make buying
+        and selling study materials easy and fast.
       </p>
       <div className="not-prose my-8 flex max-w-[600px] flex-col items-start md:flex-row md:items-center">
         <Image
@@ -41,7 +42,7 @@ export default async function HomePage() {
         I absolutely <strong>love</strong> listening to music. Other than that I
         enjoy reading, working out (I do CrossFit), and building web-apps.
       </p>
-      <ul className="font-sm not-prose flex list-none flex-col space-x-0 space-y-2 p-0 text-neutral-500 dark:text-neutral-400 md:flex-row md:space-x-4 md:space-y-0">
+      <ul className="not-prose flex list-none flex-col space-x-0 space-y-2 p-0 text-neutral-500 dark:text-neutral-400 md:flex-row md:space-x-4 md:space-y-0">
         <li>
           <a
             className="flex items-center gap-2 transition-all hover:text-neutral-700 dark:hover:text-neutral-200"
