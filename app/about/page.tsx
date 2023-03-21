@@ -44,7 +44,7 @@ export default async function AboutPage() {
         also love working out (I do CrossFit), reading, and building things
         using the latest (web) technologies.
       </p>
-      <div className="mt-8 grid grid-cols-3 gap-2 md:flex-row">
+      <div className="mt-8 grid grid-cols-1 gap-2 md:grid-cols-3">
         <a
           rel="noopener noreferrer"
           target="_blank"
