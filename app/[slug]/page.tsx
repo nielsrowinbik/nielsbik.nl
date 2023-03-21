@@ -78,6 +78,7 @@ export default async function Blog({ params }: PageProps) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(post.structuredData),
         }}
+        id="ld+json"
         type="application/ld+json"
       />
       <h1 className="max-w-[650px] font-serif text-3xl font-bold">

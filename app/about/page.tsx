@@ -15,11 +15,11 @@ export default async function AboutPage() {
   const recordCount = await getCollectionSize();
 
   return (
-    <section className="prose prose-neutral text-neutral-800 prose-headings:font-serif dark:prose-invert dark:text-neutral-200">
+    <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
       <h1>About Me</h1>
       <p>
-        Hey, I'm Niels, a Product Manager working remotely from Utrecht, the
-        Netherlands.
+        Hey, I&aspos;m Niels, a Product Manager working remotely from Utrecht,
+        the Netherlands.
       </p>
       <p>
         I currently work for <strong>Stuvia</strong>. Having joined recently, my
@@ -28,19 +28,19 @@ export default async function AboutPage() {
       </p>
       <p>
         Before Stuvia, I was responsible for Donna (used for capacity allocation
-        and the creation of the Dutch railroad system's timetable) at{" "}
+        and the creation of the Dutch railroad system&aspos;s timetable) at{" "}
         <strong>ProRail</strong>.
       </p>
       <hr />
       <p>
-        I'm a very curious and result-driven person. I like learning about how
-        things work and more importantly: why. Whether it's at work or in
-        private, I hold myself and others to a high standard and am capable of
-        rallying others around a common goal.
+        I&aspos;m a very curious and result-driven person. I like learning about
+        how things work and more importantly: why. Whether it&aspos;s at work or
+        in private, I hold myself and others to a high standard and am capable
+        of rallying others around a common goal.
       </p>
       <p>
-        Outside of work, I'm constantly searching for new music to listen to
-        (even though I do own my {recordCount} favourite albums on vinyl). I
+        Outside of work, I&aspos;m constantly searching for new music to listen
+        to (even though I do own my {recordCount} favourite albums on vinyl). I
         also love working out (I do CrossFit), reading, and building things
         using the latest (web) technologies.
       </p>

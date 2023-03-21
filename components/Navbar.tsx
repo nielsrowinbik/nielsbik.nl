@@ -22,13 +22,13 @@ export function Navbar() {
   }
 
   return (
-    <aside className="-mx-4 font-serif md:mx-0 md:w-[150px] md:flex-shrink-0 md:px-0">
+    <aside className="-mx-4 font-serif md:mx-0 md:w-[150px] md:shrink-0 md:px-0">
       <div className="lg:sticky lg:top-32">
         <nav
-          className="fade relative flex scroll-pr-6 flex-row items-start overflow-scroll px-4 pb-0 md:relative md:flex-col md:overflow-auto md:px-0"
+          className="relative flex scroll-pr-6 flex-row items-start overflow-scroll px-4 pb-0 md:relative md:flex-col md:overflow-auto md:px-0"
           id="nav"
         >
-          <div className="mb-2 mt-2 flex flex-row space-x-0 pr-10 md:mt-0 md:flex-col">
+          <div className="my-2 flex flex-row space-x-0 pr-10 md:mt-0 md:flex-col">
             <LayoutGroup>
               {Object.entries(navItems).map(([path, name]) => {
                 const isActive = path === pathname;
