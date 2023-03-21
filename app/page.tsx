@@ -19,7 +19,7 @@ export default async function HomePage() {
     <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
       <h1>Niels Bik</h1>
       <p className="max-w-[460px]">
-        Hey, I&aspos;m Niels. I&aspos;m a{" "}
+        Hey, I&apos;m Niels. I&apos;m a{" "}
         <strong>Product Manager at Stuvia</strong> where I work to make buying
         and selling study materials easy and fast.
       </p>
