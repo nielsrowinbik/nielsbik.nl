@@ -18,7 +18,7 @@ export default async function AboutPage() {
     <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
       <h1>About Me</h1>
       <p>
-        Hey, I&aspos;m Niels, a Product Manager working remotely from Utrecht,
+        Hey, I&apos;m Niels, a Product Manager working remotely from Utrecht,
         the Netherlands.
       </p>
       <p>
@@ -28,18 +28,18 @@ export default async function AboutPage() {
       </p>
       <p>
         Before Stuvia, I was responsible for Donna (used for capacity allocation
-        and the creation of the Dutch railroad system&aspos;s timetable) at{" "}
+        and the creation of the Dutch railroad system&apos;s timetable) at{" "}
         <strong>ProRail</strong>.
       </p>
       <hr />
       <p>
-        I&aspos;m a very curious and result-driven person. I like learning about
-        how things work and more importantly: why. Whether it&aspos;s at work or
+        I&apos;m a very curious and result-driven person. I like learning about
+        how things work and more importantly: why. Whether it&apos;s at work or
         in private, I hold myself and others to a high standard and am capable
         of rallying others around a common goal.
       </p>
       <p>
-        Outside of work, I&aspos;m constantly searching for new music to listen
+        Outside of work, I&apos;m constantly searching for new music to listen
         to (even though I do own my {recordCount} favourite albums on vinyl). I
         also love working out (I do CrossFit), reading, and building things
         using the latest (web) technologies.
