@@ -1,6 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/Icon";
+import { MechanicalCounter } from "@/components/MechanicalCounter";
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
 
@@ -11,6 +12,7 @@ type ListensStatProps = {
 export function ListensStat({ fallbackData }: ListensStatProps) {
   const { data } = useSWR<number>("/api/listens", fetcher, {
     fallbackData,
+    refreshInterval: 15_000,
   });
 
   return (
@@ -21,7 +23,10 @@ export function ListensStat({ fallbackData }: ListensStatProps) {
       target="_blank"
     >
       <Icon.TrendUp className="h-5 w-5" />
-      <span>{`${data!.toLocaleString()} all time digital listens`}</span>
+      <div className="flex items-center">
+        <MechanicalCounter text={data!.toLocaleString()} />
+        <span>&nbsp;all time digital listens</span>
+      </div>
     </a>
   );
 }
