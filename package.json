@@ -40,7 +40,7 @@
     "@types/superagent": "^4.1.16",
     "autoprefixer": "^10.4.13",
     "eslint": "8.39.0",
-    "eslint-config-next": "13.2.4",
+    "eslint-config-next": "13.4.4",
     "eslint-plugin-tailwindcss": "^3.10.1",
     "husky": "^8.0.3",
     "postcss": "^8.4.21",
