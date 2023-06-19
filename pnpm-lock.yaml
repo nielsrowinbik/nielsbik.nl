@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@vercel/edge-config':
-    specifier: ^0.1.1
-    version: 0.1.1
+    specifier: ^0.2.1
+    version: 0.2.1
   '@vercel/og':
     specifier: ^0.5.0
     version: 0.5.7
@@ -1468,9 +1468,15 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: true
 
-  /@vercel/edge-config@0.1.1:
-    resolution: {integrity: sha512-HDl+12tzW2RHIu8Y804kXg2VpZ02KVb7Nqsa+e1AFoACXXMb+7TfjI1wR19tXoDIu5enQz1dbat40YMEgaH13Q==}
+  /@vercel/edge-config-fs@0.1.0:
+    resolution: {integrity: sha512-NRIBwfcS0bUoUbRWlNGetqjvLSwgYH/BqKqDN7vK1g32p7dN96k0712COgaz6VFizAm9b0g6IG6hR6+hc0KCPg==}
+    dev: false
+
+  /@vercel/edge-config@0.2.1:
+    resolution: {integrity: sha512-847kYqJEbga4PGgNrctQ9XsD+2Kw/S+UjzZnIFpebQ9VbdtB0MX4anq33WetcYZYPfhZd2L0uXVnY/BcjI5dOw==}
     engines: {node: '>=14.6'}
+    dependencies:
+      '@vercel/edge-config-fs': 0.1.0
     dev: false
 
   /@vercel/og@0.5.7:
