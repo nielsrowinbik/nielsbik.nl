@@ -85,8 +85,8 @@ devDependencies:
     specifier: ^18.0.11
     version: 18.0.11
   '@types/spotify-api':
-    specifier: ^0.0.21
-    version: 0.0.21
+    specifier: ^0.0.22
+    version: 0.0.22
   '@types/superagent':
     specifier: ^4.1.16
     version: 4.1.16
@@ -1391,8 +1391,8 @@ packages:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
     dev: true
 
-  /@types/spotify-api@0.0.21:
-    resolution: {integrity: sha512-26dd63oO7sxKt48dnivb8c1hvHEtNmGWi/vesAFm55Z1NiI09ytYUyKPVY8tBMn1nNbglfGA3cGxXhlOYN6SAw==}
+  /@types/spotify-api@0.0.22:
+    resolution: {integrity: sha512-oZLKiI6Fck/BGd0QdmIdJCY351xQfRkfpx2Q23jIntL3YQx85vScYuFJMK81/NoSK9m7HYOl2DW4A9WomDuJOA==}
     dev: true
 
   /@types/superagent@4.1.16:
