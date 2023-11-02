@@ -1,5 +1,6 @@
 "use client";
 
+import { Counter } from "./Counter";
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
@@ -21,7 +22,10 @@ export function RecordsStat({ fallbackData }: RecordsStatProps) {
       target="_blank"
     >
       <Icon.Record className="h-5 w-5" />
-      <span>{`${data!.toLocaleString()} physical records owned`}</span>
+      <span className="flex items-center">
+        <Counter value={data!} />
+        &nbsp;physical records owned
+      </span>
     </a>
   );
 }
