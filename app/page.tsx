@@ -39,8 +39,9 @@ export default async function HomePage() {
         </div>
       </div>
       <p className="max-w-[600px]">
-        I absolutely <strong>love</strong> listening to music. Other than that I
-        enjoy reading, working out (I do CrossFit), and building web-apps.
+        I am incredibly passionate about music. Other than that I enjoy coffee,
+        reading, working out (I do CrossFit), and building web-apps in my spare
+        time.
       </p>
       <ul className="not-prose flex list-none flex-col space-x-0 space-y-2 p-0 text-neutral-500 dark:text-neutral-400 md:flex-row md:space-x-4 md:space-y-0">
         <li>
