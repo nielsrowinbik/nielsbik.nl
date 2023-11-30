@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { allBlogs } from "contentlayer/generated";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -11,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
+  if (allBlogs.length === 0) return notFound();
+
   return (
     <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
       <h1>Blog</h1>
