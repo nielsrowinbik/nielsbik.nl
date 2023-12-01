@@ -20,6 +20,7 @@ function PulsingIcon({ tempo }: TrackWithAudioFeatures) {
         return (
           <button className="relative flex h-5 w-5">
             <span
+              key={animationDuration}
               className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 motion-safe:animate-ping motion-reduce:animate-none"
               style={{ animationDuration }}
             />
