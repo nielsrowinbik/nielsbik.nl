@@ -42,7 +42,7 @@ async function getAccessToken(): Promise<string> {
 }
 
 export async function getAudioFeatures(
-  id: string
+  id: string,
 ): Promise<AudioFeaturesResponse> {
   const access_token = await getAccessToken();
 
@@ -102,7 +102,7 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
 }
 
 export async function getRecentlyPlayed(
-  limit: number = 10
+  limit: number = 10,
 ): Promise<RecentlyPlayedResponse> {
   const access_token = await getAccessToken();
 
@@ -137,7 +137,7 @@ type TimeRange = "short_term" | "medium_term" | "long_term";
 
 export async function getTopTracks(
   limit: number = 10,
-  time_range: TimeRange = "short_term"
+  time_range: TimeRange = "short_term",
 ): Promise<TopTracksResponse> {
   const access_token = await getAccessToken();
 

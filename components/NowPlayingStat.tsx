@@ -10,18 +10,24 @@ import type {
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
+import { BPMTapper } from "./BPMTapper";
 
-function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
-  const animationDuration = `${1 / beatsPerSecond}s`;
-
+function PulsingIcon({ tempo }: TrackWithAudioFeatures) {
   return (
-    <div className="relative flex h-5 w-5">
-      <span
-        className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 motion-safe:animate-ping motion-reduce:animate-none"
-        style={{ animationDuration }}
-      />
-      <Icon.Spotify className="relative h-full w-full" />
-    </div>
+    <BPMTapper initial={tempo}>
+      {({ bpm }) => {
+        const animationDuration = `${1 / (bpm / 60)}s`;
+        return (
+          <div className="relative flex h-5 w-5">
+            <span
+              className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 motion-safe:animate-ping motion-reduce:animate-none"
+              style={{ animationDuration }}
+            />
+            <Icon.Spotify className="relative h-full w-full" />
+          </div>
+        );
+      }}
+    </BPMTapper>
   );
 }
 
@@ -35,9 +41,14 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   track,
 }: SpotifyResponse<T> & { prefix: string }) {
   return (
-    <span className="truncate">
+    <a
+      className="truncate"
+      href={track.url}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
       {[prefix, track.name, "by", artists[0].name].join(" ")}
-    </span>
+    </a>
   );
 }
 
@@ -62,14 +73,9 @@ export function NowPlayingStat({ fallbackData }: NowPlayingStatProps) {
   }
 
   return (
-    <a
-      className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
-      href={data.track.url}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
+    <div className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200">
       <PulsingIcon {...data.track} />
       <TrackInfo {...data} prefix="Now playing" />
-    </a>
+    </div>
   );
 }
