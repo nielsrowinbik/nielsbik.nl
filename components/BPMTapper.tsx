@@ -57,7 +57,7 @@ export function BPMTapper({
   }
 
   return (
-    <div className="contents" onClick={handleTap}>
+    <div className="contents" onMouseDown={handleTap}>
       {children({ bpm })}
     </div>
   );
