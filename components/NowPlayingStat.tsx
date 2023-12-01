@@ -18,13 +18,13 @@ function PulsingIcon({ tempo }: TrackWithAudioFeatures) {
       {({ bpm }) => {
         const animationDuration = `${1 / (bpm / 60)}s`;
         return (
-          <div className="relative flex h-5 w-5">
+          <button className="relative flex h-5 w-5">
             <span
               className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 motion-safe:animate-ping motion-reduce:animate-none"
               style={{ animationDuration }}
             />
             <Icon.Spotify className="relative h-full w-full" />
-          </div>
+          </button>
         );
       }}
     </BPMTapper>
