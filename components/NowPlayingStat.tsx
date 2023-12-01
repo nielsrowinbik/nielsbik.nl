@@ -35,7 +35,7 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   track,
 }: SpotifyResponse<T> & { prefix: string }) {
   return (
-    <span className="max-w-xs truncate">
+    <span className="truncate">
       {[prefix, track.name, "by", artists[0].name].join(" ")}
     </span>
   );
@@ -49,21 +49,21 @@ export function NowPlayingStat({ fallbackData }: NowPlayingStatProps) {
   const { data, error } = useSWR<NowPlayingResponse>(
     "/api/now-playing",
     fetcher,
-    { fallbackData, refreshInterval: 15_000 }
+    { fallbackData, refreshInterval: 15_000 },
   );
 
   if (!data || (!!data && data.isPlaying === false) || !!error) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="grid grid-cols-[1.25rem_auto] items-center gap-2">
         <StillIcon />
-        <span className="max-w-xs truncate">Not listening right now</span>
+        <span className="truncate">Not listening now</span>
       </div>
     );
   }
 
   return (
     <a
-      className="flex items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
+      className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
       href={data.track.url}
       rel="noopener noreferrer"
       target="_blank"

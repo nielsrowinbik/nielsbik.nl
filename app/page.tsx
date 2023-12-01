@@ -7,6 +7,7 @@ import avatar from "./niels.jpg";
 import { getCollectionSize } from "@/lib/discogs";
 import { getNowPlaying } from "@/lib/spotify";
 import { getScrobbleCount } from "@/lib/lastfm";
+import Balancer from "react-wrap-balancer";
 
 export const revalidate = 60;
 
@@ -18,12 +19,12 @@ export default async function HomePage() {
   return (
     <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
       <h1>Niels Bik</h1>
-      <p className="max-w-[460px]">
+      <Balancer as="p">
         Hey, I&apos;m Niels. I&apos;m a{" "}
         <strong>Product Manager at Stuvia</strong> where I work to make buying
         and selling study materials easy and fast.
-      </p>
-      <div className="not-prose my-8 flex max-w-[600px] flex-col items-start md:flex-row md:items-center">
+      </Balancer>
+      <div className="grid grid-flow-row gap-8 md:grid-cols-[100px_auto]">
         <Image
           alt="Niels Bik"
           className="rounded-full grayscale"
@@ -32,17 +33,17 @@ export default async function HomePage() {
           width={100}
           priority
         />
-        <div className="mt-8 ml-0 space-y-2 text-neutral-500 dark:text-neutral-400 md:mt-0 md:ml-6">
+        <div className="not-prose grid grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
           <NowPlayingStat fallbackData={nowPlaying} />
           <ListensStat fallbackData={scrobbleCount} />
           <RecordsStat fallbackData={collectionSize} />
         </div>
       </div>
-      <p className="max-w-[600px]">
+      <Balancer as="p">
         I am incredibly passionate about music. Other than that I enjoy coffee,
         reading, working out (I do CrossFit), and building web-apps in my spare
         time.
-      </p>
+      </Balancer>
       <ul className="not-prose flex list-none flex-col space-x-0 space-y-2 p-0 text-neutral-500 dark:text-neutral-400 md:flex-row md:space-x-4 md:space-y-0">
         <li>
           <a
