@@ -27,7 +27,7 @@ export default async function HomePage() {
       <div className="grid grid-flow-row gap-8 md:grid-cols-[100px_auto]">
         <Image
           alt="Niels Bik"
-          className="rounded-full grayscale"
+          className="aspect-square rounded-full object-cover object-top grayscale"
           src={avatar}
           placeholder="blur"
           width={100}
