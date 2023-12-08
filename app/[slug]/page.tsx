@@ -84,7 +84,7 @@ export default async function Blog({ params }: PageProps) {
       <h1 className="max-w-[650px] font-serif text-3xl font-bold">
         <Balancer>{post.title}</Balancer>
       </h1>
-      <div className="mt-4 mb-8 grid max-w-[650px] grid-cols-[auto_1fr_auto] items-center font-mono text-sm">
+      <div className="mb-8 mt-4 grid max-w-[650px] grid-cols-[auto_1fr_auto] items-center font-mono text-sm">
         <div className="rounded-md bg-neutral-100 px-2 py-1 tracking-tighter dark:bg-neutral-800">
           {format(new Date(post.publishedAt), "dd-MM-yyyy")}
         </div>

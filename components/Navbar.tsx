@@ -24,7 +24,7 @@ export function Navbar() {
     <aside className="-mx-4 font-serif md:mx-0 md:w-[150px] md:shrink-0 md:px-0">
       <div className="lg:sticky lg:top-32">
         <nav
-          className="relative flex scroll-pr-6 flex-row items-start overflow-scroll px-4 pb-0 md:relative md:flex-col md:overflow-auto md:px-0"
+          className="relative flex scroll-pr-6 flex-row items-start px-4 pb-0 md:relative md:flex-col md:overflow-auto md:px-0"
           id="nav"
         >
           <div className="my-2 flex flex-row space-x-0 pr-10 md:mt-0 md:flex-col">
@@ -49,7 +49,7 @@ export function Navbar() {
                         }
                       )}
                     >
-                      <span className="relative py-[5px] px-[10px]">
+                      <span className="relative px-[10px] py-[5px]">
                         {name}
                         {path === pathname ? (
                           <motion.div
