@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
+import { getBlogPosts } from "@/lib/blog";
 
 const kaisei = localFont({
   src: "../public/fonts/kaisei-tokumin-latin-700-normal.woff2",
@@ -61,19 +62,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const allBlogs = getBlogPosts();
+
   return (
     <html
       lang="en"
       className={cn(
         "bg-white text-black dark:bg-[#111010] dark:text-white",
-        kaisei.variable
+        kaisei.variable,
       )}
     >
-      <body className="mx-4 mb-40 mt-8 flex max-w-4xl flex-col antialiased md:mt-20 md:flex-row lg:mx-auto lg:mt-32">
-        <Navbar />
-        <main className="mt-6 flex min-w-0 flex-auto flex-col px-2 md:mt-0 md:px-0">
-          {children}
-        </main>
+      <body className="mx-4 mb-40 mt-8 flex max-w-2xl flex-col antialiased lg:mx-auto">
+        <Navbar blogPosts={allBlogs.length} />
+        <main className="flex min-w-0 flex-auto flex-col px-2">{children}</main>
       </body>
     </html>
   );

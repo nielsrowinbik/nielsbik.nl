@@ -1,15 +1,9 @@
-"use client";
-
-import type {
-  NowPlayingResponse,
-  SpotifyResponse,
-  Track,
-  TrackWithAudioFeatures,
-} from "types";
+import type { SpotifyResponse, Track, TrackWithAudioFeatures } from "types";
 
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
+import { getNowPlaying } from "@/lib/spotify";
 
 function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
   const animationDuration = `${1 / beatsPerSecond}s`;
@@ -41,24 +35,20 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   );
 }
 
-type NowPlayingStatProps = {
-  fallbackData: NowPlayingResponse;
-};
-
-export function NowPlayingStat({ fallbackData }: NowPlayingStatProps) {
-  const { data, error } = useSWR<NowPlayingResponse>(
-    "/api/now-playing",
-    fetcher,
-    { fallbackData, refreshInterval: 15_000 },
+export function NotPlaying() {
+  return (
+    <div className="grid grid-cols-[1.25rem_auto] items-center gap-2">
+      <StillIcon />
+      <span className="truncate">Not listening now</span>
+    </div>
   );
+}
 
-  if (!data || (!!data && data.isPlaying === false) || !!error) {
-    return (
-      <div className="grid grid-cols-[1.25rem_auto] items-center gap-2">
-        <StillIcon />
-        <span className="truncate">Not listening now</span>
-      </div>
-    );
+export async function NowPlayingStat() {
+  const data = await getNowPlaying();
+
+  if (!data || (!!data && data.isPlaying === false)) {
+    return <NotPlaying />;
   }
 
   return (
@@ -73,3 +63,12 @@ export function NowPlayingStat({ fallbackData }: NowPlayingStatProps) {
     </a>
   );
 }
+
+NowPlayingStat.Skeleton = function Skeleton() {
+  return (
+    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
+      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
+      <span className="h-4 w-36 rounded-md bg-neutral-100 dark:bg-neutral-800" />
+    </span>
+  );
+};

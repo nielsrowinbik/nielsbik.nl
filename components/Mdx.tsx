@@ -1,8 +1,9 @@
 import Image from "next/image";
 import type { ImageProps } from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import { createElement, type ReactNode } from "react";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { highlight } from "sugar-high";
 
 const CustomLink = (props: any) => {
   const href = props.href;
@@ -40,22 +41,68 @@ function Callout({ emoji, children }: CalloutProps) {
   );
 }
 
+function Code({
+  children,
+  ...props
+}: {
+  children: string;
+  [key: string]: any;
+}) {
+  let codeHTML = highlight(children);
+  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+}
+
+function slugify(str: string) {
+  return str
+    .toString()
+    .toLowerCase()
+    .trim() // Remove whitespace from both ends of a string
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/&/g, "-and-") // Replace & with 'and'
+    .replace(/[^\w\-]+/g, "") // Remove all non-word characters except for -
+    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
+}
+
+function createHeading(level: number) {
+  return function Heading({ children }: { children: string }) {
+    const slug = slugify(children);
+
+    return createElement(
+      `h${level}`,
+      { id: slug },
+      [
+        createElement("a", {
+          href: `#${slug}`,
+          key: `link-${slug}`,
+          className: "anchor",
+        }),
+      ],
+      children,
+    );
+  };
+}
+
 const components = {
+  h1: createHeading(1),
+  h2: createHeading(2),
+  h3: createHeading(3),
+  h4: createHeading(4),
+  h5: createHeading(5),
+  h6: createHeading(6),
   Image: RoundedImage,
   a: CustomLink,
   Callout,
+  code: Code,
 };
 
-type MdxProps = {
-  code: string;
-};
-
-export function Mdx({ code }: MdxProps) {
-  const Component = useMDXComponent(code);
-
+export function MDX(props: any) {
   return (
     <article className="prose prose-neutral prose-quoteless dark:prose-invert">
-      <Component components={components} />
+      {/* @ts-expect-error */}
+      <MDXRemote
+        {...props}
+        components={{ ...components, ...(props.components || {}) }}
+      />
     </article>
   );
 }

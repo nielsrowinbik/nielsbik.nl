@@ -6,8 +6,8 @@ import type {
   TopTracksResponse,
 } from "types";
 
-import qs from "querystring";
-import superagent from "superagent";
+import invariant from "tiny-invariant";
+import { fetcher } from "./fetcher";
 
 // Refer to https://documenter.getpostman.com/view/583/spotify-playlist-generator/2MtDWP to get a refresh token.
 // 1. Open Postman (https://web.postman.co/) and create a new request
@@ -21,58 +21,78 @@ import superagent from "superagent";
 // 4. Click on "Get New Access Token"
 // 5. Authorize the request with your account, and get the Refresh Token from Postman
 
+invariant(process.env.SPOTIFY_CLIENT_ID, "`SPOTIFY_CLIENT_ID` should be set!");
+invariant(
+  process.env.SPOTIFY_CLIENT_SECRET,
+  "`SPOTIFY_CLIENT_SECRET` should be set!",
+);
+invariant(
+  process.env.SPOTIFY_REFRESH_TOKEN,
+  "`SPOTIFY_REFRESH_TOKEN` should be set!",
+);
+
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
+const api_url = "https://api.spotify.com/v1";
 
 async function getAccessToken(): Promise<string> {
-  const { body } = await superagent
-    .post("https://accounts.spotify.com/api/token")
-    .set("Authorization", `Basic ${basic}`)
-    .set("Content-Type", "application/x-www-form-urlencoded")
-    .send({
-      grant_type: "refresh_token",
-      refresh_token,
-    });
-
-  const { access_token } = body as AccessTokenResponse;
+  const { access_token } = await fetcher<AccessTokenResponse>(
+    "https://accounts.spotify.com/api/token",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${basic}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token,
+        client_id,
+      }),
+    },
+  );
 
   return access_token;
 }
 
 export async function getAudioFeatures(
-  id: string
+  id: string,
 ): Promise<AudioFeaturesResponse> {
   const access_token = await getAccessToken();
 
-  const response = await superagent
-    .get(`https://api.spotify.com/v1/audio-features/${id}`)
-    .set("Authorization", `Bearer ${access_token}`);
-
-  const features = response.body as SpotifyApi.AudioFeaturesObject;
+  const body = await fetcher<SpotifyApi.AudioFeaturesResponse>(
+    `https://api.spotify.com/v1/audio-features/${id}`,
+    {
+      headers: { Authorization: `Bearer ${access_token}` },
+    },
+  );
 
   return {
-    beatsPerSecond: features.tempo / 60,
-    tempo: features.tempo,
-    timeSignature: features.time_signature,
+    beatsPerSecond: body.tempo / 60,
+    tempo: body.tempo,
+    timeSignature: body.time_signature,
   };
 }
 
 export async function getNowPlaying(): Promise<NowPlayingResponse> {
   const access_token = await getAccessToken();
 
-  const { body, statusCode } = await superagent
-    .get("https://api.spotify.com/v1/me/player/currently-playing")
-    .set("Authorization", `Bearer ${access_token}`);
+  const body = await fetcher<SpotifyApi.CurrentlyPlayingResponse>(
+    `${api_url}/me/player/currently-playing`,
+    {
+      headers: { Authorization: `Bearer ${access_token}` },
+    },
+  );
 
-  if (statusCode === 204 || statusCode > 400) {
+  if (!body) {
     return {
       isPlaying: false,
     };
   }
 
-  const item = body.item as SpotifyApi.CurrentlyPlayingObject["item"];
+  const { item } = body;
 
   if (!item || item.type === "episode") {
     return {
@@ -102,19 +122,19 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
 }
 
 export async function getRecentlyPlayed(
-  limit: number = 10
+  limit: number = 10,
 ): Promise<RecentlyPlayedResponse> {
   const access_token = await getAccessToken();
 
-  const params = qs.stringify({
-    limit,
-  });
+  const url = new URL(`${api_url}/me/player/recently-played`);
+  url.searchParams.append("limit", limit.toString());
 
-  const { body } = await superagent
-    .get(`https://api.spotify.com/v1/me/player/recently-played?${params}`)
-    .set("Authorization", `Bearer ${access_token}`);
-
-  const { items } = body as SpotifyApi.UsersRecentlyPlayedTracksResponse;
+  const { items } = await fetcher<SpotifyApi.UsersRecentlyPlayedTracksResponse>(
+    url.href,
+    {
+      headers: { Authorization: `Bearer ${access_token}` },
+    },
+  );
 
   return items.map(({ track }) => ({
     album: {
@@ -137,20 +157,17 @@ type TimeRange = "short_term" | "medium_term" | "long_term";
 
 export async function getTopTracks(
   limit: number = 10,
-  time_range: TimeRange = "short_term"
+  time_range: TimeRange = "short_term",
 ): Promise<TopTracksResponse> {
   const access_token = await getAccessToken();
 
-  const params = qs.stringify({
-    limit,
-    time_range,
+  const url = new URL(`${api_url}/me/top/tracks`);
+  url.searchParams.append("limit", limit.toString());
+  url.searchParams.append("time_range", time_range);
+
+  const { items } = await fetcher<SpotifyApi.UsersTopTracksResponse>(url.href, {
+    headers: { Authorization: `Bearer ${access_token}` },
   });
-
-  const { body } = await superagent
-    .get(`https://api.spotify.com/v1/me/top/tracks?${params}`)
-    .set("Authorization", `Bearer ${access_token}`);
-
-  const { items } = body as SpotifyApi.UsersTopTracksResponse;
 
   return items.map((track) => ({
     album: {

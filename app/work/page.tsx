@@ -1,50 +1,47 @@
 import { Icon } from "@/components/Icon";
 import type { Metadata } from "next";
-import { getCollectionSize } from "@/lib/discogs";
 
 export const revalidate = 60 * 24;
 export const metadata: Metadata = {
-  title: "About",
+  title: "Work",
   description: "Product Manager at Stuvia",
   alternates: {
-    canonical: "https://nielsbik.nl/about",
+    canonical: "https://nielsbik.nl/work",
   },
 };
 
-export default async function AboutPage() {
-  const recordCount = await getCollectionSize();
-
+export default async function WorkPage() {
   return (
-    <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
-      <h1>About Me</h1>
+    <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif prose-hr:my-6 prose-hr:border-neutral-100 dark:text-neutral-200 prose-hr:dark:border-neutral-800">
+      <h1 className="text-2xl">My work</h1>
       <p>
-        Hey, I&apos;m Niels, a Product Manager working remotely from Utrecht,
-        the Netherlands.
-      </p>
-      <p>
-        I currently work for <strong>Stuvia</strong>. Having joined recently, my
-        current focus is on establishing solid product practices while
-        continuing to grow the product itself.
-      </p>
-      <p>
-        Before Stuvia, I was responsible for Donna (used for capacity allocation
-        and the creation of the Dutch railroad system&apos;s timetable) at{" "}
-        <strong>ProRail</strong>.
+        Here&apos;s a brief summary of my work career so far. My full resume is
+        available to download below.
       </p>
       <hr />
-      <p>
-        I&apos;m a very curious and result-driven person. I like learning about
-        how things work and more importantly: why. Whether it&apos;s at work or
-        in private, I hold myself and others to a high standard and am capable
-        of rallying others around a common goal.
+      <h3 className="mb-0">Stuvia</h3>
+      <p className="mt-0 text-sm text-neutral-500 dark:text-neutral-400">
+        Product Manager
       </p>
       <p>
-        Outside of work, I&apos;m constantly searching for new music to listen
-        to (even though I do own my {recordCount} favourite albums on vinyl). I
-        also love working out (I do CrossFit), reading, and building things
-        using the latest (web) technologies.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore fuga
+        excepturi voluptatum assumenda minima ipsam nesciunt mollitia. Dolorem
+        optio aspernatur tempora eos qui. Doloribus nisi, deleniti eligendi esse
+        nam aut!
       </p>
-      <div className="mt-8 grid grid-cols-1 gap-2 md:grid-cols-3">
+      <p></p>
+      <hr />
+      <h3 className="mb-0">ProRail</h3>
+      <p className="mt-0 text-sm text-neutral-500 dark:text-neutral-400">
+        Product Manager
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores
+        nisi iste id nam soluta saepe ex at distinctio quis dolorem hic
+        molestias itaque, accusamus repellat, minima temporibus? Vitae, illum
+        ullam!
+      </p>
+      <div className="mt-24 grid grid-cols-1 gap-2 md:grid-cols-3">
         <a
           rel="noopener noreferrer"
           target="_blank"
@@ -69,7 +66,7 @@ export default async function AboutPage() {
           </div>
           <Icon.ArrowUpRight className="h-4 w-4" />
         </a>
-        <a
+        {/* <a
           rel="noopener noreferrer"
           target="_blank"
           href="https://github.com/nielsrowinbik"
@@ -80,7 +77,7 @@ export default async function AboutPage() {
             <div className="ml-3">GitHub</div>
           </div>
           <Icon.ArrowUpRight className="h-4 w-4" />
-        </a>
+        </a> */}
       </div>
     </section>
   );

@@ -1,49 +1,59 @@
 import { Icon } from "@/components/Icon";
 import Image from "next/image";
 import { ListensStat } from "@/components/ListensStat";
-import { NowPlayingStat } from "@/components/NowPlayingStat";
+import { NowPlayingStat, NotPlaying } from "@/components/NowPlayingStat";
 import { RecordsStat } from "@/components/RecordsStat";
 import avatar from "./niels.jpg";
-import { getCollectionSize } from "@/lib/discogs";
-import { getNowPlaying } from "@/lib/spotify";
-import { getScrobbleCount } from "@/lib/lastfm";
-import Balancer from "react-wrap-balancer";
+import Link from "next/link";
+import { Suspense } from "react";
 
 export const revalidate = 60;
 
-export default async function HomePage() {
-  const nowPlaying = await getNowPlaying();
-  const scrobbleCount = await getScrobbleCount();
-  const collectionSize = await getCollectionSize();
-
+export default function HomePage() {
   return (
     <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
-      <h1>Niels Bik</h1>
-      <Balancer as="p">
-        Hey, I&apos;m Niels. I&apos;m a{" "}
-        <strong>Product Manager at Stuvia</strong> where I work to make buying
-        and selling study materials easy and fast.
-      </Balancer>
-      <div className="grid grid-flow-row gap-8 md:grid-cols-[100px_auto]">
+      <h1 className="text-2xl">Hey, I&apos;m Niels 👋</h1>
+      <p>
+        I&apos;m a Product Manager at Stuvia where I{" "}
+        <Link href="/work">work</Link> (mostly remotely from Utrecht, The
+        Netherlands) to make buying and selling study materials easy and fast.
+      </p>
+      <div className="grid grid-flow-row items-center gap-5 md:grid-cols-[125px_auto]">
         <Image
           alt="Niels Bik"
           className="aspect-square rounded-full object-cover object-top grayscale"
           src={avatar}
           placeholder="blur"
-          width={100}
+          width={125}
           priority
         />
-        <div className="not-prose grid grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
-          <NowPlayingStat fallbackData={nowPlaying} />
-          <ListensStat fallbackData={scrobbleCount} />
-          <RecordsStat fallbackData={collectionSize} />
+        <div className="not-prose grid h-[100px] grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
+          <Suspense fallback={<NowPlayingStat.Skeleton />}>
+            {/* @ts-expect-error */}
+            <NowPlayingStat />
+          </Suspense>
+          <Suspense fallback={<ListensStat.Skeleton />}>
+            {/* @ts-expect-error */}
+            <ListensStat />
+          </Suspense>
+          <Suspense fallback={<RecordsStat.Skeleton />}>
+            {/* @ts-expect-error */}
+            <RecordsStat />
+          </Suspense>
         </div>
       </div>
-      <Balancer as="p">
-        I am incredibly passionate about music. Other than that I enjoy coffee,
-        reading, working out (I do CrossFit), and building web-apps in my spare
-        time.
-      </Balancer>
+      <p>
+        I&apos;m a very curious and result-driven person. I like learning about
+        how things work and more importantly: why. Whether it&apos;s at work or
+        in private, I hold myself and others to a high standard and am capable
+        of rallying others around a common goal.
+      </p>
+      <p>
+        Outside of work, I&apos;m constantly searching for new music to listen
+        to (even though I do own some of my favourite albums on vinyl). I also
+        love working out (I do CrossFit), reading, and building things using the
+        latest (web) technologies.
+      </p>
       <ul className="not-prose flex list-none flex-col space-x-0 space-y-2 p-0 text-neutral-500 dark:text-neutral-400 md:flex-row md:space-x-4 md:space-y-0">
         <li>
           <a

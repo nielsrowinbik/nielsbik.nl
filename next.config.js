@@ -1,7 +1,8 @@
-const { withContentlayer } = require("next-contentlayer");
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    ppr: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },
@@ -64,4 +65,4 @@ const securityHeaders = [
   },
 ];
 
-module.exports = withContentlayer(nextConfig);
+module.exports = nextConfig;

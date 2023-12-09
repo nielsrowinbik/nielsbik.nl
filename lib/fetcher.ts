@@ -1,7 +1,9 @@
+import invariant from "tiny-invariant";
+
 export async function fetcher<JSON = any>(
   input: RequestInfo,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<JSON> {
   const res = await fetch(input, init);
-  return res.json();
+  return res.body && res.json();
 }
