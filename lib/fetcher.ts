@@ -1,5 +1,3 @@
-import invariant from "tiny-invariant";
-
 export async function fetcher<JSON = any>(
   input: RequestInfo,
   init?: RequestInit,
