@@ -35,7 +35,7 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   );
 }
 
-export function NotPlaying() {
+function NotPlaying() {
   return (
     <div className="grid grid-cols-[1.25rem_auto] items-center gap-2">
       <StillIcon />

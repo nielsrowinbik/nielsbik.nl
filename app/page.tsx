@@ -1,7 +1,7 @@
 import { Icon } from "@/components/Icon";
 import Image from "next/image";
 import { ListensStat } from "@/components/ListensStat";
-import { NowPlayingStat, NotPlaying } from "@/components/NowPlayingStat";
+import { NowPlayingStat } from "@/components/NowPlayingStat";
 import { RecordsStat } from "@/components/RecordsStat";
 import avatar from "./niels.jpg";
 import Link from "next/link";
