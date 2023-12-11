@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   description: "Product Manager based in Utrecht, the Netherlands",
   alternates: {
-    canonical: "/",
+    canonical: "https://nielsbik.nl",
   },
   openGraph: {
     title: "Niels Bik",

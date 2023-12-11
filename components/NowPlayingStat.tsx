@@ -1,8 +1,6 @@
 import type { SpotifyResponse, Track, TrackWithAudioFeatures } from "types";
 
 import { Icon } from "@/components/Icon";
-import { fetcher } from "@/lib/fetcher";
-import useSWR from "swr";
 import { getNowPlaying } from "@/lib/spotify";
 
 function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
