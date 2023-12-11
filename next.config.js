@@ -1,11 +1,7 @@
+const withMDX = require("@next/mdx")();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    ppr: true,
-  },
-  images: {
-    formats: ["image/avif", "image/webp"],
-  },
   headers() {
     return [
       {
@@ -14,6 +10,10 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 };
 
 // https://nextjs.org/docs/advanced-features/security-headers
@@ -65,4 +65,4 @@ const securityHeaders = [
   },
 ];
 
-module.exports = nextConfig;
+module.exports = withMDX(nextConfig);

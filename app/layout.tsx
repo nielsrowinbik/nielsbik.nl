@@ -14,13 +14,14 @@ const kaisei = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nielsbik.nl"),
   title: {
     default: "Niels Bik",
     template: "%s | Niels Bik",
   },
   description: "Product Manager based in Utrecht, the Netherlands",
   alternates: {
-    canonical: "https://nielsbik.nl",
+    canonical: "/",
   },
   openGraph: {
     title: "Niels Bik",

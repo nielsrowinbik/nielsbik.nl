@@ -4,6 +4,7 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./content/**/*.mdx",
+    "./mdx-components.tsx",
   ],
   theme: {
     extend: {

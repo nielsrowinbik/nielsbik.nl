@@ -1,9 +1,9 @@
-import Image from "next/image";
-import type { ImageProps } from "next/image";
+import type { MDXComponents } from "mdx/types";
+import { ImageProps } from "next/image";
 import Link from "next/link";
-import { createElement, type ReactNode } from "react";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { ReactNode, createElement } from "react";
 import { highlight } from "sugar-high";
+import Image from "next/image";
 
 const CustomLink = (props: any) => {
   const href = props.href;
@@ -45,10 +45,12 @@ function Code({
   children,
   ...props
 }: {
-  children: string;
+  children?: ReactNode;
   [key: string]: any;
 }) {
-  let codeHTML = highlight(children);
+  if (typeof children !== "string") return null;
+
+  const codeHTML = highlight(children);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
@@ -60,11 +62,16 @@ function slugify(str: string) {
     .replace(/\s+/g, "-") // Replace spaces with -
     .replace(/&/g, "-and-") // Replace & with 'and'
     .replace(/[^\w\-]+/g, "") // Remove all non-word characters except for -
-    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
+    .replace(/\-\-+/g, "-") // Replace multiple - with single -
+    .replace(/-+$/, ""); // Remove any - at the end of the string
 }
 
 function createHeading(level: number) {
-  return function Heading({ children }: { children: string }) {
+  return function Heading({ children }: { children?: ReactNode }) {
+    if (typeof children !== "string" || level === 1) {
+      return createElement(`h${level}`, {}, children);
+    }
+
     const slug = slugify(children);
 
     return createElement(
@@ -82,27 +89,18 @@ function createHeading(level: number) {
   };
 }
 
-const components = {
-  h1: createHeading(1),
-  h2: createHeading(2),
-  h3: createHeading(3),
-  h4: createHeading(4),
-  h5: createHeading(5),
-  h6: createHeading(6),
-  Image: RoundedImage,
-  a: CustomLink,
-  Callout,
-  code: Code,
-};
-
-export function MDX(props: any) {
-  return (
-    <article className="prose prose-neutral prose-quoteless dark:prose-invert">
-      {/* @ts-expect-error */}
-      <MDXRemote
-        {...props}
-        components={{ ...components, ...(props.components || {}) }}
-      />
-    </article>
-  );
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+    h1: createHeading(1),
+    h2: createHeading(2),
+    h3: createHeading(3),
+    h4: createHeading(4),
+    h5: createHeading(5),
+    h6: createHeading(6),
+    Image: RoundedImage,
+    a: CustomLink,
+    Callout,
+    code: Code,
+  };
 }

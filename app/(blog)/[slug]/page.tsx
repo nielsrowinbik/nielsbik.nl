@@ -1,9 +1,10 @@
 import Balancer from "react-wrap-balancer";
-import { MDX } from "@/components/Mdx";
 import type { Metadata } from "next";
 import { format, formatDistance } from "date-fns";
 import { notFound } from "next/navigation";
 import { getBlogPosts } from "@/lib/blog";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { useMDXComponents } from "../../../mdx-components";
 
 type PageProps = {
   params: {
@@ -69,8 +70,10 @@ export default async function Blog({ params }: PageProps) {
     notFound();
   }
 
+  const components = useMDXComponents({});
+
   return (
-    <section>
+    <article className="prose">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -93,7 +96,10 @@ export default async function Blog({ params }: PageProps) {
           }),
         }}
       />
-      <Balancer as="h1" className="max-w-[650px] font-serif text-2xl font-bold">
+      <Balancer
+        as="h1"
+        className="mb-0 max-w-[650px] font-serif text-2xl font-bold"
+      >
         {post.metadata.title}
       </Balancer>
       <div className="mb-8 mt-1 grid max-w-[650px] grid-cols-[auto_1fr_auto] items-center text-sm text-neutral-600 dark:text-neutral-400">
@@ -107,7 +113,8 @@ export default async function Blog({ params }: PageProps) {
         <div />
         <div>{post.metadata.readingTime.text}</div>
       </div>
-      <MDX source={post.content} />
-    </section>
+      {/* @ts-expect-error */}
+      <MDXRemote components={components} source={post.content} />
+    </article>
   );
 }

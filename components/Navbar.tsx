@@ -5,7 +5,6 @@ import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { getBlogPosts } from "@/lib/blog";
 
 const navItems = {
   "/": "home",
