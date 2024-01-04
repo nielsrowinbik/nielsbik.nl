@@ -83,6 +83,7 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
     `${api_url}/me/player/currently-playing`,
     {
       headers: { Authorization: `Bearer ${access_token}` },
+      cache: "no-store",
     },
   );
 
