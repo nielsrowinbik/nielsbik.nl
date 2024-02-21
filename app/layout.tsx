@@ -1,6 +1,7 @@
 import "@/styles/global.css";
 
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Navbar } from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
@@ -76,6 +77,7 @@ export default function RootLayout({
       <body className="mx-4 mb-40 mt-8 flex max-w-2xl flex-col antialiased lg:mx-auto">
         <Navbar blogPosts={allBlogs.length} />
         <main className="flex min-w-0 flex-auto flex-col px-2">{children}</main>
+        <Analytics />
       </body>
     </html>
   );
