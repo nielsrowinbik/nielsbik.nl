@@ -3,7 +3,7 @@ function Badge(props: any) {
     <a
       {...props}
       target="_blank"
-      className="inline-flex items-center rounded border border-neutral-200 bg-neutral-50 p-1 text-sm leading-4 text-neutral-900 no-underline dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+      className="inline-flex items-center rounded border border-neutral-200 px-1.5 py-1 align-bottom text-sm text-neutral-800 no-underline transition-all hover:bg-neutral-100 dark:border-neutral-800 dark:text-neutral-200 hover:dark:bg-neutral-900"
     />
   );
 }
@@ -12,8 +12,8 @@ export function StuviaBadge() {
   return (
     <Badge href="https://www.stuvia.com">
       <svg
-        width="14"
-        height="14"
+        width="18"
+        height="18"
         viewBox="0 0 33 41"
         fill="none"
         role="img"
