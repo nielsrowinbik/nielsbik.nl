@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { fetcher } from "./fetcher";
 import invariant from "tiny-invariant";
 
@@ -8,7 +7,7 @@ const api_url = new URL("https://ws.audioscrobbler.com/2.0/");
 api_url.searchParams.append("api_key", process.env.LAST_FM_API_KEY);
 api_url.searchParams.append("format", "json");
 
-export const getScrobbleCount = cache(async () => {
+export async function getScrobbleCount() {
   const url = new URL(api_url);
   url.searchParams.append("method", "user.getinfo");
   url.searchParams.append("user", "nielsrowinbik");
@@ -16,11 +15,11 @@ export const getScrobbleCount = cache(async () => {
   const body = await fetcher(url.href, { next: { revalidate: 60 } });
 
   return +body.user.playcount;
-});
+}
 
 type Period = "overall" | "7day" | "1month" | "3month" | "6month" | "12month";
 
-export const getTopAlbums = cache(async (period: Period = "7day") => {
+export async function getTopAlbums(period: Period = "7day") {
   const url = new URL(api_url);
   url.searchParams.append("method", "user.gettopalbums");
   url.searchParams.append("user", "nielsrowinbik");
@@ -30,4 +29,4 @@ export const getTopAlbums = cache(async (period: Period = "7day") => {
   const body = await fetcher(url.href, { next: { revalidate: 60 * 60 * 24 } });
 
   return body.topalbums.album;
-});
+}

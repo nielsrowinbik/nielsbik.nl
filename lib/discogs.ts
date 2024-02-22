@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { fetcher } from "./fetcher";
 import invariant from "tiny-invariant";
 
@@ -6,7 +5,7 @@ invariant(process.env.DISCOGS_TOKEN, "`DISCOGS_TOKEN` should be set!");
 
 const token = process.env.DISCOGS_TOKEN;
 
-export const getCollection = cache(async () => {
+export async function getCollection() {
   const url = new URL(
     `https://api.discogs.com/users/nielsbik/collection/folders/0/releases`,
   );
@@ -22,10 +21,10 @@ export const getCollection = cache(async () => {
   });
 
   return body.releases;
-});
+}
 
-export const getCollectionSize = cache(async () => {
+export async function getCollectionSize() {
   const collection = await getCollection();
 
   return collection.length;
-});
+}
