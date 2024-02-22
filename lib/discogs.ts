@@ -22,9 +22,3 @@ export async function getCollection() {
 
   return body.releases;
 }
-
-export async function getCollectionSize() {
-  const collection = await getCollection();
-
-  return collection.length;
-}

@@ -1,9 +1,10 @@
 import { Counter } from "./Counter";
 import { Icon } from "@/components/Icon";
-import { getCollectionSize } from "@/lib/discogs";
+import { getCollection } from "@/lib/discogs";
 
 export async function RecordsStat() {
-  const data = await getCollectionSize();
+  const data = await getCollection();
+  const records = data.lenght;
 
   return (
     <a
@@ -14,7 +15,7 @@ export async function RecordsStat() {
     >
       <Icon.Record className="h-5 w-5" />
       <span className="flex items-center">
-        <Counter value={data} />
+        <Counter value={records} />
         &nbsp;physical records owned
       </span>
     </a>
