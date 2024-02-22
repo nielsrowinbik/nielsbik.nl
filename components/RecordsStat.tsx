@@ -4,7 +4,7 @@ import { getCollection } from "@/lib/discogs";
 
 export async function RecordsStat() {
   const data = await getCollection();
-  const records = data.lenght;
+  const records = Object.keys(data).length;
 
   return (
     <a
