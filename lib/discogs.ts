@@ -1,20 +1,24 @@
-import { cache } from "react";
-import superagent from "superagent";
+import { fetcher } from "./fetcher";
+import invariant from "tiny-invariant";
+
+invariant(process.env.DISCOGS_TOKEN, "`DISCOGS_TOKEN` should be set!");
 
 const token = process.env.DISCOGS_TOKEN;
 
-export const getCollection = cache(async () => {
-  const { body } = await superagent
-    .get(
-      `https://api.discogs.com/users/nielsbik/collection/folders/0/releases?token=${token}&per_page=100&sort=artist`
-    )
-    .set("User-Agent", "NielsBikApp/0.0");
+export async function getCollection() {
+  const url = new URL(
+    `https://api.discogs.com/users/nielsbik/collection/folders/0/releases`,
+  );
+  url.searchParams.append("token", token);
+  url.searchParams.append("per_page", "100");
+  url.searchParams.append("sort", "artist");
+
+  const body = await fetcher(url.href, {
+    headers: {
+      "User-Agent": "NielsBikApp/0.0",
+    },
+    next: { revalidate: 60 * 60 * 24 },
+  });
 
   return body.releases;
-});
-
-export const getCollectionSize = cache(async () => {
-  const collection = await getCollection();
-
-  return collection.length;
-});
+}

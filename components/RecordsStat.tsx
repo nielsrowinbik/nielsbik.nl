@@ -1,18 +1,10 @@
-"use client";
-
 import { Counter } from "./Counter";
 import { Icon } from "@/components/Icon";
-import { fetcher } from "@/lib/fetcher";
-import useSWR from "swr";
+import { getCollection } from "@/lib/discogs";
 
-type RecordsStatProps = {
-  fallbackData: number;
-};
-
-export function RecordsStat({ fallbackData }: RecordsStatProps) {
-  const { data } = useSWR<number>("/api/records", fetcher, {
-    fallbackData,
-  });
+export async function RecordsStat() {
+  const data = await getCollection();
+  const records = Object.keys(data).length;
 
   return (
     <a
@@ -23,9 +15,18 @@ export function RecordsStat({ fallbackData }: RecordsStatProps) {
     >
       <Icon.Record className="h-5 w-5" />
       <span className="flex items-center">
-        <Counter value={data!} />
+        <Counter value={records} />
         &nbsp;physical records owned
       </span>
     </a>
   );
 }
+
+RecordsStat.Skeleton = function Skeleton() {
+  return (
+    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
+      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
+      <span className="h-4 w-48 rounded-md bg-neutral-100 dark:bg-neutral-800" />
+    </span>
+  );
+};
