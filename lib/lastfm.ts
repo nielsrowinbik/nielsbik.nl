@@ -13,7 +13,7 @@ export const getScrobbleCount = cache(async () => {
   url.searchParams.append("method", "user.getinfo");
   url.searchParams.append("user", "nielsrowinbik");
 
-  const body = await fetcher(url.href, { next: { revalidate: 60 } });
+  const body = await fetcher(url.href);
 
   return +body.user.playcount;
 });

@@ -66,7 +66,6 @@ export async function getAudioFeatures(
     `https://api.spotify.com/v1/audio-features/${id}`,
     {
       headers: { Authorization: `Bearer ${access_token}` },
-      next: { revalidate: 60 * 60 * 24 * 7 },
     },
   );
 
@@ -84,7 +83,7 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
     `${api_url}/me/player/currently-playing`,
     {
       headers: { Authorization: `Bearer ${access_token}` },
-      next: { revalidate: 60 },
+      cache: "no-store",
     },
   );
 
@@ -135,7 +134,6 @@ export async function getRecentlyPlayed(
     url.href,
     {
       headers: { Authorization: `Bearer ${access_token}` },
-      next: { revalidate: 60 * 60 },
     },
   );
 
@@ -170,7 +168,6 @@ export async function getTopTracks(
 
   const { items } = await fetcher<SpotifyApi.UsersTopTracksResponse>(url.href, {
     headers: { Authorization: `Bearer ${access_token}` },
-    next: { revalidate: 60 * 60 * 24 },
   });
 
   return items.map((track) => ({
