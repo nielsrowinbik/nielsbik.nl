@@ -13,20 +13,9 @@ export const getScrobbleCount = cache(async () => {
   url.searchParams.append("method", "user.getinfo");
   url.searchParams.append("user", "nielsrowinbik");
 
-  const body = await fetcher(url.href);
+  const body = await fetcher(url.href, { next: { revalidate: 60 } });
 
   return +body.user.playcount;
-});
-
-export const getScrobbleCountForArtist = cache(async (artist: string) => {
-  const url = new URL(api_url);
-  url.searchParams.append("method", "artist.getinfo");
-  url.searchParams.append("artist", artist);
-  url.searchParams.append("username", "nielsrowinbik");
-
-  const body = await fetcher(url.href);
-
-  return +body.artist.stats.userplaycount;
 });
 
 type Period = "overall" | "7day" | "1month" | "3month" | "6month" | "12month";
@@ -38,7 +27,7 @@ export const getTopAlbums = cache(async (period: Period = "7day") => {
   url.searchParams.append("limit", "5");
   url.searchParams.append("period", period);
 
-  const body = await fetcher(url.href);
+  const body = await fetcher(url.href, { next: { revalidate: 60 * 60 * 24 } });
 
   return body.topalbums.album;
 });

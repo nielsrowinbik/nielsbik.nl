@@ -18,6 +18,7 @@ export const getCollection = cache(async () => {
     headers: {
       "User-Agent": "NielsBikApp/0.0",
     },
+    next: { revalidate: 60 * 60 * 24 },
   });
 
   return body.releases;
