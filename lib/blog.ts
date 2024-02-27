@@ -56,6 +56,8 @@ function getMDXData(dir: string) {
   });
 }
 
+export type BlogPost = ReturnType<typeof getBlogPosts>[number];
+
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), "content"));
 }
