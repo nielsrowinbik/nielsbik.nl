@@ -2,6 +2,7 @@ import "@/styles/global.css";
 
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Navbar } from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
@@ -78,6 +79,7 @@ export default function RootLayout({
         <Navbar blogPosts={allBlogs.length} />
         <main className="flex min-w-0 flex-auto flex-col px-2">{children}</main>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
