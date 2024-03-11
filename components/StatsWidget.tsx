@@ -18,15 +18,12 @@ export function StatsWidget() {
       />
       <div className="not-prose grid h-[100px] grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
         <Suspense fallback={<NowPlayingStat.Skeleton />}>
-          {/* @ts-expect-error */}
           <NowPlayingStat />
         </Suspense>
         <Suspense fallback={<ListensStat.Skeleton />}>
-          {/* @ts-expect-error */}
           <ListensStat />
         </Suspense>
         <Suspense fallback={<RecordsStat.Skeleton />}>
-          {/* @ts-expect-error */}
           <RecordsStat />
         </Suspense>
       </div>
