@@ -113,7 +113,6 @@ export default async function Blog({ params }: PageProps) {
         <div />
         <div>{post.metadata.readingTime.text}</div>
       </div>
-      {/* @ts-expect-error */}
       <MDXRemote components={components} source={post.content} />
     </article>
   );
