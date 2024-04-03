@@ -34,7 +34,7 @@
     "@types/mdx": "^2.0.10",
     "@types/node": "^18.14.6",
     "@types/react": "^18.2.64",
-    "@types/react-dom": "^18.2.7",
+    "@types/react-dom": "^18.2.23",
     "@types/spotify-api": "^0.0.22",
     "autoprefixer": "^10.4.19",
     "eslint": "8.46.0",
