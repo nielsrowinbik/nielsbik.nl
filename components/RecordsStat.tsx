@@ -1,10 +1,9 @@
 import { Counter } from "./Counter";
 import { Icon } from "@/components/Icon";
-import { getCollection } from "@/lib/discogs";
+import { getCollectionCount } from "@/lib/discogs";
 
 export async function RecordsStat() {
-  const data = await getCollection();
-  const records = Object.keys(data).length;
+  const records = await getCollectionCount();
 
   return (
     <a
