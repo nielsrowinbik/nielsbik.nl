@@ -7,7 +7,7 @@ const token = process.env.DISCOGS_TOKEN;
 
 export async function getCollectionCount() {
   const url = new URL(
-    `https://api.discogs.com/users/nielsbik/collection/folders/0/releases`,
+    `https://api.discogs.com/users/nielsbik/collection/folders/0`,
   );
   url.searchParams.append("token", token);
 
@@ -18,5 +18,5 @@ export async function getCollectionCount() {
     next: { revalidate: 60 * 60 * 24 },
   });
 
-  return body.pagination.items;
+  return body.count;
 }
