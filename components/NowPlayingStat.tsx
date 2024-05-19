@@ -1,7 +1,16 @@
-import type { SpotifyResponse, Track, TrackWithAudioFeatures } from "types";
+"use client";
+
+import type {
+  NowPlayingResponse,
+  SpotifyResponse,
+  TopTracksResponse,
+  Track,
+  TrackWithAudioFeatures,
+} from "types";
+import useSWR from "swr";
 
 import { Icon } from "@/components/Icon";
-import { getNowPlaying } from "@/lib/spotify";
+import { fetcher } from "@/lib/fetcher";
 
 function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
   const animationDuration = `${1 / beatsPerSecond}s`;
@@ -33,40 +42,41 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   );
 }
 
-function NotPlaying() {
-  return (
-    <div className="grid grid-cols-[1.25rem_auto] items-center gap-2">
-      <StillIcon />
-      <span className="truncate">Not listening now</span>
-    </div>
-  );
-}
+export function NowPlayingStat({
+  nowPlaying,
+  topTracks,
+}: {
+  nowPlaying: NowPlayingResponse;
+  topTracks: TopTracksResponse;
+}) {
+  const { data } = useSWR<NowPlayingResponse>("/api/now-playing", fetcher, {
+    refreshInterval: 30 * 1000,
+    fallbackData: nowPlaying,
+  });
 
-export async function NowPlayingStat() {
-  const data = await getNowPlaying();
-
-  if (!data || (!!data && data.isPlaying === false)) {
-    return <NotPlaying />;
+  if (data!.isPlaying === false) {
+    return (
+      <a
+        className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
+        href={topTracks[0].track.url}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <StillIcon />
+        <TrackInfo {...topTracks[0]} prefix="On repeat:" />
+      </a>
+    );
   }
 
   return (
     <a
       className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
-      href={data.track.url}
+      href={data!.track.url}
       rel="noopener noreferrer"
       target="_blank"
     >
-      <PulsingIcon {...data.track} />
-      <TrackInfo {...data} prefix="Now playing" />
+      <PulsingIcon {...data!.track} />
+      <TrackInfo {...data!} prefix="Now playing: " />
     </a>
   );
 }
-
-NowPlayingStat.Skeleton = function Skeleton() {
-  return (
-    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
-      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
-      <span className="h-4 w-36 rounded-md bg-neutral-100 dark:bg-neutral-800" />
-    </span>
-  );
-};
