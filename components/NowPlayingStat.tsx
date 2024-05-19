@@ -43,15 +43,13 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
 }
 
 export function NowPlayingStat({
-  nowPlaying,
   topTracks,
 }: {
-  nowPlaying: NowPlayingResponse;
   topTracks: TopTracksResponse;
 }) {
   const { data } = useSWR<NowPlayingResponse>("/api/now-playing", fetcher, {
     refreshInterval: 30 * 1000,
-    fallbackData: nowPlaying,
+    fallbackData: { isPlaying: false },
   });
 
   if (data!.isPlaying === false) {
