@@ -170,7 +170,7 @@ export async function getTopTracks(
 
   const { items } = await fetcher<SpotifyApi.UsersTopTracksResponse>(url.href, {
     headers: { Authorization: `Bearer ${access_token}` },
-    next: { revalidate: 60 * 60 * 24 },
+    next: { revalidate: 60 * 60 * 24 * 3 },
   });
 
   return items.map((track) => ({
