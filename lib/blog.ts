@@ -34,7 +34,11 @@ function parseFrontmatter(fileContent: string) {
 }
 
 function getMDXFiles(dir: string) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+  try {
+    return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+  } catch (e) {
+    return [];
+  }
 }
 
 function readMDXFile(filePath: string) {
@@ -44,6 +48,7 @@ function readMDXFile(filePath: string) {
 
 function getMDXData(dir: string) {
   const mdxFiles = getMDXFiles(dir);
+
   return mdxFiles.map((file) => {
     const { metadata, content } = readMDXFile(path.join(dir, file));
     const slug = path.basename(file, path.extname(file));
