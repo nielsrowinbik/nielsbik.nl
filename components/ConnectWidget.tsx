@@ -2,7 +2,7 @@ import { Icon } from "./Icon";
 
 export function ConnectWidget() {
   return (
-    <ul className="not-prose flex list-none flex-col space-x-0 space-y-2 p-0 text-neutral-500 dark:text-neutral-400 md:flex-row md:space-x-4 md:space-y-0">
+    <ul className="not-prose flex list-none flex-col space-x-0 space-y-2 p-0 text-neutral-500 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-400">
       <li>
         <a
           className="flex items-center gap-2 transition-all hover:text-neutral-700 dark:hover:text-neutral-200"
