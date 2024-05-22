@@ -17,7 +17,7 @@ export default async function BlogPage() {
   if (allBlogs.length === 0) return notFound();
 
   return (
-    <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif dark:text-neutral-200">
+    <section className="prose prose-neutral text-neutral-800 dark:prose-invert prose-headings:font-serif prose-p:text-pretty dark:text-neutral-200">
       <h1 className="text-2xl">My blog</h1>
       <div className="not-prose contents">
         {allBlogs
