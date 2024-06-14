@@ -1,7 +1,10 @@
 import { getWeather } from "@/lib/weather";
 
 export async function WeatherLocation() {
-  const weather = await getWeather();
+  const {
+    current: { temp_c },
+    location: { country, region },
+  } = await getWeather();
 
-  return `${weather.current.temp_c}°C ${weather.location.region}, ${weather.location.country}`;
+  return `${Math.round(temp_c)}°C ${region}, ${country}`;
 }
