@@ -8,6 +8,7 @@ import type {
 
 import invariant from "tiny-invariant";
 import { fetcher } from "./fetcher";
+import { cache } from "react";
 
 // Refer to https://documenter.getpostman.com/view/583/spotify-playlist-generator/2MtDWP to get a refresh token.
 // 1. Open Postman (https://web.postman.co/) and create a new request
@@ -37,7 +38,7 @@ const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 const api_url = "https://api.spotify.com/v1";
 
-async function getAccessToken(): Promise<string> {
+const getAccessToken = cache(async function getAccessToken(): Promise<string> {
   const { access_token } = await fetcher<AccessTokenResponse>(
     "https://accounts.spotify.com/api/token",
     {
@@ -55,7 +56,7 @@ async function getAccessToken(): Promise<string> {
   );
 
   return access_token;
-}
+});
 
 export async function getAudioFeatures(
   id: string,
@@ -84,7 +85,7 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
     `${api_url}/me/player/currently-playing`,
     {
       headers: { Authorization: `Bearer ${access_token}` },
-      cache: "no-store",
+      next: { revalidate: 60 },
     },
   );
 

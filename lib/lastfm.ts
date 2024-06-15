@@ -12,7 +12,9 @@ export async function getScrobbleCount() {
   url.searchParams.append("method", "user.getinfo");
   url.searchParams.append("user", "nielsrowinbik");
 
-  const body = await fetcher(url.href, { cache: "no-store" });
+  const body = await fetcher(url.href, {
+    next: { revalidate: 60 },
+  });
 
   return +body.user.playcount;
 }

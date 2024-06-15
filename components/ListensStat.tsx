@@ -1,17 +1,9 @@
-"use client";
-
 import { Counter } from "@/components/Counter";
 import { Icon } from "@/components/Icon";
-import { fetcher } from "@/lib/fetcher";
-import useSWR from "swr";
+import { getScrobbleCount } from "@/lib/lastfm";
 
-export function ListensStat({ scrobbleCount }: { scrobbleCount: number }) {
-  const { data } = useSWR<number>("/api/scrobble-count", fetcher, {
-    refreshInterval: 30 * 1000,
-    fallbackData: scrobbleCount,
-  });
-
-  const count = Math.max(data!, scrobbleCount);
+export async function ListensStat() {
+  const count = await getScrobbleCount();
 
   return (
     <a
@@ -28,3 +20,12 @@ export function ListensStat({ scrobbleCount }: { scrobbleCount: number }) {
     </a>
   );
 }
+
+ListensStat.Skeleton = function Skeleton() {
+  return (
+    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
+      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
+      <span className="h-4 w-48 rounded-md bg-neutral-100 dark:bg-neutral-800" />
+    </span>
+  );
+};

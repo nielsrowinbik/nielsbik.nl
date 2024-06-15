@@ -1,5 +1,3 @@
-"use client";
-
 import type {
   NowPlayingResponse,
   SpotifyResponse,
@@ -7,19 +5,9 @@ import type {
   Track,
   TrackWithAudioFeatures,
 } from "types";
-import useSWR from "swr";
 
 import { Icon } from "@/components/Icon";
-import { fetcher } from "@/lib/fetcher";
-
-function Skeleton() {
-  return (
-    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
-      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
-      <span className="h-4 w-36 rounded-md bg-neutral-100 dark:bg-neutral-800" />
-    </span>
-  );
-}
+import { getNowPlaying, getTopTracks } from "@/lib/spotify";
 
 function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
   const animationDuration = `${1 / beatsPerSecond}s`;
@@ -51,23 +39,9 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
   );
 }
 
-export function NowPlayingStat({
-  topTracks,
-}: {
-  topTracks: TopTracksResponse;
-}) {
-  const { data, isLoading } = useSWR<NowPlayingResponse>(
-    "/api/now-playing",
-    fetcher,
-    {
-      refreshInterval: 30 * 1000,
-      fallbackData: { isPlaying: false },
-    },
-  );
-
-  if (!data || isLoading === true) {
-    return <Skeleton />;
-  }
+export async function NowPlayingStat() {
+  const topTracks = await getTopTracks();
+  const data = await getNowPlaying();
 
   if (data.isPlaying === false) {
     const random = Math.floor(Math.random() * (10 - 0 + 1) + 0);
@@ -97,3 +71,12 @@ export function NowPlayingStat({
     </a>
   );
 }
+
+NowPlayingStat.Skeleton = function Skeleton() {
+  return (
+    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
+      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
+      <span className="h-4 w-36 rounded-md bg-neutral-100 dark:bg-neutral-800" />
+    </span>
+  );
+};

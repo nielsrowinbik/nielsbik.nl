@@ -3,13 +3,9 @@ import { NowPlayingStat } from "@/components/NowPlayingStat";
 import { RecordsStat } from "@/components/RecordsStat";
 import Image from "next/image";
 import avatar from "../public/images/niels.jpg";
-import { getTopTracks } from "@/lib/spotify";
-import { getScrobbleCount } from "@/lib/lastfm";
+import { Suspense } from "react";
 
-export async function StatsWidget() {
-  const topTracks = await getTopTracks();
-  const scrobbleCount = await getScrobbleCount();
-
+export function StatsWidget() {
   return (
     <div className="grid grid-flow-row items-center gap-5 md:grid-cols-[max-content_auto]">
       <Image
@@ -21,9 +17,15 @@ export async function StatsWidget() {
         priority
       />
       <div className="not-prose grid h-[100px] grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
-        <NowPlayingStat topTracks={topTracks} />
-        <ListensStat scrobbleCount={scrobbleCount} />
-        <RecordsStat />
+        <Suspense fallback={<NowPlayingStat.Skeleton />}>
+          <NowPlayingStat />
+        </Suspense>
+        <Suspense fallback={<ListensStat.Skeleton />}>
+          <ListensStat />
+        </Suspense>
+        <Suspense fallback={<RecordsStat.Skeleton />}>
+          <RecordsStat />
+        </Suspense>
       </div>
     </div>
   );
