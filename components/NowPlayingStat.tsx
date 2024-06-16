@@ -1,13 +1,9 @@
-import type {
-  NowPlayingResponse,
-  SpotifyResponse,
-  TopTracksResponse,
-  Track,
-  TrackWithAudioFeatures,
-} from "types";
+import type { SpotifyResponse, Track, TrackWithAudioFeatures } from "types";
 
 import { Icon } from "@/components/Icon";
 import { getNowPlaying, getTopTracks } from "@/lib/spotify";
+import { getRandomSeed } from "@/lib/rand";
+import seedrandom from "seedrandom";
 
 function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
   const animationDuration = `${1 / beatsPerSecond}s`;
@@ -42,9 +38,11 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
 export async function NowPlayingStat() {
   const topTracks = await getTopTracks();
   const data = await getNowPlaying();
+  const seed = await getRandomSeed();
+  const rnd = seedrandom(seed);
 
   if (data.isPlaying === false) {
-    const random = Math.floor(Math.random() * (10 - 0 + 1) + 0);
+    const random = Math.floor(rnd() * (9 - 0) + 0);
 
     return (
       <a
