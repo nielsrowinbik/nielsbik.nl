@@ -1,11 +1,16 @@
 import { RecordsStat } from "@/components/RecordsStat";
 import Image from "next/image";
 import avatar from "../public/images/niels.jpg";
-import { Suspense } from "react";
-import { NowPlayingWrapper } from "./NowPlayingWrapper";
-import { ListensWrapper } from "./ListensWrapper";
+import { getScrobbleCount } from "@/lib/lastfm";
+import { getNowPlaying, getTopTracks } from "@/lib/spotify";
+import { NowPlayingStat } from "./NowPlayingStat";
+import { ListensStat } from "./ListensStat";
 
-export function StatsWidget() {
+export async function StatsWidget() {
+  const nowPlaying = await getNowPlaying();
+  const topTracks = await getTopTracks();
+  const scrobbleCount = await getScrobbleCount();
+
   return (
     <div className="grid grid-flow-row items-center gap-5 md:grid-cols-[max-content_auto]">
       <Image
@@ -17,15 +22,9 @@ export function StatsWidget() {
         priority
       />
       <div className="not-prose grid h-[100px] grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
-        <Suspense fallback={<NowPlayingWrapper.Skeleton />}>
-          <NowPlayingWrapper />
-        </Suspense>
-        <Suspense fallback={<ListensWrapper.Skeleton />}>
-          <ListensWrapper />
-        </Suspense>
-        <Suspense fallback={<RecordsStat.Skeleton />}>
-          <RecordsStat />
-        </Suspense>
+        <NowPlayingStat nowPlaying={nowPlaying} topTracks={topTracks} />
+        <ListensStat scrobbleCount={scrobbleCount} />
+        <RecordsStat />
       </div>
     </div>
   );
