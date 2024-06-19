@@ -52,24 +52,18 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
 }
 
 export function NowPlayingStat({
+  nowPlaying,
   topTracks,
 }: {
+  nowPlaying: NowPlayingResponse;
   topTracks: TopTracksResponse;
 }) {
-  const { data, isLoading } = useSWR<NowPlayingResponse>(
-    "/api/now-playing",
-    fetcher,
-    {
-      refreshInterval: 30 * 1000,
-      fallbackData: { isPlaying: false },
-    },
-  );
+  const { data } = useSWR<NowPlayingResponse>("/api/now-playing", fetcher, {
+    refreshInterval: 30 * 1000,
+    fallbackData: nowPlaying,
+  });
 
-  if (!data || isLoading === true) {
-    return <Skeleton />;
-  }
-
-  if (data.isPlaying === false) {
+  if (data!.isPlaying === false) {
     const random = Math.floor(Math.random() * (10 - 0 + 1) + 0);
 
     return (
@@ -88,12 +82,12 @@ export function NowPlayingStat({
   return (
     <a
       className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
-      href={data.track.url}
+      href={data!.track.url}
       rel="noopener noreferrer"
       target="_blank"
     >
-      <PulsingIcon {...data.track} />
-      <TrackInfo {...data} prefix="Now playing: " />
+      <PulsingIcon {...data!.track} />
+      <TrackInfo {...data!} prefix="Now playing: " />
     </a>
   );
 }
