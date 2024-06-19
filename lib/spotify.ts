@@ -59,7 +59,7 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
   const spotify = new SpotifyApi(
     new RefreshTokenStrategy(client_id, client_secret, refresh_token),
     {
-      fetch: spotifetch({ cache: "no-store" }),
+      fetch: spotifetch({ next: { revalidate: 30 } }),
     },
   );
 

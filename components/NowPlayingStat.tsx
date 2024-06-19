@@ -12,15 +12,6 @@ import useSWR from "swr";
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
 
-function Skeleton() {
-  return (
-    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
-      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
-      <span className="h-4 w-36 rounded-md bg-neutral-100 dark:bg-neutral-800" />
-    </span>
-  );
-}
-
 function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
   const animationDuration = `${1 / beatsPerSecond}s`;
 
@@ -52,24 +43,18 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
 }
 
 export function NowPlayingStat({
+  nowPlaying,
   topTracks,
 }: {
+  nowPlaying: NowPlayingResponse;
   topTracks: TopTracksResponse;
 }) {
-  const { data, isLoading } = useSWR<NowPlayingResponse>(
-    "/api/now-playing",
-    fetcher,
-    {
-      refreshInterval: 30 * 1000,
-      fallbackData: { isPlaying: false },
-    },
-  );
+  const { data } = useSWR<NowPlayingResponse>("/api/now-playing", fetcher, {
+    fallbackData: nowPlaying,
+    refreshInterval: 30 * 1000,
+  });
 
-  if (!data || isLoading === true) {
-    return <Skeleton />;
-  }
-
-  if (data.isPlaying === false) {
+  if (data!.isPlaying === false) {
     const random = Math.floor(Math.random() * (10 - 0 + 1) + 0);
 
     return (
@@ -88,12 +73,12 @@ export function NowPlayingStat({
   return (
     <a
       className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
-      href={data.track.url}
+      href={data!.track.url}
       rel="noopener noreferrer"
       target="_blank"
     >
-      <PulsingIcon {...data.track} />
-      <TrackInfo {...data} prefix="Now playing: " />
+      <PulsingIcon {...data!.track} />
+      <TrackInfo {...data!} prefix="Now playing: " />
     </a>
   );
 }

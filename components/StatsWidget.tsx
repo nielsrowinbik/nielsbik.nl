@@ -1,12 +1,13 @@
-import { ListensStat } from "@/components/ListensStat";
-import { NowPlayingStat } from "@/components/NowPlayingStat";
 import { RecordsStat } from "@/components/RecordsStat";
 import Image from "next/image";
 import avatar from "../public/images/niels.jpg";
-import { getTopTracks } from "@/lib/spotify";
 import { getScrobbleCount } from "@/lib/lastfm";
+import { getNowPlaying, getTopTracks } from "@/lib/spotify";
+import { NowPlayingStat } from "./NowPlayingStat";
+import { ListensStat } from "./ListensStat";
 
 export async function StatsWidget() {
+  const nowPlaying = await getNowPlaying();
   const topTracks = await getTopTracks();
   const scrobbleCount = await getScrobbleCount();
 
@@ -21,7 +22,7 @@ export async function StatsWidget() {
         priority
       />
       <div className="not-prose grid h-[100px] grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
-        <NowPlayingStat topTracks={topTracks} />
+        <NowPlayingStat nowPlaying={nowPlaying} topTracks={topTracks} />
         <ListensStat scrobbleCount={scrobbleCount} />
         <RecordsStat />
       </div>

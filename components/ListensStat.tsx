@@ -7,11 +7,11 @@ import useSWR from "swr";
 
 export function ListensStat({ scrobbleCount }: { scrobbleCount: number }) {
   const { data } = useSWR<number>("/api/scrobble-count", fetcher, {
-    refreshInterval: 30 * 1000,
     fallbackData: scrobbleCount,
+    refreshInterval: 30 * 1000,
   });
 
-  const count = Math.max(data!, scrobbleCount);
+  // const count = Math.max(data!, scrobbleCount);
 
   return (
     <a
@@ -22,7 +22,7 @@ export function ListensStat({ scrobbleCount }: { scrobbleCount: number }) {
     >
       <Icon.TrendUp className="h-5 w-5" />
       <span className="flex items-center">
-        <Counter value={count} />
+        <Counter value={data!} />
         &nbsp;all time digital listens
       </span>
     </a>
