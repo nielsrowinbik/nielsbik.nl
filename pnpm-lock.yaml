@@ -14,6 +14,9 @@ dependencies:
   '@next/mdx':
     specifier: ^14.2.3
     version: 14.2.3(@mdx-js/loader@3.0.1)(@mdx-js/react@3.0.0)
+  '@spotify/web-api-ts-sdk':
+    specifier: ^1.2.0
+    version: 1.2.0
   '@vercel/analytics':
     specifier: ^1.3.1
     version: 1.3.1(next@14.2.3)(react@18.2.0)
@@ -657,6 +660,10 @@ packages:
   /@rushstack/eslint-patch@1.2.0:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
+
+  /@spotify/web-api-ts-sdk@1.2.0:
+    resolution: {integrity: sha512-JUaebva3Ohwo5I5tuTqyW/FKGOMbb40YevJMySAOINRxP7qQ/AMjBzfJx0zeO6yS+wAPfQSoGNsZaUggHw8vsA==}
+    dev: false
 
   /@swc/counter@0.1.3:
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
