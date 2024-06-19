@@ -1,13 +1,14 @@
 import type {
-  AccessTokenResponse,
   AudioFeaturesResponse,
   NowPlayingResponse,
   RecentlyPlayedResponse,
   TopTracksResponse,
 } from "types";
+import { SpotifyApi, type MaxInt } from "@spotify/web-api-ts-sdk";
 
 import invariant from "tiny-invariant";
-import { fetcher } from "./fetcher";
+import { RefreshTokenStrategy } from "./spotify-auth";
+import { spotifetch } from "./fetcher";
 
 // Refer to https://documenter.getpostman.com/view/583/spotify-playlist-generator/2MtDWP to get a refresh token.
 // 1. Open Postman (https://web.postman.co/) and create a new request
@@ -34,41 +35,18 @@ invariant(
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-const api_url = "https://api.spotify.com/v1";
-
-async function getAccessToken(): Promise<string> {
-  const { access_token } = await fetcher<AccessTokenResponse>(
-    "https://accounts.spotify.com/api/token",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${basic}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token,
-        client_id,
-      }),
-    },
-  );
-
-  return access_token;
-}
 
 export async function getAudioFeatures(
   id: string,
 ): Promise<AudioFeaturesResponse> {
-  const access_token = await getAccessToken();
-
-  const body = await fetcher<SpotifyApi.AudioFeaturesResponse>(
-    `https://api.spotify.com/v1/audio-features/${id}`,
+  const spotify = new SpotifyApi(
+    new RefreshTokenStrategy(client_id, client_secret, refresh_token),
     {
-      headers: { Authorization: `Bearer ${access_token}` },
-      next: { revalidate: 60 * 60 * 24 * 7 },
+      fetch: spotifetch({ next: { revalidate: 60 * 60 * 24 * 31 } }),
     },
   );
+
+  const body = await spotify.tracks.audioFeatures(id);
 
   return {
     beatsPerSecond: body.tempo / 60,
@@ -78,25 +56,16 @@ export async function getAudioFeatures(
 }
 
 export async function getNowPlaying(): Promise<NowPlayingResponse> {
-  const access_token = await getAccessToken();
-
-  const body = await fetcher<SpotifyApi.CurrentlyPlayingResponse>(
-    `${api_url}/me/player/currently-playing`,
+  const spotify = new SpotifyApi(
+    new RefreshTokenStrategy(client_id, client_secret, refresh_token),
     {
-      headers: { Authorization: `Bearer ${access_token}` },
-      cache: "no-store",
+      fetch: spotifetch({ cache: "no-store" }),
     },
   );
 
-  if (!body) {
-    return {
-      isPlaying: false,
-    };
-  }
+  const { item } = await spotify.player.getCurrentlyPlayingTrack();
 
-  const { item } = body;
-
-  if (!item || item.type === "episode") {
+  if (!item || "show" in item) {
     return {
       isPlaying: false,
     };
@@ -124,20 +93,16 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
 }
 
 export async function getRecentlyPlayed(
-  limit: number = 10,
+  limit: MaxInt<50> = 10,
 ): Promise<RecentlyPlayedResponse> {
-  const access_token = await getAccessToken();
-
-  const url = new URL(`${api_url}/me/player/recently-played`);
-  url.searchParams.append("limit", limit.toString());
-
-  const { items } = await fetcher<SpotifyApi.UsersRecentlyPlayedTracksResponse>(
-    url.href,
+  const spotify = new SpotifyApi(
+    new RefreshTokenStrategy(client_id, client_secret, refresh_token),
     {
-      headers: { Authorization: `Bearer ${access_token}` },
-      next: { revalidate: 60 * 60 * 24 },
+      fetch: spotifetch({ next: { revalidate: 60 * 60 * 24 } }),
     },
   );
+
+  const { items } = await spotify.player.getRecentlyPlayedTracks(limit);
 
   return items.map(({ track }) => ({
     album: {
@@ -159,33 +124,35 @@ export async function getRecentlyPlayed(
 type TimeRange = "short_term" | "medium_term" | "long_term";
 
 export async function getTopTracks(
-  limit: number = 10,
+  limit: MaxInt<50> = 10,
   time_range: TimeRange = "short_term",
 ): Promise<TopTracksResponse> {
-  const access_token = await getAccessToken();
-
-  const url = new URL(`${api_url}/me/top/tracks`);
-  url.searchParams.append("limit", limit.toString());
-  url.searchParams.append("time_range", time_range);
-
-  const { items } = await fetcher<SpotifyApi.UsersTopTracksResponse>(url.href, {
-    headers: { Authorization: `Bearer ${access_token}` },
-    next: { revalidate: 60 * 60 * 24 * 3 },
-  });
-
-  return items.map((track) => ({
-    album: {
-      name: track.album.name,
-      image: track.album.images[0].url,
-      url: track.album.external_urls.spotify,
+  const spotify = new SpotifyApi(
+    new RefreshTokenStrategy(client_id, client_secret, refresh_token),
+    {
+      fetch: spotifetch({ next: { revalidate: 60 * 60 * 24 * 3 } }),
     },
-    artists: track.artists.map((artist) => ({
+  );
+
+  const { items } = await spotify.currentUser.topItems(
+    "tracks",
+    time_range,
+    limit,
+  );
+
+  return items.map((item) => ({
+    album: {
+      name: item.album.name,
+      image: item.album.images[0].url,
+      url: item.album.external_urls.spotify,
+    },
+    artists: item.artists.map((artist) => ({
       name: artist.name,
       url: artist.external_urls.spotify,
     })),
     track: {
-      name: track.name,
-      url: track.external_urls.spotify,
+      name: item.name,
+      url: item.external_urls.spotify,
     },
   }));
 }
