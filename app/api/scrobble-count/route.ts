@@ -1,6 +1,6 @@
 import { getScrobbleCount } from "@/lib/lastfm";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 30;
 
 export async function GET() {
   const data = await getScrobbleCount();

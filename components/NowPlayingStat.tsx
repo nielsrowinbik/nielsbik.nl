@@ -12,15 +12,6 @@ import useSWR from "swr";
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
 
-function Skeleton() {
-  return (
-    <span className="grid h-7 animate-pulse grid-cols-[1.25rem_auto] items-center gap-2">
-      <span className="h-5 w-5 rounded-full bg-neutral-100 dark:bg-neutral-800" />
-      <span className="h-4 w-36 rounded-md bg-neutral-100 dark:bg-neutral-800" />
-    </span>
-  );
-}
-
 function PulsingIcon({ beatsPerSecond }: TrackWithAudioFeatures) {
   const animationDuration = `${1 / beatsPerSecond}s`;
 
@@ -59,8 +50,8 @@ export function NowPlayingStat({
   topTracks: TopTracksResponse;
 }) {
   const { data } = useSWR<NowPlayingResponse>("/api/now-playing", fetcher, {
-    refreshInterval: 30 * 1000,
     fallbackData: nowPlaying,
+    refreshInterval: 30 * 1000,
   });
 
   if (data!.isPlaying === false) {

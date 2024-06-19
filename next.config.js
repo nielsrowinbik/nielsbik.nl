@@ -14,6 +14,9 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  experimental: {
+    ppr: true,
+  },
 };
 
 // https://nextjs.org/docs/advanced-features/security-headers
