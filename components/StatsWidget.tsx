@@ -5,11 +5,13 @@ import { getScrobbleCount } from "@/lib/lastfm";
 import { getNowPlaying, getTopTracks } from "@/lib/spotify";
 import { NowPlayingStat } from "./NowPlayingStat";
 import { ListensStat } from "./ListensStat";
+import { getRandomSeed } from "@/lib/random";
 
 export async function StatsWidget() {
   const nowPlaying = await getNowPlaying();
   const topTracks = await getTopTracks();
   const scrobbleCount = await getScrobbleCount();
+  const seed = await getRandomSeed();
 
   return (
     <div className="grid grid-flow-row items-center gap-5 md:grid-cols-[max-content_auto]">
@@ -22,7 +24,11 @@ export async function StatsWidget() {
         priority
       />
       <div className="not-prose grid h-[100px] grid-flow-row gap-y-2 text-neutral-500 dark:text-neutral-400">
-        <NowPlayingStat nowPlaying={nowPlaying} topTracks={topTracks} />
+        <NowPlayingStat
+          nowPlaying={nowPlaying}
+          seed={seed}
+          topTracks={topTracks}
+        />
         <ListensStat scrobbleCount={scrobbleCount} />
         <RecordsStat />
       </div>
