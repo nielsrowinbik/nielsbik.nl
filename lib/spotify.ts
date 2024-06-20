@@ -63,13 +63,15 @@ export async function getNowPlaying(): Promise<NowPlayingResponse> {
     },
   );
 
-  const { item } = await spotify.player.getCurrentlyPlayingTrack();
+  const body = await spotify.player.getCurrentlyPlayingTrack();
 
-  if (!item || "show" in item) {
+  if (!body || "show" in body.item) {
     return {
       isPlaying: false,
     };
   }
+
+  const { item } = body;
 
   const audioFeatures = await getAudioFeatures(item.id);
 
