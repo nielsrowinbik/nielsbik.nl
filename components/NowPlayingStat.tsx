@@ -8,6 +8,7 @@ import type {
   TrackWithAudioFeatures,
 } from "types";
 import useSWR from "swr";
+import seedrandom from "seedrandom";
 
 import { Icon } from "@/components/Icon";
 import { fetcher } from "@/lib/fetcher";
@@ -44,28 +45,31 @@ function TrackInfo<T extends TrackWithAudioFeatures | Track>({
 
 export function NowPlayingStat({
   nowPlaying,
+  seed,
   topTracks,
 }: {
   nowPlaying: NowPlayingResponse;
+  seed: string;
   topTracks: TopTracksResponse;
 }) {
   const { data } = useSWR<NowPlayingResponse>("/api/now-playing", fetcher, {
     fallbackData: nowPlaying,
     refreshInterval: 30 * 1000,
   });
+  const random = seedrandom(seed);
 
   if (data!.isPlaying === false) {
-    const random = Math.floor(Math.random() * (10 - 0 + 1) + 0);
+    const i = Math.floor(random() * (9 - 0 + 1) + 0);
 
     return (
       <a
         className="grid grid-cols-[1.25rem_auto] items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
-        href={topTracks[random].track.url}
+        href={topTracks[i].track.url}
         rel="noopener noreferrer"
         target="_blank"
       >
         <StillIcon />
-        <TrackInfo {...topTracks[random]} prefix="On repeat:" />
+        <TrackInfo {...topTracks[i]} prefix="On repeat:" />
       </a>
     );
   }
