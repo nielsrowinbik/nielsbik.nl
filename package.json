@@ -33,7 +33,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.1.0",
-    "@tailwindcss/typography": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.14",
     "@types/mdx": "^2.0.13",
     "@types/node": "^18.14.6",
     "@types/react": "^18.2.64",
