@@ -85,8 +85,8 @@ importers:
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.4.3)
       '@types/mdx':
-        specifier: ^2.0.10
-        version: 2.0.10
+        specifier: ^2.0.13
+        version: 2.0.13
       '@types/node':
         specifier: ^18.14.6
         version: 18.14.6
@@ -575,8 +575,8 @@ packages:
   '@types/mdast@4.0.3':
     resolution: {integrity: sha512-LsjtqsyF+d2/yFOYaN22dHZI1Cpwkrj+g06G8+qtUKlhovPW89YhqSnfKtMbkgmEtYpH2gydRNULd6y8mciAFg==}
 
-  '@types/mdx@2.0.10':
-    resolution: {integrity: sha512-Rllzc5KHk0Al5/WANwgSPl1/CwjqCy+AZrGd78zuK+jO9aDM6ffblZ+zIjgPNAaEBmlO0RYDvLNh7wD0zKVgEg==}
+  '@types/mdx@2.0.13':
+    resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
 
   '@types/ms@0.7.31':
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
@@ -3662,7 +3662,7 @@ snapshots:
   '@mdx-js/mdx@2.3.0':
     dependencies:
       '@types/estree-jsx': 1.0.0
-      '@types/mdx': 2.0.10
+      '@types/mdx': 2.0.13
       estree-util-build-jsx: 2.2.2
       estree-util-is-identifier-name: 2.1.0
       estree-util-to-js: 1.2.0
@@ -3686,7 +3686,7 @@ snapshots:
       '@types/estree': 1.0.0
       '@types/estree-jsx': 1.0.0
       '@types/hast': 3.0.3
-      '@types/mdx': 2.0.10
+      '@types/mdx': 2.0.13
       collapse-white-space: 2.1.0
       devlop: 1.1.0
       estree-util-build-jsx: 3.0.1
@@ -3711,13 +3711,13 @@ snapshots:
 
   '@mdx-js/react@2.3.0(react@19.0.0-rc-e684ca66ab-20240619)':
     dependencies:
-      '@types/mdx': 2.0.10
+      '@types/mdx': 2.0.13
       '@types/react': 18.2.64
       react: 19.0.0-rc-e684ca66ab-20240619
 
   '@mdx-js/react@3.0.0(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619)':
     dependencies:
-      '@types/mdx': 2.0.10
+      '@types/mdx': 2.0.13
       '@types/react': 18.2.64
       react: 19.0.0-rc-e684ca66ab-20240619
 
@@ -3851,7 +3851,7 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.2
 
-  '@types/mdx@2.0.10': {}
+  '@types/mdx@2.0.13': {}
 
   '@types/ms@0.7.31': {}
 
