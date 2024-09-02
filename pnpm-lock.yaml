@@ -12,11 +12,11 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1(webpack@5.89.0)
       '@mdx-js/react':
-        specifier: ^3.0.0
-        version: 3.0.0(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619)
+        specifier: ^3.0.1
+        version: 3.0.1(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619)
       '@next/mdx':
         specifier: ^14.2.3
-        version: 14.2.3(@mdx-js/loader@3.0.1(webpack@5.89.0))(@mdx-js/react@3.0.0(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619))
+        version: 14.2.3(@mdx-js/loader@3.0.1(webpack@5.89.0))(@mdx-js/react@3.0.1(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619))
       '@spotify/web-api-ts-sdk':
         specifier: ^1.2.0
         version: 1.2.0
@@ -422,8 +422,8 @@ packages:
     peerDependencies:
       react: '>=16'
 
-  '@mdx-js/react@3.0.0':
-    resolution: {integrity: sha512-nDctevR9KyYFyV+m+/+S4cpzCWHqj+iHDHq3QrsWezcC+B17uZdIWgCguESUkwFhM3n/56KxWVE3V6EokrmONQ==}
+  '@mdx-js/react@3.0.1':
+    resolution: {integrity: sha512-9ZrPIU4MGf6et1m1ov3zKf+q9+deetI51zprKB1D/z3NOb+rUxxtEl3mCjW5wTGh6VhRdwPueh1oRzi6ezkA8A==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
@@ -3715,7 +3715,7 @@ snapshots:
       '@types/react': 18.2.64
       react: 19.0.0-rc-e684ca66ab-20240619
 
-  '@mdx-js/react@3.0.0(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619)':
+  '@mdx-js/react@3.0.1(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619)':
     dependencies:
       '@types/mdx': 2.0.13
       '@types/react': 18.2.64
@@ -3727,12 +3727,12 @@ snapshots:
     dependencies:
       glob: 10.3.10
 
-  '@next/mdx@14.2.3(@mdx-js/loader@3.0.1(webpack@5.89.0))(@mdx-js/react@3.0.0(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619))':
+  '@next/mdx@14.2.3(@mdx-js/loader@3.0.1(webpack@5.89.0))(@mdx-js/react@3.0.1(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619))':
     dependencies:
       source-map: 0.7.4
     optionalDependencies:
       '@mdx-js/loader': 3.0.1(webpack@5.89.0)
-      '@mdx-js/react': 3.0.0(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619)
+      '@mdx-js/react': 3.0.1(@types/react@18.2.64)(react@19.0.0-rc-e684ca66ab-20240619)
 
   '@next/swc-darwin-arm64@15.0.0-canary.37':
     optional: true
