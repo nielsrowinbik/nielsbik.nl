@@ -15,7 +15,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "framer-motion": "^11.0.5",
+    "framer-motion": "^11.3.31",
     "next": "15.0.0-canary.37",
     "next-mdx-remote": "^4.4.1",
     "react": "19.0.0-rc-e684ca66ab-20240619",
