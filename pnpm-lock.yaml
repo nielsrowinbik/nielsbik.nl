@@ -48,8 +48,8 @@ importers:
         specifier: 19.0.0-rc-e684ca66ab-20240619
         version: 19.0.0-rc-e684ca66ab-20240619(react@19.0.0-rc-e684ca66ab-20240619)
       react-icons:
-        specifier: ^4.8.0
-        version: 4.8.0(react@19.0.0-rc-e684ca66ab-20240619)
+        specifier: ^5.3.0
+        version: 5.3.0(react@19.0.0-rc-e684ca66ab-20240619)
       react-wrap-balancer:
         specifier: ^1.1.0
         version: 1.1.0(react@19.0.0-rc-e684ca66ab-20240619)
@@ -2700,8 +2700,8 @@ packages:
     peerDependencies:
       react: 19.0.0-rc-e684ca66ab-20240619
 
-  react-icons@4.8.0:
-    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
+  react-icons@5.3.0:
+    resolution: {integrity: sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==}
     peerDependencies:
       react: '*'
 
@@ -6600,7 +6600,7 @@ snapshots:
       react: 19.0.0-rc-e684ca66ab-20240619
       scheduler: 0.25.0-rc-e684ca66ab-20240619
 
-  react-icons@4.8.0(react@19.0.0-rc-e684ca66ab-20240619):
+  react-icons@5.3.0(react@19.0.0-rc-e684ca66ab-20240619):
     dependencies:
       react: 19.0.0-rc-e684ca66ab-20240619
 
