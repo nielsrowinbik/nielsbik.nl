@@ -39,7 +39,7 @@
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.23",
     "@types/seedrandom": "^3.0.8",
-    "@types/spotify-api": "^0.0.22",
+    "@types/spotify-api": "^0.0.25",
     "autoprefixer": "^10.4.19",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.4",
