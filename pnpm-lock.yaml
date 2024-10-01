@@ -100,8 +100,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8
       '@types/spotify-api':
-        specifier: ^0.0.22
-        version: 0.0.22
+        specifier: ^0.0.25
+        version: 0.0.25
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.31)
@@ -603,8 +603,8 @@ packages:
   '@types/seedrandom@3.0.8':
     resolution: {integrity: sha512-TY1eezMU2zH2ozQoAFAQFOPpvP15g+ZgSfTZt31AUUH/Rxtnz3H+A/Sv1Snw2/amp//omibc+AEkTaA8KUeOLQ==}
 
-  '@types/spotify-api@0.0.22':
-    resolution: {integrity: sha512-oZLKiI6Fck/BGd0QdmIdJCY351xQfRkfpx2Q23jIntL3YQx85vScYuFJMK81/NoSK9m7HYOl2DW4A9WomDuJOA==}
+  '@types/spotify-api@0.0.25':
+    resolution: {integrity: sha512-okhoy0U9fPWtwqCfbDyW8VxamhqvXE0gXIVeMOh5HcvEFQvWW2X0VsvdiX/OyiGQpZbZiOJXIGrbnIPfK0AIpA==}
 
   '@types/unist@2.0.6':
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
@@ -3849,7 +3849,7 @@ snapshots:
 
   '@types/seedrandom@3.0.8': {}
 
-  '@types/spotify-api@0.0.22': {}
+  '@types/spotify-api@0.0.25': {}
 
   '@types/unist@2.0.6': {}
 
