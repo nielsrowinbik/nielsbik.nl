@@ -83,7 +83,7 @@ importers:
         version: 19.1.0
       '@tailwindcss/typography':
         specifier: ^0.5.14
-        version: 0.5.14(tailwindcss@3.4.3)
+        version: 0.5.14(tailwindcss@3.4.14)
       '@types/mdx':
         specifier: ^2.0.13
         version: 2.0.13
@@ -113,7 +113,7 @@ importers:
         version: 14.2.4(eslint@8.57.0)(typescript@5.2.2)
       eslint-plugin-tailwindcss:
         specifier: ^3.10.1
-        version: 3.10.1(tailwindcss@3.4.3)
+        version: 3.10.1(tailwindcss@3.4.14)
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -127,8 +127,8 @@ importers:
         specifier: ^0.5.13
         version: 0.5.13(prettier@3.0.3)
       tailwindcss:
-        specifier: ^3.4.3
-        version: 3.4.3
+        specifier: ^3.4.14
+        version: 3.4.14
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -3024,8 +3024,8 @@ packages:
   tailwind-merge@1.10.0:
     resolution: {integrity: sha512-WFnDXSS4kFTZwjKg5/oZSGzBRU/l+qcbv5NVTzLUQvJ9yovDAP05h0F2+ZFW0Lw9EcgRoc2AfURUdZvnEFrXKg==}
 
-  tailwindcss@3.4.3:
-    resolution: {integrity: sha512-U7sxQk/n397Bmx4JHbJx/iSOOv5G+II3f1kpLpY2QeUv5DcPdcTsYLlusZfq1NthHS1c1cZoyFmmkex1rzke0A==}
+  tailwindcss@3.4.14:
+    resolution: {integrity: sha512-IcSvOcTRcUtQQ7ILQL5quRDg7Xs93PdJEk1ZLbhhvJc7uj/OAhYOnruEiwnGgBvUtaUAJ8/mhSw1o8L2jCiENA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -3769,13 +3769,13 @@ snapshots:
     dependencies:
       tslib: 2.5.0
 
-  '@tailwindcss/typography@0.5.14(tailwindcss@3.4.3)':
+  '@tailwindcss/typography@0.5.14(tailwindcss@3.4.14)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.3
+      tailwindcss: 3.4.14
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -4667,7 +4667,7 @@ snapshots:
 
   es-shim-unscopables@1.0.2:
     dependencies:
-      hasown: 2.0.0
+      hasown: 2.0.2
 
   es-to-primitive@1.2.1:
     dependencies:
@@ -4813,11 +4813,11 @@ snapshots:
       semver: 6.3.1
       string.prototype.matchall: 4.0.11
 
-  eslint-plugin-tailwindcss@3.10.1(tailwindcss@3.4.3):
+  eslint-plugin-tailwindcss@3.10.1(tailwindcss@3.4.14):
     dependencies:
       fast-glob: 3.2.12
       postcss: 8.4.31
-      tailwindcss: 3.4.3
+      tailwindcss: 3.4.14
 
   eslint-scope@5.1.1:
     dependencies:
@@ -5063,7 +5063,7 @@ snapshots:
       function-bind: 1.1.2
       has-proto: 1.0.1
       has-symbols: 1.0.3
-      hasown: 2.0.0
+      hasown: 2.0.2
 
   get-symbol-description@1.0.0:
     dependencies:
@@ -5309,7 +5309,7 @@ snapshots:
   internal-slot@1.0.7:
     dependencies:
       es-errors: 1.3.0
-      hasown: 2.0.0
+      hasown: 2.0.2
       side-channel: 1.0.4
 
   is-alphabetical@2.0.1: {}
@@ -5362,7 +5362,7 @@ snapshots:
 
   is-core-module@2.13.1:
     dependencies:
-      hasown: 2.0.0
+      hasown: 2.0.2
 
   is-data-view@1.0.1:
     dependencies:
@@ -6990,7 +6990,7 @@ snapshots:
 
   tailwind-merge@1.10.0: {}
 
-  tailwindcss@3.4.3:
+  tailwindcss@3.4.14:
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
