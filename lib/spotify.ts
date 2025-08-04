@@ -56,42 +56,46 @@ export async function getAudioFeatures(
 }
 
 export async function getNowPlaying(): Promise<NowPlayingResponse> {
-  const spotify = new SpotifyApi(
-    new RefreshTokenStrategy(client_id, client_secret, refresh_token),
-    {
-      fetch: spotifetch({ next: { revalidate: 30 } }),
-    },
-  );
-
-  const body = await spotify.player.getCurrentlyPlayingTrack();
-
-  if (!body || "show" in body.item) {
     return {
       isPlaying: false,
     };
-  }
+    
+  // const spotify = new SpotifyApi(
+  //   new RefreshTokenStrategy(client_id, client_secret, refresh_token),
+  //   {
+  //     fetch: spotifetch({ next: { revalidate: 30 } }),
+  //   },
+  // );
 
-  const { item } = body;
+  // const body = await spotify.player.getCurrentlyPlayingTrack();
 
-  const audioFeatures = await getAudioFeatures(item.id);
+  // if (!body || "show" in body.item) {
+  //   return {
+  //     isPlaying: false,
+  //   };
+  // }
 
-  return {
-    album: {
-      name: item.album.name,
-      image: item.album.images[0].url,
-      url: item.album.external_urls.spotify,
-    },
-    artists: item.artists.map(({ name, external_urls: { spotify } }) => ({
-      name,
-      url: spotify,
-    })),
-    isPlaying: true,
-    track: {
-      name: item.name,
-      url: item.external_urls.spotify,
-      ...audioFeatures,
-    },
-  };
+  // const { item } = body;
+
+  // const audioFeatures = await getAudioFeatures(item.id);
+
+  // return {
+  //   album: {
+  //     name: item.album.name,
+  //     image: item.album.images[0].url,
+  //     url: item.album.external_urls.spotify,
+  //   },
+  //   artists: item.artists.map(({ name, external_urls: { spotify } }) => ({
+  //     name,
+  //     url: spotify,
+  //   })),
+  //   isPlaying: true,
+  //   track: {
+  //     name: item.name,
+  //     url: item.external_urls.spotify,
+  //     ...audioFeatures,
+  //   },
+  // };
 }
 
 export async function getRecentlyPlayed(
