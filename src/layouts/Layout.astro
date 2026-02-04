@@ -1,0 +1,68 @@
+---
+import { Font } from "astro:assets";
+import "../global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  image?: string;
+}
+
+const { title, description, canonical, image } = Astro.props;
+---
+
+<!doctype html>
+<html class="bg-background text-primary antialiased fl-px-6/8" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="generator" content={Astro.generator} />
+        <Font cssVariable="--font-inter" preload />
+        <Font cssVariable="--font-kaisei-tokumin" preload />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        {image && <meta property="og:image" content={image} />}
+
+        <meta name="twitter:card" content="summary_large_image" />
+
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Niels Bik",
+            "url": "https://nielsbik.com",
+            "jobTitle": "Product Manager",
+            "sameAs": [
+              "https://github.com/nielsrowinbik",
+              "https://www.linkedin.com/in/nielsbik"
+            ]
+          }
+        </script>
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Niels Bik",
+            "url": "https://nielsbik.com",
+            "publisher": {
+              "@type": "Person",
+              "name": "Niels Bik"
+            }
+          }
+          </script>
+    </head>
+    <body
+        class="container max-w-prose mx-auto fl-pt-8/24 fl-pb-16/24 [view-transition-name:home] min-h-svh"
+    >
+        <slot />
+    </body>
+</html>
