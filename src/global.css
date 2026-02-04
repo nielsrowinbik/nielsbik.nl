@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-@plugin "@tailwindcss/typography" { className: wysiwyg; }
+@plugin "@tailwindcss/typography" {
+  className: wysiwyg;
+};
 @plugin "fluid-tailwindcss";
 
 :root {
@@ -23,8 +25,8 @@
     --color-secondary: var(--secondary);
     --color-tertiary: var(--tertiary);
 
-    --font-sans: var(--font-inter), theme(--font-sans);
-    --font-serif: var(--font-kaisei-tokumin), theme(--font-serif);
+    --font-sans: var(--font-inter), 'sans-serif';
+    --font-serif: var(--font-kaisei-tokumin), 'sans-serif';
 }
 
 @layer base {
