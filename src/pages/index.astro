@@ -1,4 +1,5 @@
 ---
+import ExternalLink from "../components/ExternalLink.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -9,27 +10,15 @@ import Layout from "../layouts/Layout.astro";
     <main>
         <div class="prose">
             <p>
-                I'm a Senior Product Manager at <a
-                    rel="external"
-                    target="_blank"
-                    class="cursor-external"
-                    href="https://www.openhomefoundation.org"
-                    >Open Home Foundation</a
-                > working on making managing your smart home easier.
+                I'm a Senior Product Manager at <ExternalLink href="https://www.openhomefoundation.org">Open Home Foundation</ExternalLink> working on making managing your smart home easier.
             </p>
             <p>
                 Previously, I worked at
-                <a
-                    rel="external"
-                    target="_blank"
-                    class="cursor-external"
-                    href="https://www.stuvia.com">Stuvia</a
+                <ExternalLink
+                    href="https://www.stuvia.com">Stuvia</ExternalLink
                 > to make buying and selling study materials easy and fast, and at
-                <a
-                    rel="external"
-                    target="_blank"
-                    class="cursor-external"
-                    href="https://www.prorail.nl">ProRail</a
+                <ExternalLink
+                    href="https://www.prorail.nl">ProRail</ExternalLink
                 > to transform how the Dutch railroad sector creates the timetable.
             </p>
             <p>
@@ -38,11 +27,8 @@ import Layout from "../layouts/Layout.astro";
                 <!-- <a href="/music"> -->music fan<!-- </a> -->. <!-- I last listened to derp. -->
             </p>
             <p>
-                You can reach me on <a
-                    rel="external"
-                    target="_blank"
-                    class="cursor-external"
-                    href="https://www.linkedin.com/in/nielsbik">LinkedIn</a
+                You can reach me on <ExternalLink
+                    href="https://www.linkedin.com/in/nielsbik">LinkedIn</ExternalLink
                 > or by
                 <a class="" href="mailto:hey@nielsbik.nl">email</a>.
             </p>

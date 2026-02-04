@@ -2,7 +2,7 @@
 
 @plugin "@tailwindcss/typography" {
   className: wysiwyg;
-};
+}
 @plugin "fluid-tailwindcss";
 
 :root {

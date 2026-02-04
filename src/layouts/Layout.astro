@@ -2,6 +2,13 @@
 import { Font } from "astro:assets";
 import "../global.css";
 
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  image?: string;
+}
+
 const { title, description, canonical, image } = Astro.props;
 ---
 
