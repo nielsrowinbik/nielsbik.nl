@@ -33,6 +33,7 @@ export default defineConfig({
       },
     ],
   },
+  site: "https://nielsbik.nl",
   integrations: [favicons(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
