@@ -1,7 +1,6 @@
 import {
   type Album as AlbumObject,
   type Artist as ArtistObject,
-  type AudioAnalysis,
   type MaxInt,
   SpotifyApi,
   type Track as TrackObject,
@@ -21,13 +20,17 @@ import { RefreshTokenStrategy } from "./spotify-auth";
 // 4. Click on "Get New Access Token"
 // 5. Authorize the request with your account, and get the Refresh Token from Postman
 
-const client_id = import.meta.env.SPOTIFY_CLIENT_ID;
-const client_secret = import.meta.env.SPOTIFY_CLIENT_SECRET;
-const refresh_token = import.meta.env.SPOTIFY_REFRESH_TOKEN;
+function getSpotifyConfig() {
+  const client_id = import.meta.env.SPOTIFY_CLIENT_ID;
+  const client_secret = import.meta.env.SPOTIFY_CLIENT_SECRET;
+  const refresh_token = import.meta.env.SPOTIFY_REFRESH_TOKEN;
 
-invariant(client_id, "`SPOTIFY_CLIENT_ID` should be set!");
-invariant(client_secret, "`SPOTIFY_CLIENT_SECRET` should be set!");
-invariant(refresh_token, "`SPOTIFY_REFRESH_TOKEN` should be set!");
+  invariant(client_id, "`SPOTIFY_CLIENT_ID` should be set!");
+  invariant(client_secret, "`SPOTIFY_CLIENT_SECRET` should be set!");
+  invariant(refresh_token, "`SPOTIFY_REFRESH_TOKEN` should be set!");
+
+  return { client_id, client_secret, refresh_token };
+}
 
 type Album = {
   name: AlbumObject["name"];
@@ -45,27 +48,20 @@ type Track = {
   url: TrackObject["external_urls"]["spotify"];
 };
 
-type TrackWithAudioFeatures = {
-  beatsPerSecond: number;
-  name: TrackObject["name"];
-  tempo: AudioAnalysis["track"]["tempo"];
-  timeSignature: AudioAnalysis["track"]["time_signature"];
-  url: TrackObject["external_urls"]["spotify"];
-};
-
-export interface SpotifyResponse<T extends Track | TrackWithAudioFeatures> {
+export interface SpotifyResponse {
   album: Album;
   artists: Artist[];
-  track: T;
+  track: Track;
 }
 
-export type RecentlyPlayedResponse = SpotifyResponse<Track>[];
+export type RecentlyPlayedResponse = SpotifyResponse[];
 
-export type TopTracksResponse = SpotifyResponse<Track>[];
+export type TopTracksResponse = SpotifyResponse[];
 
 export async function getRecentlyPlayed(
   limit: MaxInt<50> = 10,
 ): Promise<RecentlyPlayedResponse> {
+  const { client_id, client_secret, refresh_token } = getSpotifyConfig();
   const spotify = new SpotifyApi(
     new RefreshTokenStrategy(client_id, client_secret, refresh_token),
   );
@@ -95,6 +91,7 @@ export async function getTopTracks(
   limit: MaxInt<50> = 10,
   time_range: TimeRange = "short_term",
 ): Promise<TopTracksResponse> {
+  const { client_id, client_secret, refresh_token } = getSpotifyConfig();
   const spotify = new SpotifyApi(
     new RefreshTokenStrategy(client_id, client_secret, refresh_token),
   );
