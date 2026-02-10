@@ -15,13 +15,13 @@ const topTracks = await getTopTracks(10).catch(() => []);
         <ol>
             {topTracks.map(({ album, artists, track }) => (
               <li class="flex items-center">
-                  <img class="size-8 rounded-md shrink-0" src={album.image} />
+                  <img alt={`Cover for ${album.name} by ${artists.at(0)?.name}`} class="size-8 rounded-md shrink-0" src={album.image} />
                   <div>
                       <a href={track.url}>
                           {track.name}
                       </a>
                       <div>
-                          {artists[0].name}
+                          {artists.at(0)?.name}
                       </div>
                   </div>
               </li>
