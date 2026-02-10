@@ -1,4 +1,5 @@
 import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 import favicons from "astro-favicons";
@@ -33,6 +34,10 @@ export default defineConfig({
       },
     ],
   },
+  output: "static",
+  adapter: vercel({
+    output: "serverless",
+  }),
   site: "https://nielsbik.nl",
   integrations: [favicons(), sitemap()],
   vite: {

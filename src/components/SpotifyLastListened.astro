@@ -1,0 +1,14 @@
+---
+import ExternalLink from "../components/ExternalLink.astro";
+import type { RecentlyPlayedResponse } from "../lib/spotify";
+
+type Props = RecentlyPlayedResponse[number];
+
+const { artists, track } = Astro.props;
+---
+
+<span>
+    I last listened to
+    <ExternalLink href={track.url}>{track.name}</ExternalLink>
+    by <span>{artists[0].name}</span>.
+</span>

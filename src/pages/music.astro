@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getTopTracks } from "../lib/spotify";
+
+const topTracks = await getTopTracks(10).catch(() => []);
 ---
 
 <Layout title="Music — Niels Bik" description="My top artists and tracks." canonical="https://nielsbik.com/music">
@@ -8,13 +11,21 @@ import Layout from "../layouts/Layout.astro";
         <p class="text-secondary">My top artists and tracks.</p>
     </header>
     <main>
-        <h2 class="mb-5 mt-12">Top artists</h2>
-        <ol>
-            <li>huh</li>
-        </ol>
         <h2 class="mb-5 mt-12">Top tracks</h2>
         <ol>
-            <li>huh</li>
+            {topTracks.map(({ album, artists, track }) => (
+              <li class="flex items-center">
+                  <img class="size-8 rounded-md shrink-0" src={album.image} />
+                  <div>
+                      <a href={track.url}>
+                          {track.name}
+                      </a>
+                      <div>
+                          {artists[0].name}
+                      </div>
+                  </div>
+              </li>
+            ))}
         </ol>
     </main>
 </Layout>

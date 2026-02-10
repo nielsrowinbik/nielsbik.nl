@@ -1,6 +1,17 @@
 ---
+export const prerender = false;
+
 import ExternalLink from "../components/ExternalLink.astro";
+import SpotifyLastListened from "../components/SpotifyLastListened.astro";
 import Layout from "../layouts/Layout.astro";
+import { getRecentlyPlayed } from "../lib/spotify";
+
+const [recentTrack] = await getRecentlyPlayed(1).catch(() => []);
+
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, s-maxage=300, stale-while-revalidate=600",
+);
 ---
 
 <Layout title="Niels Bik" description="Senior Product Manager based in Sweden." canonical="https://nielsbik.com/">
@@ -24,7 +35,8 @@ import Layout from "../layouts/Layout.astro";
             <p>
                 I'm a very curious and result-driven person. I like learning
                 about how things work and more importantly: why. I'm also a huge
-                <!-- <a href="/music"> -->music fan<!-- </a> -->. <!-- I last listened to derp. -->
+                <!--<a href="/music">-->music fan<!--</a>-->.
+                <SpotifyLastListened {...recentTrack} />
             </p>
             <p>
                 You can reach me on <ExternalLink
