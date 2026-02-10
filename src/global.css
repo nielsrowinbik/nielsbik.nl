@@ -6,17 +6,19 @@
 @plugin "fluid-tailwindcss";
 
 :root {
-    --background: var(--color-neutral-950);
-    --primary: var(--color-zinc-50);
-    --secondary: var(--color-neutral-300);
-    --tertiary: var(--color-neutral-400);
+    --background: var(--color-zinc-50);
+    --primary: var(--color-neutral-900);
+    --secondary: var(--color-neutral-600);
+    --tertiary: var(--color-neutral-500);
 }
 
-.dark {
-    --background: var(--color-neutral-950);
-    --primary: var(--color-zinc-50);
-    --secondary: var(--color-neutral-300);
-    --tertiary: var(--color-neutral-400);
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: var(--color-neutral-950);
+        --primary: var(--color-zinc-50);
+        --secondary: var(--color-neutral-300);
+        --tertiary: var(--color-neutral-400);
+    }
 }
 
 @theme inline {
@@ -36,7 +38,7 @@
 }
 
 @utility prose {
-    @apply wysiwyg wysiwyg-neutral wysiwyg-invert wysiwyg-a:underline-offset-[0.3rem] wysiwyg-a:decoration-1 wysiwyg-a:decoration-tertiary wysiwyg-a:hover:decoration-primary wysiwyg-a:transition-colors text-secondary wysiwyg-a:[font-weight:inherit];
+    @apply wysiwyg wysiwyg-neutral wysiwyg-invert wysiwyg-a:underline-offset-[0.3rem] wysiwyg-a:decoration-1 wysiwyg-a:decoration-tertiary wysiwyg-a:text-primary wysiwyg-a:hover:decoration-primary wysiwyg-a:transition-colors text-secondary wysiwyg-a:[font-weight:inherit];
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
