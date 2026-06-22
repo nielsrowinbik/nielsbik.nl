@@ -5,35 +5,33 @@ import { defineConfig, fontProviders } from "astro/config";
 import favicons from "astro-favicons";
 
 export default defineConfig({
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.fontsource(),
-        name: "Inter",
-        weights: ["100 900"],
-        cssVariable: "--font-inter",
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Inter",
+      weights: ["100 900"],
+      cssVariable: "--font-inter",
+    },
+    {
+      provider: fontProviders.local(),
+      name: "Kaisei Tokumin",
+      options: {
+        variants: [
+          {
+            weight: 400,
+            style: "normal",
+            src: ["./src/assets/fonts/kaisei-tokumin-latin-400-normal.woff2"],
+          },
+          {
+            weight: 700,
+            style: "normal",
+            src: ["./src/assets/fonts/kaisei-tokumin-latin-700-normal.woff2"],
+          },
+        ],
       },
-      {
-        provider: fontProviders.local(),
-        name: "Kaisei Tokumin",
-        options: {
-          variants: [
-            {
-              weight: 400,
-              style: "normal",
-              src: ["./src/assets/fonts/kaisei-tokumin-latin-400-normal.woff2"],
-            },
-            {
-              weight: 700,
-              style: "normal",
-              src: ["./src/assets/fonts/kaisei-tokumin-latin-700-normal.woff2"],
-            },
-          ],
-        },
-        cssVariable: "--font-kaisei-tokumin",
-      },
-    ],
-  },
+      cssVariable: "--font-kaisei-tokumin",
+    },
+  ],
   adapter: vercel({
     output: "serverless",
   }),
