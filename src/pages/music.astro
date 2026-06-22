@@ -1,8 +1,8 @@
 ---
+import { getTopTracks } from "@/lib/lastfm";
 import Layout from "../layouts/Layout.astro";
-import { getTopTracks } from "../lib/spotify";
 
-const topTracks = await getTopTracks(10).catch(() => []);
+const topTracks = await getTopTracks(10, "7day").catch(() => []);
 ---
 
 <Layout title="Music — Niels Bik" description="My top artists and tracks." canonical="https://nielsbik.com/music">

@@ -2,9 +2,9 @@
 export const prerender = false;
 
 import ExternalLink from "@/components/ExternalLink.astro";
-import SpotifyLastListened from "@/components/SpotifyLastListened.astro";
+import LastFmLastListened from "@/components/LastFmLastListened.astro";
 import Layout from "@/layouts/Layout.astro";
-import { getRecentlyPlayed } from "@/lib/spotify";
+import { getRecentlyPlayed } from "@/lib/lastfm";
 
 const [recentTrack] = await getRecentlyPlayed(1).catch(() => []);
 
@@ -36,7 +36,7 @@ Astro.response.headers.set(
                 I'm a very curious and result-driven person. I like learning
                 about how things work and why. I'm also a huge
                 <!--<a href="/music">-->music fan<!--</a>-->.
-                {recentTrack && <SpotifyLastListened {...recentTrack} />}
+                {recentTrack && <LastFmLastListened {...recentTrack} />}
             </p>
             <p>
                 You can reach me on <ExternalLink
