@@ -1,7 +1,7 @@
+import cloudflare from "@astrojs/cloudflare";
 import sitemap from "@astrojs/sitemap";
-import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig, fontProviders, sessionDrivers } from "astro/config";
 import favicons from "astro-favicons";
 
 export default defineConfig({
@@ -32,9 +32,8 @@ export default defineConfig({
       cssVariable: "--font-kaisei-tokumin",
     },
   ],
-  adapter: vercel({
-    output: "serverless",
-  }),
+  adapter: cloudflare({ imageService: "compile" }),
+  session: { driver: sessionDrivers.null() },
   site: "https://nielsbik.nl",
   integrations: [favicons(), sitemap()],
   vite: {
