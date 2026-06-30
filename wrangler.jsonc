@@ -1,13 +1,9 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "compatibility_date": "2026-06-30",
-  "compatibility_flags": ["global_fetch_strictly_public"],
+  "compatibility_flags": ["nodejs_compat"],
   "name": "nielsbik-nl",
-  "main": "./dist/_worker.js/index.js",
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
-  },
+  "main": "@astrojs/cloudflare/entrypoints/server",
   "observability": {
     "enabled": true
   }
