@@ -1,4 +1,5 @@
 import cloudflare from "@astrojs/cloudflare";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders, sessionDrivers } from "astro/config";
@@ -38,7 +39,7 @@ export default defineConfig({
   },
   session: { driver: sessionDrivers.null() },
   site: "https://nielsbik.nl",
-  integrations: [/*favicons(),*/ sitemap()],
+  integrations: [/*favicons(),*/ sitemap(), mdx()],
   vite: {
     plugins: [tailwindcss()],
   },

@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  image?: ImageMetadata;
+  video?: string;
+  alt?: string;
+  class?: string;
+  transitionName?: string;
+}
+
+const { image, video, alt = "", class: className, transitionName } = Astro.props;
+
+// Set `view-transition-name` directly (Astro's `transition:name` directive does
+// not forward to a component's root element). Matching names on the home card
+// and the article header make the poster morph between the two pages.
+const style = transitionName ? `view-transition-name:${transitionName}` : undefined;
+---
+
+<div
+  class:list={[
+    "aspect-video overflow-hidden rounded-xl bg-secondary/10",
+    className,
+  ]}
+  style={style}
+>
+  {
+    image ? (
+      <Image src={image} alt={alt} class="size-full object-cover" />
+    ) : video ? (
+      <video
+        class="size-full object-cover"
+        src={video}
+        autoplay
+        muted
+        loop
+        playsinline
+      />
+    ) : (
+      <div class="size-full bg-linear-to-br from-secondary/10 to-tertiary/20" />
+    )
+  }
+</div>

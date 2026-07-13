@@ -1,0 +1,62 @@
+---
+import type { ImageMetadata } from "astro";
+import ArrowRight from "@/components/icons/ArrowRight.astro";
+import ArrowUpRight from "@/components/icons/ArrowUpRight.astro";
+import Poster from "@/components/Poster.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  subtitle?: string;
+  external?: boolean;
+  image?: ImageMetadata;
+  video?: string;
+  // When set (internal entries), the poster, title and subtitle morph into
+  // their counterparts on the linked page. Must match the names used there.
+  transitionKey?: string;
+}
+
+const {
+  href,
+  title,
+  subtitle,
+  external = false,
+  image,
+  video,
+  transitionKey,
+} = Astro.props;
+
+const coverName = transitionKey ? `cover-${transitionKey}` : undefined;
+const titleStyle = transitionKey
+  ? `view-transition-name:title-${transitionKey}`
+  : undefined;
+const subtitleStyle = transitionKey
+  ? `view-transition-name:subtitle-${transitionKey}`
+  : undefined;
+
+// On hover the arrow slides in along the direction it points: the external
+// arrow travels up-and-right (diagonal), the internal arrow left-to-right.
+const arrowMotion = external
+  ? "-translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0"
+  : "-translate-x-1 group-hover:translate-x-0";
+---
+
+<a
+  class="group block no-underline"
+  href={href}
+  {...external ? { target: "_blank", rel: "noopener noreferrer external" } : {}}
+>
+  <Poster alt={title} image={image} transitionName={coverName} video={video} />
+  <div class="mt-3 flex items-center justify-between">
+    <h3 class="font-serif font-bold text-primary" style={titleStyle}>{title}</h3>
+    <span
+      class:list={[
+        "pointer-events-none inline-flex shrink-0 text-primary opacity-0 transition duration-200 ease-out group-hover:opacity-100",
+        arrowMotion,
+      ]}
+    >
+      {external ? <ArrowUpRight class="size-5" /> : <ArrowRight class="size-5" />}
+    </span>
+  </div>
+  {subtitle && <p class="text-tertiary" style={subtitleStyle}>{subtitle}</p>}
+</a>

@@ -1,12 +1,19 @@
 ---
 export const prerender = false;
 
+import { getCollection } from "astro:content";
 import ExternalLink from "@/components/ExternalLink.astro";
 import LastFmLastListened from "@/components/LastFmLastListened.astro";
+import MediaCard from "@/components/MediaCard.astro";
+import { projects } from "@/data/projects";
 import Layout from "@/layouts/Layout.astro";
 import { getRecentlyPlayed } from "@/lib/lastfm";
 
 const [recentTrack] = await getRecentlyPlayed(1).catch(() => []);
+
+const writing = (await getCollection("writing")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
 
 Astro.response.headers.set(
   "Cache-Control",
@@ -45,5 +52,39 @@ Astro.response.headers.set(
                 <a class="" href="mailto:hey@nielsbik.nl">email</a>.
             </p>
         </div>
+
+        <section class="mt-12">
+            <h2 class="mb-5 font-serif font-bold text-lg">Projects</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {
+                    projects.map((project) => (
+                        <MediaCard
+                            external
+                            href={project.href}
+                            image={project.image}
+                            subtitle={project.subtitle}
+                            title={project.title}
+                            video={project.video}
+                        />
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="mt-12">
+            <h2 class="mb-5 font-serif font-bold text-lg">Writing</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {
+                    writing.map((entry) => (
+                        <MediaCard
+                            href={`/${entry.id}`}
+                            subtitle={entry.data.subtitle}
+                            title={entry.data.title}
+                            transitionKey={entry.id.replace(/[^\w-]/g, "-")}
+                        />
+                    ))
+                }
+            </div>
+        </section>
     </main>
 </Layout>

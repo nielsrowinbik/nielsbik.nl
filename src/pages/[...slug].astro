@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from "astro:content";
+import Poster from "@/components/Poster.astro";
+import Layout from "@/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("writing");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, subtitle, date, cover } = entry.data;
+
+// Must match the names used on the matching home-page card (see index.astro)
+// so the poster, title and subtitle morph between the two pages.
+const key = entry.id.replace(/[^\w-]/g, "-");
+const coverName = `cover-${key}`;
+const titleStyle = `view-transition-name:title-${key}`;
+const subtitleStyle = `view-transition-name:subtitle-${key}`;
+
+const formattedDate = date.toLocaleDateString("en-GB", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Layout
+  canonical={`https://nielsbik.nl/${entry.id}`}
+  description={subtitle ?? title}
+  title={`${title} — Niels Bik`}
+>
+  <header>
+    <a class="font-serif font-bold no-underline" href="/">Niels Bik</a>
+    <h1 class="mt-8 font-serif font-bold text-2xl" style={titleStyle}>{title}</h1>
+    {subtitle && <p class="text-secondary" style={subtitleStyle}>{subtitle}</p>}
+    <time class="text-tertiary text-sm" datetime={date.toISOString()}>
+      {formattedDate}
+    </time>
+  </header>
+  <main>
+    <Poster alt={title} class="mt-8" image={cover} transitionName={coverName} />
+    <article class="prose mt-8">
+      <Content />
+    </article>
+  </main>
+</Layout>
