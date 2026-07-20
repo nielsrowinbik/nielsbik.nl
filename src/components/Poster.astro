@@ -11,10 +11,6 @@ interface Props {
 }
 
 const { image, video, alt = "", class: className, transitionName } = Astro.props;
-
-// Set `view-transition-name` directly (Astro's `transition:name` directive does
-// not forward to a component's root element). Matching names on the home card
-// and the article header make the poster morph between the two pages.
 const style = transitionName ? `view-transition-name:${transitionName}` : undefined;
 ---
 

@@ -11,8 +11,10 @@ interface Props {
   external?: boolean;
   image?: ImageMetadata;
   video?: string;
-  // When set (internal entries), the poster, title and subtitle morph into
-  // their counterparts on the linked page. Must match the names used there.
+  // When set (internal entries): the poster morphs (poster-*) into the one on
+  // the linked page, and the empty placeholder below it (post-*) morphs into
+  // the detail page's post body — expanding from zero height. Both names must
+  // match the ones used on the detail page.
   transitionKey?: string;
 }
 
@@ -26,12 +28,9 @@ const {
   transitionKey,
 } = Astro.props;
 
-const coverName = transitionKey ? `cover-${transitionKey}` : undefined;
-const titleStyle = transitionKey
-  ? `view-transition-name:title-${transitionKey}`
-  : undefined;
-const subtitleStyle = transitionKey
-  ? `view-transition-name:subtitle-${transitionKey}`
+const posterName = transitionKey ? `poster-${transitionKey}` : undefined;
+const bodyStyle = transitionKey
+  ? `view-transition-name:post-${transitionKey}`
   : undefined;
 
 // On hover the arrow slides in along the direction it points: the external
@@ -46,9 +45,16 @@ const arrowMotion = external
   href={href}
   {...external ? { target: "_blank", rel: "noopener noreferrer external" } : {}}
 >
-  <Poster alt={title} image={image} transitionName={coverName} video={video} />
+  <Poster alt={title} image={image} transitionName={posterName} video={video} />
+  {/*
+   * Seed that morphs into the post body on the detail page. It needs a
+   * non-zero box to be captured by the View Transitions API (a 0-height /
+   * zero-area element is skipped), so it's 1px tall — visually ~0, and the
+   * transition grows it to the body's full height.
+   */}
+  {bodyStyle && <div class="h-px" style={bodyStyle}></div>}
   <div class="mt-3 flex items-center justify-between">
-    <h3 class="font-serif font-bold text-primary" style={titleStyle}>{title}</h3>
+    <h3 class="font-serif font-bold text-primary">{title}</h3>
     <span
       class:list={[
         "pointer-events-none inline-flex shrink-0 text-primary opacity-0 transition duration-200 ease-out group-hover:opacity-100",
@@ -58,5 +64,5 @@ const arrowMotion = external
       {external ? <ArrowUpRight class="size-5" /> : <ArrowRight class="size-5" />}
     </span>
   </div>
-  {subtitle && <p class="text-tertiary" style={subtitleStyle}>{subtitle}</p>}
+  {subtitle && <p class="text-tertiary">{subtitle}</p>}
 </a>

@@ -15,12 +15,12 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, subtitle, date, cover } = entry.data;
 
-// Must match the names used on the matching home-page card (see index.astro)
-// so the poster, title and subtitle morph between the two pages.
+// Match the names on the home-page card (see index.astro): the poster morphs
+// (poster-*), and this post body (post-*) morphs from the card's empty
+// placeholder, so it expands from zero height as it grows into full size.
 const key = entry.id.replace(/[^\w-]/g, "-");
-const coverName = `cover-${key}`;
-const titleStyle = `view-transition-name:title-${key}`;
-const subtitleStyle = `view-transition-name:subtitle-${key}`;
+const posterName = `poster-${key}`;
+const bodyStyle = `view-transition-name:post-${key}`;
 
 const formattedDate = date.toLocaleDateString("en-GB", {
   year: "numeric",
@@ -36,16 +36,16 @@ const formattedDate = date.toLocaleDateString("en-GB", {
 >
   <header>
     <a class="font-serif font-bold no-underline" href="/">Niels Bik</a>
-    <h1 class="mt-8 font-serif font-bold text-2xl" style={titleStyle}>{title}</h1>
-    {subtitle && <p class="text-secondary" style={subtitleStyle}>{subtitle}</p>}
+    <h1 class="mt-8 font-serif font-bold text-2xl">{title}</h1>
+    {subtitle && <p class="text-secondary">{subtitle}</p>}
     <time class="text-tertiary text-sm" datetime={date.toISOString()}>
       {formattedDate}
     </time>
   </header>
-  <main>
-    <Poster alt={title} class="mt-8" image={cover} transitionName={coverName} />
-    <article class="prose mt-8">
+  <Poster alt={title} class="mt-8" image={cover} transitionName={posterName} />
+  <div class="mt-8" style={bodyStyle}>
+    <article class="prose">
       <Content />
     </article>
-  </main>
+  </div>
 </Layout>

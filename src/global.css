@@ -38,23 +38,23 @@
 }
 
 /*
- * Page transitions (Astro ClientRouter).
- * The incoming page grows into frame while the shared poster
- * (view-transition-name: cover-*) morphs between the home card and the
- * article header, and the "Niels Bik" title (site-name) morphs too.
+ * Page transitions (Astro ClientRouter): container transform.
+ * A writing card's wrapper (view-transition-name: post-*) expands into the
+ * whole-post wrapper on its detail page; the poster (poster-*) morphs cleanly
+ * on its own name nested inside, and the body cross-fades within the box.
  */
 @media (prefers-reduced-motion: no-preference) {
     ::view-transition-group(*) {
-        animation-duration: 0.45s;
+        animation-duration: 2s;
         animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     ::view-transition-old(root) {
-        animation: vt-fade-out 0.2s ease both;
+        animation: vt-fade-out 2s ease both;
     }
 
     ::view-transition-new(root) {
-        animation: vt-grow-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        animation: vt-grow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both;
         transform-origin: center 35%;
     }
 }
