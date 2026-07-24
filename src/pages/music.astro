@@ -1,4 +1,5 @@
 ---
+import Artwork from "@/components/Artwork.astro";
 import ExternalLink from "@/components/ExternalLink.astro";
 import { getTopArtists, getTopTracks } from "@/lib/lastfm";
 import Layout from "../layouts/Layout.astro";
@@ -19,7 +20,7 @@ const topTracks = await getTopTracks(10, "7day").catch(() => []);
                 {topArtists.map(({ image, name, url }, i) => (
                 <li class="flex items-center">
                     <span>{i + 1}</span>
-                    <img alt={`Profile picture for ${name}`} class="size-8 rounded-md shrink-0 mb-0 mt-0" src={image} />
+                    <Artwork src={image} alt={`Photo of ${name}`} rounded />
                     <ExternalLink class="font-serif font-medium hover:underline" href={url}>
                         {name}
                     </ExternalLink>
@@ -31,7 +32,7 @@ const topTracks = await getTopTracks(10, "7day").catch(() => []);
                 {topTracks.map(({ album, artists, track }, i) => (
                 <li class="flex items-center">
                     <span>{i + 1}</span>
-                    <img alt={`Cover for ${album.name} by ${artists.at(0)?.name}`} class="size-8 rounded-md shrink-0 mb-0 mt-0" src={album.image} />
+                    <Artwork src={album.image} alt={album.name ? `Cover of ${album.name}` : `Cover for ${track.name}`} />
                     <div>
                         <ExternalLink class="font-serif font-medium hover:underline" href={track.url}>
                             {track.name}

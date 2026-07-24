@@ -33,6 +33,9 @@ export default defineConfig({
     },
   ],
   adapter: cloudflare({ imageService: "compile" }),
+  image: {
+    remotePatterns: [{ protocol: "https", hostname: "**.dzcdn.net" }],
+  },
   session: { driver: sessionDrivers.null() },
   site: "https://nielsbik.nl",
   integrations: [/*favicons(),*/ sitemap()],
