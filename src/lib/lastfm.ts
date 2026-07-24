@@ -144,3 +144,62 @@ export async function getTopTracks(
   }
   return [];
 }
+
+interface LastFmTopArtist {
+  name: string;
+  url: string;
+  mbid: string;
+  playcount: string;
+  streamable: string;
+  image: LastFmImage[];
+  "@attr": { rank: string };
+}
+
+interface LastFmTopArtistsResponse {
+  topartists: {
+    artist: LastFmTopArtist[];
+    "@attr": {
+      user: string;
+      totalPages: string;
+      page: string;
+      perPage: string;
+      total: string;
+    };
+  };
+}
+
+type TopArtist = {
+  name: string;
+  url: string;
+  image: string;
+};
+
+export type TopArtistsResponse = TopArtist[];
+
+async function fetchTopArtists(limit: number, period: Period): Promise<TopArtistsResponse> {
+  const url = new URL(api_url);
+  url.searchParams.append("method", "user.gettopartists");
+  url.searchParams.append("user", "nielsrowinbik");
+  url.searchParams.append("limit", `${limit}`);
+  url.searchParams.append("period", period);
+
+  const body = await fetch(url.href);
+  const data: LastFmTopArtistsResponse = await body.json();
+
+  return data.topartists.artist.map((artist) => ({
+    name: artist.name,
+    url: artist.url,
+    image: artist.image.find((i) => i.size === "extralarge")?.["#text"] ?? "",
+  }));
+}
+
+export async function getTopArtists(
+  limit = 10,
+  period: Period = "7day",
+): Promise<TopArtistsResponse> {
+  for (const p of PERIODS.slice(PERIODS.indexOf(period))) {
+    const results = await fetchTopArtists(limit, p);
+    if (results.length > 0) return results;
+  }
+  return [];
+}
