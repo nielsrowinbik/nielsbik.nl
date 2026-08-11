@@ -2,7 +2,7 @@ import cloudflare from "@astrojs/cloudflare";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders, sessionDrivers } from "astro/config";
-import favicons from "astro-favicons";
+// import favicons from "astro-favicons";
 
 export default defineConfig({
   fonts: [
@@ -33,9 +33,12 @@ export default defineConfig({
     },
   ],
   adapter: cloudflare({ imageService: "compile" }),
+  image: {
+    remotePatterns: [{ protocol: "https", hostname: "**.dzcdn.net" }],
+  },
   session: { driver: sessionDrivers.null() },
   site: "https://nielsbik.nl",
-  integrations: [favicons(), sitemap()],
+  integrations: [/*favicons(),*/ sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

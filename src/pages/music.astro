@@ -1,7 +1,10 @@
 ---
-import { getTopTracks } from "@/lib/lastfm";
+import Artwork from "@/components/Artwork.astro";
+import ExternalLink from "@/components/ExternalLink.astro";
+import { getTopArtists, getTopTracks } from "@/lib/lastfm";
 import Layout from "../layouts/Layout.astro";
 
+const topArtists = await getTopArtists(10, "7day").catch(() => []);
 const topTracks = await getTopTracks(10, "7day").catch(() => []);
 ---
 
@@ -11,21 +14,36 @@ const topTracks = await getTopTracks(10, "7day").catch(() => []);
         <p class="text-secondary">My top artists and tracks.</p>
     </header>
     <main>
-        <h2 class="mb-5 mt-12">Top tracks</h2>
-        <ol>
-            {topTracks.map(({ album, artists, track }) => (
-              <li class="flex items-center">
-                  <img alt={`Cover for ${album.name} by ${artists.at(0)?.name}`} class="size-8 rounded-md shrink-0" src={album.image} />
-                  <div>
-                      <a href={track.url}>
-                          {track.name}
-                      </a>
-                      <div>
-                          {artists.at(0)?.name}
-                      </div>
-                  </div>
-              </li>
-            ))}
-        </ol>
+        <div class="prose">
+            <h2 class="mb-5 mt-12 font-serif">Top artists</h2>
+            <ol>
+                {topArtists.map(({ image, name, url }, i) => (
+                <li class="flex items-center">
+                    <span>{i + 1}</span>
+                    <Artwork src={image} alt={`Photo of ${name}`} rounded />
+                    <ExternalLink class="font-serif font-medium hover:underline" href={url}>
+                        {name}
+                    </ExternalLink>
+                </li>
+                ))}
+            </ol>
+            <h2 class="mb-5 mt-12 font-serif">Top tracks</h2>
+            <ol>
+                {topTracks.map(({ album, artists, track }, i) => (
+                <li class="flex items-center">
+                    <span>{i + 1}</span>
+                    <Artwork src={album.image} alt={album.name ? `Cover of ${album.name}` : `Cover for ${track.name}`} />
+                    <div>
+                        <ExternalLink class="font-serif font-medium hover:underline" href={track.url}>
+                            {track.name}
+                        </ExternalLink>
+                        <div class="text-sm text-secondary">
+                            {artists.at(0)?.name}
+                        </div>
+                    </div>
+                </li>
+                ))}
+            </ol>
+        </div>
     </main>
 </Layout>
