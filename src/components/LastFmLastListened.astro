@@ -5,7 +5,7 @@ const { artists, track } = Astro.props;
 ---
 
 <span>
-    I last listened to
-    <ExternalLink href={track.url}>{track.name}</ExternalLink>
+    I last listened to{" "}
+    <ExternalLink href={track.url}>{track.name}</ExternalLink>{" "}
     by <span>{artists.at(0)?.name}</span>.
 </span>
