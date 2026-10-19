@@ -18,8 +18,8 @@ const topTracks = await getTopTracks(10, "7day").catch(() => []);
             <h2 class="mb-5 mt-12 font-serif">Top artists</h2>
             <ol>
                 {topArtists.map(({ image, name, url }, i) => (
-                <li class="flex items-center">
-                    <span>{i + 1}</span>
+                <li class="flex items-center gap-3">
+                    <span class="w-7 shrink-0 text-right font-serif">{i + 1}.</span>
                     <Artwork src={image} alt={`Photo of ${name}`} rounded />
                     <ExternalLink class="font-serif font-medium hover:underline" href={url}>
                         {name}
@@ -30,8 +30,8 @@ const topTracks = await getTopTracks(10, "7day").catch(() => []);
             <h2 class="mb-5 mt-12 font-serif">Top tracks</h2>
             <ol>
                 {topTracks.map(({ album, artists, track }, i) => (
-                <li class="flex items-center">
-                    <span>{i + 1}</span>
+                <li class="flex items-center gap-3">
+                    <span class="w-7 shrink-0 text-right font-serif">{i + 1}.</span>
                     <Artwork src={album.image} alt={album.name ? `Cover of ${album.name}` : `Cover for ${track.name}`} />
                     <div>
                         <ExternalLink class="font-serif font-medium hover:underline" href={track.url}>
