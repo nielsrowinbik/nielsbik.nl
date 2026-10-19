@@ -38,7 +38,7 @@
 }
 
 @utility prose {
-    @apply wysiwyg wysiwyg-neutral wysiwyg-a:underline-offset-[0.3rem] wysiwyg-a:decoration-1 wysiwyg-a:decoration-tertiary wysiwyg-a:text-primary wysiwyg-a:hover:decoration-primary wysiwyg-a:transition-colors text-secondary wysiwyg-a:[font-weight:inherit];
+    @apply wysiwyg wysiwyg-neutral wysiwyg-a:underline-offset-[0.3rem] wysiwyg-a:decoration-1 wysiwyg-headings:font-serif wysiwyg-a:decoration-tertiary wysiwyg-a:text-primary wysiwyg-a:hover:decoration-primary wysiwyg-a:transition-colors text-secondary wysiwyg-a:[font-weight:inherit];
 }
 
 @utility cursor-external {

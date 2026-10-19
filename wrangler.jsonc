@@ -5,7 +5,10 @@
 		"nodejs_compat"
 	],
 	"name": "nielsbik-nl",
-	"main": "@astrojs/cloudflare/entrypoints/server",
+	"main": "./src/worker.ts",
+	"triggers": {
+		"crons": ["0 6 * * 1"]
+	},
 	"observability": {
 		"enabled": true
 	}
