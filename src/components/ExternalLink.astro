@@ -1,10 +1,10 @@
 ---
-const { href } = Astro.props;
+const { href, class: className } = Astro.props;
 ---
 
 <a
     rel="noopener noreferrer external"
     target="_blank"
-    class="cursor-external"
+    class:list={["cursor-external", className]}
     href={href}
 ><slot /></a>

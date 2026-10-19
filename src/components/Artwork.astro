@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src?: string | null;
+  alt: string;
+  class?: string;
+  rounded?: boolean;
+}
+
+const { src, alt, class: className, rounded } = Astro.props;
+const base = [
+  "size-8 shrink-0 mb-0 mt-0",
+  rounded === true ? "rounded-full" : "rounded-md",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+{
+  src ? (
+    <Image alt={alt} class={base} height={64} loading="lazy" src={src} width={64} />
+  ) : (
+    <div
+      aria-label={alt}
+      class={`${base} flex items-center justify-center bg-secondary/10 text-tertiary`}
+      role="img"
+    >
+      <svg
+        aria-hidden="true"
+        class="size-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+      </svg>
+    </div>
+  )
+}

@@ -1,4 +1,5 @@
 import invariant from "tiny-invariant";
+import { getDeezerAlbumImage, getDeezerArtistImage } from "@/lib/deezer";
 
 invariant(import.meta.env.LAST_FM_API_KEY, "`LAST_FM_API_KEY` should be set!");
 
@@ -121,17 +122,22 @@ async function fetchTopTracks(limit: number, period: Period): Promise<TopTracksR
   const body = await fetch(url.href);
   const data: LastFmTopTracksResponse = await body.json();
 
-  return data.toptracks.track.map((track) => ({
-    album: {
-      name: "",
-      image: track.image.find((i) => i.size === "extralarge")?.["#text"] ?? "",
-    },
-    artists: [{ name: track.artist.name }],
-    track: {
-      name: track.name,
-      url: track.url,
-    },
-  }));
+  return Promise.all(
+    data.toptracks.track.map(async (track) => {
+      const { image, album } = await getDeezerAlbumImage(track.artist.name, track.name);
+      return {
+        album: {
+          name: album ?? "",
+          image: image ?? "",
+        },
+        artists: [{ name: track.artist.name }],
+        track: {
+          name: track.name,
+          url: track.url,
+        },
+      };
+    }),
+  );
 }
 
 export async function getTopTracks(
@@ -140,6 +146,70 @@ export async function getTopTracks(
 ): Promise<TopTracksResponse> {
   for (const p of PERIODS.slice(PERIODS.indexOf(period))) {
     const results = await fetchTopTracks(limit, p);
+    if (results.length > 0) return results;
+  }
+  return [];
+}
+
+interface LastFmTopArtist {
+  name: string;
+  url: string;
+  mbid: string;
+  playcount: string;
+  streamable: string;
+  image: LastFmImage[];
+  "@attr": { rank: string };
+}
+
+interface LastFmTopArtistsResponse {
+  topartists: {
+    artist: LastFmTopArtist[];
+    "@attr": {
+      user: string;
+      totalPages: string;
+      page: string;
+      perPage: string;
+      total: string;
+    };
+  };
+}
+
+type TopArtist = {
+  name: string;
+  url: string;
+  image: string;
+};
+
+export type TopArtistsResponse = TopArtist[];
+
+async function fetchTopArtists(
+  limit: number,
+  period: Period,
+): Promise<TopArtistsResponse> {
+  const url = new URL(api_url);
+  url.searchParams.append("method", "user.gettopartists");
+  url.searchParams.append("user", "nielsrowinbik");
+  url.searchParams.append("limit", `${limit}`);
+  url.searchParams.append("period", period);
+
+  const body = await fetch(url.href);
+  const data: LastFmTopArtistsResponse = await body.json();
+
+  return Promise.all(
+    data.topartists.artist.map(async (artist) => ({
+      name: artist.name,
+      url: artist.url,
+      image: (await getDeezerArtistImage(artist.name)) ?? "",
+    })),
+  );
+}
+
+export async function getTopArtists(
+  limit = 10,
+  period: Period = "7day",
+): Promise<TopArtistsResponse> {
+  for (const p of PERIODS.slice(PERIODS.indexOf(period))) {
+    const results = await fetchTopArtists(limit, p);
     if (results.length > 0) return results;
   }
   return [];
