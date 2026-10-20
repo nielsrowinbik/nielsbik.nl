@@ -14,7 +14,7 @@ const topTracks = await getTopTracks(10, "7day").catch(() => []);
         <p class="text-secondary">My top artists and tracks.</p>
     </header>
     <main>
-        <div class="prose">
+        <div class="prose wysiwyg-ol:ps-0 wysiwyg-li:ps-0">
             <h2 class="mb-5 mt-12 font-serif">Top artists</h2>
             <ol>
                 {topArtists.map(({ image, name, url }, i) => (
