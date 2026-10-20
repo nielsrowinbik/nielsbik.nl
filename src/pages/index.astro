@@ -23,7 +23,8 @@ Astro.response.headers.set(
 
 <Layout title="Niels Bik" description="Senior Product Manager based in Sweden." canonical="https://nielsbik.com/">
     <header>
-        <h1 class="font-serif font-bold text-2xl">Niels Bik</h1>
+        {/* w-fit keeps the box to the text so it morphs cleanly into the post page's back link */}
+        <h1 class="w-fit font-serif font-bold text-2xl" style="view-transition-name:site-title">Niels Bik</h1>
     </header>
     <main>
         <div class="prose">

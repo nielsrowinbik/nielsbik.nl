@@ -15,12 +15,13 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, subtitle, date, cover } = entry.data;
 
-// Match the names on the home-page card (see index.astro): the poster morphs
-// (poster-*), and this post body (post-*) morphs from the card's empty
-// placeholder, so it expands from zero height as it grows into full size.
+// Match the names on the home-page card (see MediaCard.astro): the poster
+// morphs, the post body unfolds from the card's empty placeholder, and the
+// card's title and subtitle grow towards an empty box at the top of the body.
 const key = entry.id.replace(/[^\w-]/g, "-");
 const posterName = `poster-${key}`;
-const bodyStyle = `view-transition-name:post-${key}`;
+const bodyStyle = `view-transition-name:post-${key};view-transition-class:reveal`;
+const cardTextStyle = `view-transition-name:card-text-${key};view-transition-class:card-text`;
 
 const formattedDate = date.toLocaleDateString("en-GB", {
   year: "numeric",
@@ -35,7 +36,34 @@ const formattedDate = date.toLocaleDateString("en-GB", {
   title={`${title} — Niels Bik`}
 >
   <header>
-    <a class="font-serif font-bold no-underline" href="/">Niels Bik</a>
+    {/* The negative margins cancel the padding, so the pill only adds a hover background without shifting the link. */}
+    <a
+      class="group -mx-2.5 -my-1 inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-serif font-bold text-secondary no-underline transition-colors duration-200 hover:bg-secondary/10 hover:text-primary"
+      href="/"
+    >
+      {/* A chevron that becomes a full back arrow on hover: the head slides left while the shaft grows out of its fold. */}
+      <svg
+        class="size-4"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <g
+          class="translate-x-1 transition-transform duration-200 ease-out group-hover:translate-x-0"
+        >
+          <path
+            class="origin-left scale-x-0 transition-transform duration-200 ease-out [transform-box:fill-box] group-hover:scale-x-100"
+            d="M5 12h14"
+          ></path>
+          <path d="m12 19-7-7 7-7"></path>
+        </g>
+      </svg>
+      <span style="view-transition-name:site-title">Niels Bik</span>
+    </a>
     <h1 class="mt-8 font-serif font-bold text-2xl">{title}</h1>
     {subtitle && <p class="text-secondary">{subtitle}</p>}
     <time class="text-tertiary text-sm" datetime={date.toISOString()}>
@@ -43,7 +71,8 @@ const formattedDate = date.toLocaleDateString("en-GB", {
     </time>
   </header>
   <Poster alt={title} class="mt-8" image={cover} transitionName={posterName} />
-  <div class="mt-8" style={bodyStyle}>
+  <div class="relative mt-8" style={bodyStyle}>
+    <div class="absolute inset-x-0 top-0 h-px" style={cardTextStyle}></div>
     <article class="prose">
       <Content />
     </article>

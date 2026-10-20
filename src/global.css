@@ -38,24 +38,54 @@
 }
 
 /*
- * Page transitions (Astro ClientRouter): container transform.
- * A writing card's wrapper (view-transition-name: post-*) expands into the
- * whole-post wrapper on its detail page; the poster (poster-*) morphs cleanly
- * on its own name nested inside, and the body cross-fades within the box.
+ * Page transitions (Astro ClientRouter). A writing card's poster morphs into
+ * the post page's. The `reveal` group (post body) doesn't scale its snapshot
+ * with the group: it stays at natural size, pinned top-left and fully opaque,
+ * and the group clips it, so the growing box unfolds it.
  */
 @media (prefers-reduced-motion: no-preference) {
     ::view-transition-group(*) {
-        animation-duration: 2s;
+        animation-duration: 0.6s;
         animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    ::view-transition-group(*.reveal) {
+        overflow: clip;
+    }
+
+    ::view-transition-old(*.reveal),
+    ::view-transition-new(*.reveal) {
+        height: 100%;
+        object-fit: none;
+        object-position: left top;
+        animation: none;
+    }
+
+    /* The card's title and subtitle ride along on top of the unfolding body, so get them out of the way early. */
+    ::view-transition-old(*.card-text) {
+        animation-name: vt-fade-out-early;
+    }
+
+    ::view-transition-new(*.card-text) {
+        animation-name: vt-fade-in-late;
+    }
+
     ::view-transition-old(root) {
-        animation: vt-fade-out 2s ease both;
+        animation: vt-fade-out 0.6s ease both;
     }
 
     ::view-transition-new(root) {
-        animation: vt-grow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both;
+        animation: vt-grow-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
         transform-origin: center 35%;
+    }
+}
+
+/* Astro's own reduced-motion reset ships in a stylesheet this site doesn't load. */
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none;
     }
 }
 
@@ -68,6 +98,20 @@
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes vt-fade-out-early {
+    30%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes vt-fade-in-late {
+    0%,
+    30% {
+        opacity: 0;
     }
 }
 

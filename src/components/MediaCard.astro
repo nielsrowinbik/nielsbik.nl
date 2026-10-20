@@ -11,10 +11,10 @@ interface Props {
   external?: boolean;
   image?: ImageMetadata;
   video?: string;
-  // When set (internal entries): the poster morphs (poster-*) into the one on
-  // the linked page, and the empty placeholder below it (post-*) morphs into
-  // the detail page's post body — expanding from zero height. Both names must
-  // match the ones used on the detail page.
+  // When set (internal entries): the poster (poster-*) morphs into the one on
+  // the linked page, the empty placeholder below it (post-*) unfolds into the
+  // post body, and the title and subtitle (card-text-*) grow along with the
+  // poster while fading out. Names must match the detail page.
   transitionKey?: string;
 }
 
@@ -30,7 +30,10 @@ const {
 
 const posterName = transitionKey ? `poster-${transitionKey}` : undefined;
 const bodyStyle = transitionKey
-  ? `view-transition-name:post-${transitionKey}`
+  ? `view-transition-name:post-${transitionKey};view-transition-class:reveal`
+  : undefined;
+const textStyle = transitionKey
+  ? `view-transition-name:card-text-${transitionKey};view-transition-class:card-text`
   : undefined;
 
 // On hover the arrow slides in along the direction it points: the external
@@ -53,16 +56,18 @@ const arrowMotion = external
    * transition grows it to the body's full height.
    */}
   {bodyStyle && <div class="h-px" style={bodyStyle}></div>}
-  <div class="mt-3 flex items-center justify-between">
-    <h3 class="font-serif font-bold text-primary">{title}</h3>
-    <span
-      class:list={[
-        "pointer-events-none inline-flex shrink-0 text-primary opacity-0 transition duration-200 ease-out group-hover:opacity-100",
-        arrowMotion,
-      ]}
-    >
-      {external ? <ArrowUpRight class="size-5" /> : <ArrowRight class="size-5" />}
-    </span>
+  <div style={textStyle}>
+    <div class="mt-3 flex items-center justify-between">
+      <h3 class="font-serif font-bold text-primary">{title}</h3>
+      <span
+        class:list={[
+          "pointer-events-none inline-flex shrink-0 text-primary opacity-0 transition duration-200 ease-out group-hover:opacity-100",
+          arrowMotion,
+        ]}
+      >
+        {external ? <ArrowUpRight class="size-5" /> : <ArrowRight class="size-5" />}
+      </span>
+    </div>
+    {subtitle && <p class="text-tertiary">{subtitle}</p>}
   </div>
-  {subtitle && <p class="text-tertiary">{subtitle}</p>}
 </a>
