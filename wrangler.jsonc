@@ -7,7 +7,7 @@
 	"name": "nielsbik-nl",
 	"main": "./src/worker.ts",
 	"triggers": {
-		"crons": ["0 6 * * 1"]
+		"crons": ["0 3 * * *"]
 	},
 	"observability": {
 		"enabled": true

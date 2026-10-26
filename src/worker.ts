@@ -6,7 +6,7 @@ interface Env {
 }
 
 // Custom Worker entrypoint: Astro's fetch handler plus a scheduled handler.
-// The weekly cron (see `triggers.crons` in wrangler.jsonc) POSTs the deploy
+// The nightly cron (see `triggers.crons` in wrangler.jsonc) POSTs the deploy
 // hook, which rebuilds the site so the static /music page picks up fresh
 // Last.fm rankings and re-fetched Deezer artwork.
 export default {
