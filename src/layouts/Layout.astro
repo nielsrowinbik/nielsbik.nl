@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 import "../global.css";
 
 interface Props {
@@ -26,6 +27,7 @@ const { title, description, canonical, image } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <Font cssVariable="--font-inter" preload />
         <Font cssVariable="--font-kaisei-tokumin" preload />
+        <ClientRouter />
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonical} />
@@ -65,7 +67,7 @@ const { title, description, canonical, image } = Astro.props;
           </script>
     </head>
     <body
-        class="container max-w-prose mx-auto fl-pt-8/24 fl-pb-16/24 [view-transition-name:home] min-h-svh"
+        class="container max-w-prose mx-auto fl-pt-8/24 fl-pb-16/24 min-h-svh"
     >
         <slot />
     </body>

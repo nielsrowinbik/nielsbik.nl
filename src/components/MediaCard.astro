@@ -1,0 +1,73 @@
+---
+import type { ImageMetadata } from "astro";
+import ArrowRight from "@/components/icons/ArrowRight.astro";
+import ArrowUpRight from "@/components/icons/ArrowUpRight.astro";
+import Poster from "@/components/Poster.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  subtitle?: string;
+  external?: boolean;
+  image?: ImageMetadata;
+  video?: string;
+  // When set (internal entries): the poster (poster-*) morphs into the one on
+  // the linked page, the empty placeholder below it (post-*) unfolds into the
+  // post body, and the title and subtitle (card-text-*) grow along with the
+  // poster while fading out. Names must match the detail page.
+  transitionKey?: string;
+}
+
+const {
+  href,
+  title,
+  subtitle,
+  external = false,
+  image,
+  video,
+  transitionKey,
+} = Astro.props;
+
+const posterName = transitionKey ? `poster-${transitionKey}` : undefined;
+const bodyStyle = transitionKey
+  ? `view-transition-name:post-${transitionKey};view-transition-class:reveal`
+  : undefined;
+const textStyle = transitionKey
+  ? `view-transition-name:card-text-${transitionKey};view-transition-class:card-text`
+  : undefined;
+
+// On hover the arrow slides in along the direction it points: the external
+// arrow travels up-and-right (diagonal), the internal arrow left-to-right.
+const arrowMotion = external
+  ? "-translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0"
+  : "-translate-x-1 group-hover:translate-x-0";
+---
+
+<a
+  class="group block no-underline"
+  href={href}
+  {...external ? { target: "_blank", rel: "noopener noreferrer external" } : {}}
+>
+  <Poster alt={title} image={image} transitionName={posterName} video={video} />
+  {/*
+   * Seed that morphs into the post body on the detail page. It needs a
+   * non-zero box to be captured by the View Transitions API (a 0-height /
+   * zero-area element is skipped), so it's 1px tall — visually ~0, and the
+   * transition grows it to the body's full height.
+   */}
+  {bodyStyle && <div class="h-px" style={bodyStyle}></div>}
+  <div style={textStyle}>
+    <div class="mt-3 flex items-center justify-between">
+      <h3 class="font-serif font-bold text-primary">{title}</h3>
+      <span
+        class:list={[
+          "pointer-events-none inline-flex shrink-0 text-primary opacity-0 transition duration-200 ease-out group-hover:opacity-100",
+          arrowMotion,
+        ]}
+      >
+        {external ? <ArrowUpRight class="size-5" /> : <ArrowRight class="size-5" />}
+      </span>
+    </div>
+    {subtitle && <p class="text-tertiary">{subtitle}</p>}
+  </div>
+</a>
