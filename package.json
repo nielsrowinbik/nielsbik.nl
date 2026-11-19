@@ -28,6 +28,6 @@
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",
     "@types/node": "^26.6.6",
-    "wrangler": "^4.151.1"
+    "wrangler": "^4.164.0"
   }
 }
