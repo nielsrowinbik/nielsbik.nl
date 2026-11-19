@@ -8,7 +8,7 @@ interface Env {
 // Custom Worker entrypoint: Astro's fetch handler plus a scheduled handler.
 // The nightly cron (see `triggers.crons` in wrangler.jsonc) POSTs the deploy
 // hook, which rebuilds the site so the static /music page picks up fresh
-// Last.fm rankings and re-fetched Deezer artwork.
+// Koito rankings and artwork.
 export default {
   fetch: handle,
   async scheduled(_controller: unknown, env: Env): Promise<void> {

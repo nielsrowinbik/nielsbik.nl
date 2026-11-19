@@ -2,7 +2,15 @@ import cloudflare from "@astrojs/cloudflare";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders, sessionDrivers } from "astro/config";
+
 // import favicons from "astro-favicons";
+
+// Astro config doesn't read .env files, so load the local one ourselves. In CI
+// the variable comes from the build environment and the file doesn't exist.
+try {
+  process.loadEnvFile(".env.local");
+} catch {}
+const { KOITO_URL } = process.env;
 
 export default defineConfig({
   fonts: [
@@ -34,7 +42,7 @@ export default defineConfig({
   ],
   adapter: cloudflare({ imageService: "compile" }),
   image: {
-    remotePatterns: [{ protocol: "https", hostname: "**.dzcdn.net" }],
+    remotePatterns: KOITO_URL ? [{ hostname: new URL(KOITO_URL).hostname }] : [],
   },
   session: { driver: sessionDrivers.null() },
   site: "https://nielsbik.nl",
