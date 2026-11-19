@@ -54,7 +54,12 @@ async function get<T>(path: string, params: Record<string, string | number>): Pr
     url.searchParams.set(key, `${value}`);
   }
 
-  const res = await fetch(url.href);
+  // The homepage is rendered per request, so without this every page view
+  // would hit Koito. Cloudflare caches the response at the edge for 5 minutes
+  // (matching the homepage's s-maxage). Outside Workers `cf` is ignored, and
+  // it isn't in the standard RequestInit type, hence the separate object.
+  const init = { cf: { cacheEverything: true, cacheTtl: 300 } };
+  const res = await fetch(url.href, init);
   if (!res.ok) throw new Error(`Koito ${url.pathname} responded with ${res.status}`);
   return res.json();
 }
