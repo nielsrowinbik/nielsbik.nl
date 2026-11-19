@@ -1,0 +1,7 @@
+---
+const { artists, track } = Astro.props;
+---
+
+<span>
+    I last listened to <span>{track.name}</span> by <span>{artists.at(0)?.name}</span>.
+</span>
